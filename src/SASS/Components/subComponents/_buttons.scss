@@ -1,0 +1,22 @@
+.cardButton {
+  width: 80%;
+  height: 20%;
+  margin: 0 auto;
+  cursor: pointer;
+
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-family: $primary-font;
+  font-size: 1rem;
+  letter-spacing: 1px;
+
+  background-color: darken($orange, 15%);
+  color: $white-font;
+  &:hover {
+    font-weight: bold;
+    border: none;
+    background-color: darken($orange, 20%);
+    color: $white-font;
+  }
+}

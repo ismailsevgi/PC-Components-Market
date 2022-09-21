@@ -1,0 +1,80 @@
+{
+    "GPUs": [
+        {
+            "id": 1,
+            "title": "GTX 980",
+            "price": "169",
+            "specs": {
+                "Year": "Sep 19th, 2014",
+                "Bus": "PCIe 3.0 x16",
+                "Memory": "4 GB, GDDR5, 256 bit",
+                "GPU clock": "1127 MHz",
+                "Memory clock": "1753 MHz",
+                "Shaders / TMUs / ROPs": "2048 / 128 / 64"
+            },
+            "img": "https://asset.msi.com/resize/image/global/product/product_5_20160309181808_56dff8607eabb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
+            "stock": 5
+        },
+        {
+            "id": 2,
+            "title": "GeForce RTX 3060",
+            "price": "600",
+            "specs": {
+                "Year": "Jan 12th, 2021",
+                "Bus": "PCIe 4.0 x16",
+                "Memory": "12 GB, GDDR6, 192 bit",
+                "GPU clock": "1320 MHz",
+                "Memory clock": "1875 MHz",
+                "Shaders / TMUs / ROPs": "3584 / 112 / 48"
+            },
+            "img": "https://asset.msi.com/resize/image/global/product/product_1610444725b6aa81c4e74a8ea9fee28fdd225b58cc.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+            "stock": 9
+        },
+        {
+            "id": 3,
+            "title": "GeForce RTX 3070",
+            "price": "699",
+            "specs": {
+                "Year": "Sep 1st, 2020",
+                "Bus": "PCIe 4.0 x16",
+                "Memory": "8 GB, GDDR6, 256 bit",
+                "GPU clock": "1500 MHz",
+                "Memory clock": "1750 MHz",
+                "Shaders / TMUs / ROPs": "5888/184/96"
+            },
+            "img": "https://asset.msi.com/resize/image/global/product/product_160516708705dd5f6377e11cba748c4e5caad64449.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+            "stock": 15
+        },
+        {
+            "id": 4,
+            "title": "GeForce RTX 3060 Ti",
+            "price": "750",
+            "specs": {
+                "Year": "Dec 1st, 2020",
+                "Bus": "PCIe 3.0 x16",
+                "Memory": "8 GB, GDDR6, 256 bit",
+                "GPU clock": "1410 MHz",
+                "Memory clock": "1750 MHz",
+                "Shaders / TMUs / ROPs": "2048 / 128 / 64"
+            },
+            "img": "https://asset.msi.com/resize/image/global/product/product_1606818986b132688019712a39b40dfb6206a67f49.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+            "stock": 999
+        },
+        {
+            "id": 5,
+            "title": "GeForce RTX 3090 Ti",
+            "price": "850",
+            "specs": {
+                "Year": "Jan 27th, 2022",
+                "Bus": "PCIe 3.0 x16",
+                "Memory": "24 GB, GDDR6X, 384 bit",
+                "GPU clock": "1500 MHz",
+                "Memory clock": "1313 MHz",
+                "Shaders / TMUs / ROPs": "10752 / 336 / 112"
+            },
+            "img": "https://asset.msi.com/resize/image/global/product/product_1648607796d7a974fcea5b16024b9fe9e2e090c798.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+            "stock": 999
+        }
+        
+    ]
+}

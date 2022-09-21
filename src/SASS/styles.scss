@@ -1,0 +1,58 @@
+//----------Abstracts
+
+//variables
+
+//mixins
+
+//----------Base
+
+//reset
+@import './Abstracts/variables';
+@import './Abstracts/mixins';
+@import './Abstracts/typography';
+//typography //fonts
+
+//---------Components
+
+//buttons
+@import './Components/subComponents/card';
+@import './Components/subComponents/buttons';
+
+//dropdowns
+@import './Components/dropdown';
+@import './Components/productList';
+//carousel
+
+//-----------Layout
+//header
+@import './Components/navbar';
+//footer
+
+//navigation
+
+//forms
+
+//sidebar
+
+//grid
+
+//------------Pages
+
+@import './Pages/products';
+@import './Pages/basket';
+//home
+//about
+//contact
+//product
+//-------------Themes
+//dark - light
+* {
+  margin: 0;
+  padding: 0;
+  background-color: lighten($background-color, 30%);
+}
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+}

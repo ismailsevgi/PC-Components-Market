@@ -1,0 +1,140 @@
+.navbar {
+  box-sizing: border-box;
+  height: 15vh;
+  margin: 0;
+  padding: 0;
+
+  .container {
+    @include flex-display($space: none, $align: none);
+    box-shadow: 0 5px 5px $dark-font;
+  }
+}
+
+.navigation {
+  flex: 65%;
+
+  background-color: $navbar-left-background;
+
+  @include flex-display($space: flex-start);
+
+  &-logo {
+    font-family: $primary-font;
+    font-size: $logo-size;
+    background-color: transparent;
+    color: $white-font;
+  }
+
+  &-links {
+    flex: 1;
+    background-color: transparent;
+    font-size: $link-size;
+    font-family: $secondary-font;
+    text-decoration: none;
+    @include flex-display($space: flex-end);
+
+    a {
+      color: $white-font;
+      background-color: transparent;
+      padding-left: 1rem;
+    }
+  }
+
+  &-searchBar {
+    flex: 1;
+
+    background-color: transparent;
+    @include flex-display($space: flex-end);
+
+    input {
+      background-color: transparent;
+      font-size: 1rem;
+      border: 2px solid darken($dark-font, 20%);
+      border-radius: 30px;
+      width: $search-width - 3rem;
+      height: $search-height;
+      transition: $transition;
+      padding-left: 1rem;
+      color: $white-font;
+      &::placeholder {
+        color: $white-font;
+        font-family: $secondary-font;
+      }
+
+      &:focus {
+        outline: none;
+        width: $search-width;
+      }
+    }
+
+    i {
+      margin-left: -2.4rem;
+      background: transparent;
+      color: lighten($dark-font, 15%);
+      font-size: $search-icon-size;
+    }
+  }
+}
+
+.loggers {
+  background-color: $navbar-right-background;
+  flex: 15%;
+  @include flex-display($space: space-between);
+  &-icons {
+    flex: 50%;
+    width: 100%;
+
+    a {
+      background: transparent;
+    }
+
+    @include flex-display($space: center);
+    gap: 1rem;
+
+    background-color: transparent;
+    i {
+      font-size: 1.8rem;
+      color: white;
+      background-color: transparent;
+      transition: $transition;
+      &:hover {
+        color: $orange;
+      }
+    }
+  }
+  &-buttons {
+    background-color: transparent;
+    width: 100%;
+    gap: 0.5rem;
+    @include flex-display($space: center);
+    button {
+      width: 6rem;
+      height: 3rem;
+      transition: $transition;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-family: $secondary-font;
+      text-transform: uppercase;
+    }
+
+    &-log {
+      background-color: darken($orange, 20%);
+      color: white;
+
+      &:hover {
+        background-color: $white-font;
+        color: black;
+      }
+    }
+
+    &-sign {
+      background-color: darken($dark-font, 10%);
+      color: white;
+
+      &:hover {
+        background-color: $white-font;
+        color: black;
+      }
+    }
+  }
+}
