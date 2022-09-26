@@ -29,7 +29,6 @@ const basketSlice = createSlice({
       }
     },
     REMOVE_FROM_BASKET: (state, action) => {
-      console.log('Remove id: ', action.payload);
       return {
         basketItems: state.basketItems.filter(
           (product) => product.id !== action.payload
@@ -37,7 +36,6 @@ const basketSlice = createSlice({
       };
     },
     INCREASE_AMOUNT: (state, action) => {
-      console.log('bulduk plus, action.payload: ', action.payload);
       return {
         basketItems: state.basketItems.map((product) => {
           if (product.id === action.payload) {
@@ -52,13 +50,23 @@ const basketSlice = createSlice({
       };
     },
     DECREASE_AMOUNT: (state, action) => {
-      console.log('bulduk SUB, action.payload: ', action.payload);
       return {
         basketItems: state.basketItems.map((product) => {
           if (product.id === action.payload) {
             return { ...product, quantity: product.quantity - 1 };
           }
           return product;
+        }),
+      };
+    },
+    CHANGE_CHECK: (state, action) => {
+      return {
+        basketItems: state.basketItems.map((product) => {
+          if (product.id === action.payload.id) {
+            return { ...product, check: !product.check };
+          } else {
+            return product;
+          }
         }),
       };
     },
@@ -71,4 +79,5 @@ export const {
   REMOVE_FROM_BASKET,
   INCREASE_AMOUNT,
   DECREASE_AMOUNT,
+  CHANGE_CHECK,
 } = basketSlice.actions;

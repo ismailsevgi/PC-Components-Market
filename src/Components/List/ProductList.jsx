@@ -7,9 +7,28 @@ function ProductList() {
     return state.products.productsArray;
   });
 
+  const allEntries = Object.entries(data);
+
+  let AllProducts = [];
+  allEntries.forEach((arr) => (AllProducts = AllProducts.concat(arr[1])));
+
   return (
     <div className='productList'>
-      {data.GPUs.map((gpu) => {
+      {AllProducts.map((obj) => {
+        return (
+          <Card
+            key={obj.id}
+            id={obj.id}
+            title={obj.title}
+            img={obj.img}
+            body={obj.specs.Memory}
+            price={obj.price}
+            tag={obj.tag}
+          />
+        );
+      })}
+
+      {/* {data.GPUs.map((gpu) => {
         return (
           <Card
             key={gpu.id}
@@ -20,7 +39,7 @@ function ProductList() {
             price={gpu.price}
           />
         );
-      })}
+      })} */}
     </div>
   );
 }

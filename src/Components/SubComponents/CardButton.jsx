@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_TO_BASKET, REMOVE_FROM_BASKET } from '../../Features/basketSlice';
-
-const CardButton = ({ id }) => {
+import { ADD_TO_BASKET } from '../../Features/basketSlice';
+import React from 'react';
+const CardButton = ({ id, tag }) => {
   const dispatch = useDispatch();
   let data = useSelector((state) => {
     return state.products.productsArray;
@@ -12,8 +12,28 @@ const CardButton = ({ id }) => {
       key={id}
       className='cardButton'
       onClick={() => {
-        const obj = data.GPUs.find((obj) => obj.id === id);
-        dispatch(ADD_TO_BASKET({ ...obj, quantity: 1 }));
+        console.log('Gelen Tag: ', tag);
+        switch (tag) {
+          case 'gpu':
+            dispatch(
+              ADD_TO_BASKET({
+                ...data.GPUs.find((obj) => obj.id === id),
+                quantity: 1,
+                check: true,
+              })
+            );
+            break;
+
+          case 'cpu':
+            dispatch(
+              ADD_TO_BASKET({
+                ...data.CPUs.find((obj) => obj.id === id),
+                quantity: 1,
+                check: true,
+              })
+            );
+            break;
+        }
       }}
     >
       ADD

@@ -1,6 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+//Sub Components
 import BasketButton from '../Components/SubComponents/BasketButton';
+import CheckButton from '../Components/SubComponents/CheckButton';
 
 function Basket() {
   const itemsInBasket = useSelector((state) => {
@@ -26,21 +29,14 @@ function Basket() {
               return (
                 <section className='basketItem'>
                   <div className='basketItem-Left'>
-                    <input
-                      type='checkbox'
-                      class='onoffswitch-checkbox'
-                      value={'checked'}
-                    />
+                    <CheckButton id={item.id} />
+
                     <div className='basketItem-Left-Img'>
                       <img src={item.img} />
                     </div>
                     <div className='basketItem-Left-Body'>
                       <div className='Body-Title'>
-                        <h2>
-                          {item.title}:{item.specs.Memory}{' '}
-                          {item.specs['GPU clock']} {item.specs.Memory}{' '}
-                          {item.specs['Memory clock']}
-                        </h2>
+                        <h2>{item.title}</h2>
 
                         <span className='stockCounter'>
                           {item.stock > 10 ? (

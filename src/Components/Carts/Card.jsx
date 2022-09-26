@@ -1,7 +1,7 @@
 import React from 'react';
 import CardButton from '../SubComponents/CardButton';
 
-function Card({ id, title, img, body, price }) {
+function Card({ id, title, img, body, price, tag }) {
   return (
     <div key={id} className='productListItem'>
       <img className='productListItem-img' src={img} />
@@ -12,7 +12,7 @@ function Card({ id, title, img, body, price }) {
         <br></br>
         <span>${price}</span>
       </h3>
-      <CardButton id={id} />
+      <CardButton id={id} tag={tag} />
     </div>
   );
 }

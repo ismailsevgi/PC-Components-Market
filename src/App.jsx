@@ -2,6 +2,7 @@ import '../css/styles.css';
 import Navbar from './Pages/Navbar';
 import Products from './Pages/Products';
 import About from './Pages/About';
+import React from 'react';
 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Basket from './Pages/Basket';
