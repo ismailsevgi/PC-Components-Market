@@ -70,7 +70,7 @@
         },
         {
             "id": 5,
-            "title": "GeForce RTX 3090 Ti, 24 GB, GDDR6X, 384 bit, 1313 MHz, PCIe 3.0 x16",
+            "title": "GeForce RTX 3090 Ti, 24 GB, GDDR6, PCIe 3.0 x16",
             "price": 850,
             "specs": {
                 "Year": "Jan 27th, 2022",

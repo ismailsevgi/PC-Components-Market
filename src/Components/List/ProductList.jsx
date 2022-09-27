@@ -7,14 +7,14 @@ function ProductList() {
     return state.products.productsArray;
   });
 
-  const allEntries = Object.entries(data);
+  // const allEntries = Object.entries(data);
 
-  let AllProducts = [];
-  allEntries.forEach((arr) => (AllProducts = AllProducts.concat(arr[1])));
+  // let AllProducts = [];
+  // allEntries.forEach((arr) => (AllProducts = AllProducts.concat(arr[1])));
 
   return (
     <div className='productList'>
-      {AllProducts.map((obj) => {
+      {data.map((obj) => {
         return (
           <Card
             key={obj.id}
@@ -24,6 +24,7 @@ function ProductList() {
             body={obj.specs.Memory}
             price={obj.price}
             tag={obj.tag}
+            stock={obj.stock}
           />
         );
       })}

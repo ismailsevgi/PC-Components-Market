@@ -91,13 +91,35 @@
     gap: 1rem;
 
     background-color: transparent;
-    i {
-      font-size: 1.8rem;
-      color: white;
+
+    .basketDiv {
       background-color: transparent;
-      transition: $transition;
-      &:hover {
-        color: $orange;
+      position: relative;
+      text-decoration: none;
+      i {
+        font-size: 1.8rem;
+        color: white;
+        background-color: transparent;
+        transition: $transition;
+
+        &:hover {
+          color: $orange;
+        }
+      }
+
+      .badge {
+        @include flex-display();
+        background-color: darken($red-dark, 10%);
+        @include badge(
+          $width: 1.2rem,
+          $height: 1.2rem,
+          $font-size: 0.8rem,
+          $top: 0.6rem,
+          $left: 1.4rem,
+
+          $border-radius: 50%,
+          $borderColor: $white-font
+        );
       }
     }
   }

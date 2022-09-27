@@ -1,4 +1,4 @@
-<h1>WorkFlow</h1>
+<h1>TODO List</h1>
 <h2>Default demo navbar</h2>
 <ol>
     <li><s>Logo</s></li>
@@ -16,8 +16,9 @@
     <li><s>Single Product Components</s></li>
     <li><s>Add Button</s></li>
     <li><s>Images</s></li>
-    <li>basketIcon Amount Badge</li>
-    <li>Sale Badge</li>
+    <li><s>basketIcon Amount Badge</s></li>
+    <li><s>Add Favorite Badge</s></li>
+    <li><s>Stock Checking</s></li>
     <li>Styling</li>
     <li>Filtering Options</li>
     <li>Working SearchBar</li>

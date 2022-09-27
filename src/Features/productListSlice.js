@@ -1,10 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Data from '../DataBASE/jsondb.json';
 
+//Grabs all the products and combines it
 const myData = JSON.parse(JSON.stringify(Data));
+const allEntries = Object.entries(myData);
+let AllProducts = [];
+allEntries.forEach((arr) => (AllProducts = AllProducts.concat(arr[1])));
 
 const initialState = {
-  productsArray: myData,
+  productsArray: AllProducts,
 };
 
 const productSlice = createSlice({

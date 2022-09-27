@@ -1,0 +1,33 @@
+@mixin badge(
+  $width,
+  $height,
+  $font-size,
+  $top,
+  $left,
+  $border-radius,
+  $borderColor
+) {
+  position: relative;
+  z-index: 10;
+
+  border-radius: $border-radius;
+  font-size: $font-size;
+
+  border: 1px solid $borderColor;
+  width: $width;
+  height: $height;
+
+  text-decoration: none;
+  top: $top;
+  left: $left;
+
+  i {
+  }
+
+  p {
+    border: none;
+    color: $white-font;
+    text-decoration: none;
+    background-color: transparent;
+  }
+}

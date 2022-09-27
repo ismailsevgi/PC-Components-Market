@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BasketBadge } from '../Components/SubComponents/Badges';
 
 function Navbar() {
   return (
@@ -24,7 +26,10 @@ function Navbar() {
         <div className='loggers'>
           <div className='loggers-icons'>
             <Link to='basket'>
-              <i className='fa-solid fa-cart-shopping'></i>
+              <div className='basketDiv'>
+                <BasketBadge />
+                <i className='fa-solid fa-cart-shopping'></i>
+              </div>
             </Link>
           </div>
           <div className='loggers-buttons'>

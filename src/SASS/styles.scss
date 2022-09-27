@@ -14,9 +14,11 @@
 
 //---------Components
 
-//buttons
-@import './Components/subComponents/card';
 @import './Components/subComponents/buttons';
+@import './Components/subComponents/badges';
+
+@import './Components/subComponents/card';
+//buttons
 
 //dropdowns
 @import './Components/dropdown';
