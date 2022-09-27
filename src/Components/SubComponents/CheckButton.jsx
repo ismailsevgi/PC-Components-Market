@@ -9,7 +9,9 @@ function CheckButton({ id, value = true }) {
     <input
       type='checkbox'
       class='onoffswitch-checkbox'
-      onClick={() => dispatch(CHANGE_CHECK({ id, value }))}
+      onClick={() => {
+        dispatch(CHANGE_CHECK({ id, value }));
+      }}
       defaultChecked={value}
     />
   );

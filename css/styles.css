@@ -447,15 +447,16 @@
   min-height: 70vh;
   display: flex;
   flex-direction: row;
-  justify-content: none;
+  justify-content: space-between;
   align-items: none;
+  gap: 2rem;
 }
 .basket .container .basketList {
   display: flex;
   flex-direction: column;
   justify-content: none;
   align-items: none;
-  flex: 4;
+  width: 75%;
 }
 .basket .container .basketList section:last-child {
   border-bottom: 1px solid #b3b3b3;
@@ -464,6 +465,7 @@
   height: 10rem;
   width: 100%;
   border-top: 1px solid #b3b3b3;
+  border-right: 1px solid #b3b3b3;
   padding: 1rem;
   display: flex;
   flex-direction: row;
@@ -554,8 +556,53 @@
   font-weight: 500;
 }
 .basket .container .payment {
-  flex: 1;
-  border: 1px solid black;
+  width: 20%;
+  border: 1px solid #b3b3b3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.basket .container .payment-button {
+  font-family: "Changa", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #c8d6e5;
+  background-color: #ff8510;
+  width: 80%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 2px #6a7190;
+}
+.basket .container .payment-button:hover {
+  color: #c8d6e5;
+  background-color: #c35f00;
+}
+.basket .container .payment-items {
+  width: 80%;
+  font-family: "Changa", sans-serif;
+  font-weight: 400;
+  text-shadow: 0 0 1px #292c38;
+  height: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.basket .container .payment-items p {
+  font-size: 0.7rem;
+  color: #ee5253;
+  background-color: #c8d6e5;
+  text-align: center;
+  width: 100%;
+}
+.basket .container .payment-items p .shipmentDetails .green {
+  color: green;
+}
+.basket .container .payment-items p .shipmentDetails .red {
+  color: red;
 }
 
 * {

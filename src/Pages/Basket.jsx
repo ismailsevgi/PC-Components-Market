@@ -1,17 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Payment from '../Components/CheckOut/Payment';
+import BasketList from '../Components/List/BasketList';
 
 //Sub Components
-import BasketButton from '../Components/SubComponents/BasketButton';
-import CheckButton from '../Components/SubComponents/CheckButton';
+// import BasketButton from '../Components/SubComponents/BasketButton';
+// import CheckButton from '../Components/SubComponents/CheckButton';
+
+//Shipment cost rate will be determined by seller
+//Gift Checkbox and Animation
+
+const initialBasketState = { price: 0, shipment: 0 };
 
 function Basket() {
   const itemsInBasket = useSelector((state) => {
     return state.basket.basketItems;
   });
 
-  console.log('itemsInBasket: ', itemsInBasket);
+  const [total, setTotal] = useState(initialBasketState);
 
+  useEffect(() => {
+    //if basket has any item init. Reduce will do its job.
+    //if basket is empty then total will be set to its initialState
+    if (itemsInBasket.length > 0) {
+      const output = itemsInBasket.reduce(
+        (prev, cur) => {
+          if (cur.check) {
+            return {
+              price: prev.price + cur.price * cur.quantity,
+              shipment: prev.shipment >= 100 ? 0 : prev.shipment + cur.shipment,
+            };
+          } else {
+            return { price: prev.price + 0, shipment: prev.shipment + 0 };
+          }
+        },
+        { price: 0, shipment: 0 }
+      );
+
+      //Arranges shipment cost if its higher than 100
+      setTotal(() => {
+        if (output.shipment > 100) {
+          console.log('current total: ', total);
+          return { ...output, shipment: 0 };
+        } else {
+          console.log('current total: ', total);
+          return output;
+        }
+      });
+
+      console.log('current total: ', total);
+    } else {
+      setTotal(initialBasketState);
+    }
+  }, [itemsInBasket]);
   return (
     <div className='basket'>
       <div className='basketNav'>
@@ -23,78 +64,12 @@ function Basket() {
       </div>
 
       <div className='container'>
-        <div className='basketList'>
-          {itemsInBasket &&
-            itemsInBasket.map((item) => {
-              return (
-                <section className='basketItem'>
-                  <div className='basketItem-Left'>
-                    <CheckButton id={item.id} />
-
-                    <div className='basketItem-Left-Img'>
-                      <img src={item.img} />
-                    </div>
-                    <div className='basketItem-Left-Body'>
-                      <div className='Body-Title'>
-                        <h2>{item.title}</h2>
-
-                        <span className='stockCounter'>
-                          {item.stock > 10 ? (
-                            <span className='inStock'>In Stock</span>
-                          ) : (
-                            <span className='onlyLeft'>
-                              Only left {item.stock}
-                            </span>
-                          )}
-                        </span>
-                        <span>Seller: {'Guruhasan A.S.'}</span>
-                        <span>
-                          Delivery by Saturday, September 24 at the latest
-                        </span>
-                      </div>
-
-                      <div className='Buttons'>
-                        <div className='Buttons-PlusMin'>
-                          <span>Quantity: </span>
-                          {item.quantity > 1 ? (
-                            <BasketButton
-                              handle={'handleSub'}
-                              icon={'Sub'}
-                              id={item.id}
-                            >
-                              <i class='fa-solid fa-minus'></i>
-                            </BasketButton>
-                          ) : (
-                            <BasketButton
-                              handle={'handleDelete'}
-                              icon={'Del'}
-                              id={item.id}
-                            >
-                              <i class='fa-solid fa-trash-can'></i>
-                            </BasketButton>
-                          )}
-
-                          <h3>{item.quantity}</h3>
-                          <BasketButton
-                            handle={'handleAdd'}
-                            icon={'Add'}
-                            id={item.id}
-                          >
-                            <i class='fa-solid fa-plus'></i>
-                          </BasketButton>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className='basketItem-Right'>
-                    <h2>${item.price * item.quantity}</h2>
-                  </div>
-                </section>
-              );
-            })}
-        </div>
-        <div className='payment'>payment</div>
+        <BasketList />
+        <Payment
+          price={total.price}
+          shipment={total.shipment}
+          length={itemsInBasket.length}
+        />
       </div>
     </div>
   );
