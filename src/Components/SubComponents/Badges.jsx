@@ -19,11 +19,11 @@ function BasketBadge() {
 //Favorite Badge
 
 function FavoriteBadge() {
-  const element = <i class='fa-solid fa-heart'></i>;
+  const element = <i className='fa-solid fa-heart'></i>;
   return (
     <div className='badge'>
       <div className='saleBadge'>
-        <i class='fa-regular fa-heart'></i>
+        <i className='fa-regular fa-heart'></i>
       </div>
     </div>
   );

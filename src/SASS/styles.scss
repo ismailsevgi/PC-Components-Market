@@ -16,7 +16,7 @@
 
 @import './Components/subComponents/buttons';
 @import './Components/subComponents/badges';
-
+@import './Components/subComponents/cardSkeleton';
 @import './Components/subComponents/card';
 //buttons
 
@@ -39,7 +39,7 @@
 //grid
 
 //------------Pages
-
+@import './Components/ProductDetailsPage';
 @import './Pages/products';
 @import './Pages/basket';
 //home

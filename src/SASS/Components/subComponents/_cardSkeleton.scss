@@ -1,0 +1,48 @@
+.card-skeleton {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  gap: 0.3rem;
+  height: 23rem;
+  padding: 0.5rem;
+  color: rgb(56, 55, 55);
+  border: 1px solid $white-font;
+  &-box {
+    width: 90%;
+    height: 54%;
+
+    border-radius: 10px;
+    span {
+      height: 100%;
+    }
+  }
+
+  &-title {
+    width: 90%;
+    height: 5%;
+    span {
+      height: 100%;
+    }
+  }
+  &-price {
+    align-self: flex-start;
+    width: 20%;
+    height: 5%;
+
+    span {
+      margin-left: 0.5rem;
+      height: 100%;
+    }
+  }
+
+  &-button {
+    width: 90%;
+    height: 15%;
+    margin-top: 1rem;
+    span {
+      height: 100%;
+      border-radius: 15px;
+    }
+  }
+}

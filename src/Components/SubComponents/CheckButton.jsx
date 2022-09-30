@@ -8,7 +8,7 @@ function CheckButton({ id, value = true }) {
   return (
     <input
       type='checkbox'
-      class='onoffswitch-checkbox'
+      className='onoffswitch-checkbox'
       onClick={() => {
         dispatch(CHANGE_CHECK({ id, value }));
       }}

@@ -40,15 +40,11 @@ function Basket() {
       //Arranges shipment cost if its higher than 100
       setTotal(() => {
         if (output.shipment > 100) {
-          console.log('current total: ', total);
           return { ...output, shipment: 0 };
         } else {
-          console.log('current total: ', total);
           return output;
         }
       });
-
-      console.log('current total: ', total);
     } else {
       setTotal(initialBasketState);
     }

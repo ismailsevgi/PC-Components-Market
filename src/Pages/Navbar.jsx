@@ -25,7 +25,7 @@ function Navbar() {
 
         <div className='loggers'>
           <div className='loggers-icons'>
-            <Link to='basket'>
+            <Link to='/basket'>
               <div className='basketDiv'>
                 <BasketBadge />
                 <i className='fa-solid fa-cart-shopping'></i>

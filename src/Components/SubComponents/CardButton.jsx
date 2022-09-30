@@ -4,7 +4,7 @@ import React from 'react';
 const CardButton = ({ id }) => {
   const dispatch = useDispatch();
   let data = useSelector((state) => {
-    return state.products.productsArray;
+    return state.products.data;
   });
 
   let basketList = useSelector((state) => {

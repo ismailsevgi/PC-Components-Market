@@ -1,187 +1,242 @@
-{
-    "GPUs": [
-        {
-            "id": 1,
-            "title": "GTX 980 4 GB Memory, GDDR5 256 Bit, PCIe 3.0 x16, 1753 MHz",
-            "price": 169,
-            "specs": {
-                "Year": "Sep 19th, 2014",
-                "Bus": "PCIe 3.0 x16",
-                "Memory": "4 GB, GDDR5, 256 bit",
-                "GPU-clock": "1127 MHz",
-                "Memory-clock": "1753 MHz",
-                "Shaders/TMUs/ROPs": "2048 / 128 / 64"
-            },
-            "img": "https://asset.msi.com/resize/image/global/product/product_5_20160309181808_56dff8607eabb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
-            "stock": 5,
-            "shipment": 30,
-            "tag": "gpu"
-        },
-        {
-            "id": 2,
-            "title": "GeForce RTX 3060, 12 GB, GDDR6 192 bit, 1875 MHz, PCIe 4.0 x16",
-            "price": 600,
-            "specs": {
-                "Year": "Jan 12th, 2021",
-                "Bus": "PCIe 4.0 x16",
-                "Memory": "12 GB, GDDR6, 192 bit",
-                "GPU-clock": "1320 MHz",
-                "Memory-clock": "1875 MHz",
-                "Shaders/TMUs/ROPs": "3584 / 112 / 48"
-            },
-            "img": "https://asset.msi.com/resize/image/global/product/product_1610444725b6aa81c4e74a8ea9fee28fdd225b58cc.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
-            "stock": 9,
-            "shipment": 30,
-            "tag": "gpu"
-        },
-        {
-            "id": 3,
-            "title": "GeForce RTX 3070, 8 GB, GDDR6, 256 bit, 1750 MHz, PCIe 4.0 x16",
-            "price": 699,
-            "specs": {
-                "Year": "Sep 1st, 2020",
-                "Bus": "PCIe 4.0 x16",
-                "Memory": "8 GB, GDDR6, 256 bit",
-                "GPU-clock": "1500 MHz",
-                "Memory-clock": "1750 MHz",
-                "Shaders/TMUs/ROPs": "5888/184/96"
-            },
-            "img": "https://asset.msi.com/resize/image/global/product/product_160516708705dd5f6377e11cba748c4e5caad64449.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
-            "stock": 15,
-            "shipment": 30,
-            "tag": "gpu"
-        },
-        {
-            "id": 4,
-            "title": "GeForce RTX 3060 Ti",
-            "price": 750,
-            "specs": {
-                "Year": "Dec 1st, 2020",
-                "Bus": "PCIe 3.0 x16",
-                "Memory": "8 GB, GDDR6, 256 bit",
-                "GPU-clock": "1410 MHz",
-                "Memory-clock": "1750 MHz",
-                "Shaders/TMUs/ROPs": "2048 / 128 / 64"
-            },
-            "img": "https://asset.msi.com/resize/image/global/product/product_1606818986b132688019712a39b40dfb6206a67f49.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
-            "stock": 999,
-            "shipment": 30,
-            "tag": "gpu"
-        },
-        {
-            "id": 5,
-            "title": "GeForce RTX 3090 Ti, 24 GB, GDDR6, PCIe 3.0 x16",
-            "price": 850,
-            "specs": {
-                "Year": "Jan 27th, 2022",
-                "Bus": "PCIe 3.0 x16",
-                "Memory": "24 GB, GDDR6X, 384 bit",
-                "GPU-clock": "1500 MHz",
-                "Memory-clock": "1313 MHz",
-                "Shaders/TMUs/ROPs": "10752 / 336 / 112"
-            },
-            "img": "https://asset.msi.com/resize/image/global/product/product_1648607796d7a974fcea5b16024b9fe9e2e090c798.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
-            "stock": 999,
-            "shipment": 30,
-            "tag": "gpu"
-        }
-        
-    ],
-    "CPUs": [
-        {
-            "id": 6,
-            "title": "Core i9-13900K, 5.8 GHz, 24 core, Socket 1700, 36MB Cache",
-            "price": 725,
-            "specs": {
-                "Year": "2022", 
-                "Cores": "24 / 32",
-                "Clock": "3 to 5.8 GHz",
-                "Socket": "Socket 1700",
-                "Process" : "10 nm",
-                "L3 Cache" : "36MB",
-                "TDP": "125 W"
-                
-            },
-            "img": "https://inventus.com.tr/Images/products/v3/11290_01.jpg",
-            "stock": 5,
-            "shipment": 30,
-            "tag": "cpu"
-        },
-        {
-            "id": 7,
-            "title": "Ryzen 9 7950X, 16 core, 5.7 GHz, AM5 Socket, 5nm, 64MB Cache",
-            "price": 725,
-            "specs": {
-                "Year": "Sep 27th, 2022",
-                "Cores": "16 / 32",
-                "Clock": "4.5 to 5.7 GHz",
-                "Socket": "AM5",
-                "Process" : "5 nm",
-                "L3 Cache" : "64MB",
-                "TDP": "170 W"
-                
-            },
-            "img": "https://img-itopya.mncdn.com/cdn/350/yeni-proje-2022-08-25t133831010-24d4cf.jpg",
-            "stock": 5,
-            "shipment": 30,
-            "tag": "cpu"
-        },
-        {
-            "id": 8,
-            "title": "Ryzen 5 5600X, 4.6 GHz, AM4, 7nm, 32MB Cache",
-            "price": 725,
-            "specs": {
-                "Year": "2022",
-                "Cores": "6 / 12",
-                "Clock": "3.7 to 4.6 GHz",
-                "Socket": "AM4",
-                "Process" : "7 nm",
-                "L3 Cache" : "32MB",
-                "TDP": "65 W"
-                
-            },
-            "img": "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/amd/thumb/3_large.jpg",
-            "stock": 12,
-            "shipment": 30,
-            "tag": "cpu"
-        },
-        {
-            "id": 9,
-            "title": "Ryzen 5 3600, 4.2GHz, AM4, 7nm, 32MB Cache",
-            "price": 725,
-            "specs": {
-                "Year": "2022",
-                "Cores": "6 / 12",
-                "Clock": "3.6 to 4.2 GHz",
-                "Socket": "AM4",
-                "Process" : "7 nm",
-                "L3 Cache" : "32MB",
-                "TDP": "65 W"
-                
-            },
-            "img": "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/amd/thumb/3_large.jpg",
-            "stock": 9,
-            "shipment": 30,
-            "tag": "cpu"
-        },
-        {
-            "id": 10,
-            "title": "Core i5-13600K, 5.1 GHz, 24MB Cache, 10nm, Socket 1700",
-            "price": 725,
-            "specs": {
-                "Year": "2022",
-                "Cores": "14 / 20",
-                "Clock": "3.5 to 5.1 GHz",
-                "Socket": "Socket 1700",
-                "Process" : "10 nm",
-                "L3 Cache" : "24MB",
-                "TDP": "125 W"
-                
-            },
-            "img": "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Intel_Core_i5_13600k_header.png",
-            "stock": 99,
-            "shipment": 30,
-            "tag": "cpu"
-        }
-    ]
-}
+[
+  {
+    "id": 1,
+    "name": "GTX 980",
+    "brand": "MSI",
+    "title": "GTX 980 4 GB Memory, GDDR5 256 Bit, PCIe 3.0 x16, 1753 MHz",
+    "price": 169,
+    "specs": {
+      "Year": "Sep 19th, 2014",
+      "Bus": "PCIe 3.0 x16",
+      "Memory": "4 GB",
+      "Memory-Type": "GDDR5, 256 bit",
+      "GPU-clock": "1127 MHz",
+      "Memory-clock": "1753 MHz",
+      "Shaders/TMUs/ROPs": "2048 / 128 / 64"
+    },
+    "img": "https://asset.msi.com/resize/image/global/product/product_5_20160309181808_56dff8607eabb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
+
+    "images": {
+      "img1": "https://asset.msi.com/resize/image/global/product/five_pictures2_3262_20140919100433.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img2": "https://asset.msi.com/resize/image/global/product/five_pictures3_3262_20140919100433.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img3": "https://asset.msi.com/resize/image/global/product/five_pictures4_3262_20140919100433.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img4": "https://asset.msi.com/resize/image/global/product/five_pictures5_3262_20140919100433.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img5": "https://asset.msi.com/resize/image/global/product/product_5_20160309181808_56dff8607eabb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png"
+    },
+
+    "stock": 5,
+    "shipment": 30,
+    "tag": "gpu"
+  },
+  {
+    "id": 2,
+    "name": "GeForce RTX 3060",
+    "brand": "MSI",
+    "title": "GeForce RTX 3060, 12 GB, GDDR6 192 bit, 1875 MHz, PCIe 4.0 x16",
+    "price": 600,
+    "specs": {
+      "Year": "Jan 12th, 2021",
+      "Bus": "PCIe 4.0 x16",
+      "Memory": "12 GB",
+      "Memory-Type": "GDDR6, 192 bit",
+      "GPU-clock": "1320 MHz",
+      "Memory-clock": "1875 MHz",
+      "Shaders/TMUs/ROPs": "3584 / 112 / 48"
+    },
+    "img": "https://asset.msi.com/resize/image/global/product/product_1610444725b6aa81c4e74a8ea9fee28fdd225b58cc.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+
+    "images": {
+      "img1": "https://asset.msi.com/resize/image/global/product/five_pictures2_3262_20140919100433.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img2": "https://asset.msi.com/resize/image/global/product/product_1610444727141cea66314ca97c59b99cdf7148e400.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img3": "https://asset.msi.com/resize/image/global/product/product_1610444727141cea66314ca97c59b99cdf7148e400.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img4": "https://asset.msi.com/resize/image/global/product/product_16104447279d2b7fad9af1ae3a6e0a33a1587b21be.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img5": "https://asset.msi.com/resize/image/global/product/product_1610444725b6aa81c4e74a8ea9fee28fdd225b58cc.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+    },
+
+    "stock": 9,
+    "shipment": 30,
+    "tag": "gpu"
+  },
+  {
+    "id": 3,
+    "name": "GeForce RTX 3070",
+    "brand": "MSI",
+    "title": "GeForce RTX 3070, 8 GB, GDDR6, 256 bit, 1750 MHz, PCIe 4.0 x16",
+    "price": 699,
+    "specs": {
+      "Year": "Sep 1st, 2020",
+      "Bus": "PCIe 4.0 x16",
+      "Memory": "8 GB",
+      "Memory-Type": "GDDR6, 256 bit",
+      "GPU-clock": "1500 MHz",
+      "Memory-clock": "1750 MHz",
+      "Shaders/TMUs/ROPs": "5888/184/96"
+    },
+    "img": "https://asset.msi.com/resize/image/global/product/product_160516708705dd5f6377e11cba748c4e5caad64449.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+    "images": {
+      "img1": "https://asset.msi.com/resize/image/global/product/product_160516708705dd5f6377e11cba748c4e5caad64449.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img2": "https://asset.msi.com/resize/image/global/product/product_16036988629d55e2a540b254c63fdb2ad1d77eaf1e.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img3": "https://asset.msi.com/resize/image/global/product/product_16036988629efa1e731f242db6f1d22f918f510b2f.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img4": "https://asset.msi.com/resize/image/global/product/product_160369886484ea0cc6bed7758cc70961239da7a408.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img5": "https://asset.msi.com/resize/image/global/product/product_16036988649286599685ac519c915d703127dc9f68.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+    },
+    "stock": 15,
+    "shipment": 30,
+    "tag": "gpu"
+  },
+  {
+    "id": 4,
+    "name": "GeForce RTX 3060 Ti",
+    "brand": "MSI",
+    "title": "GeForce RTX 3060 Ti",
+    "price": 750,
+    "specs": {
+      "Year": "Dec 1st, 2020",
+      "Bus": "PCIe 3.0 x16",
+      "Memory": "8 GB",
+      "Memory-Type": "GDDR6, 256 bit",
+      "GPU-clock": "1410 MHz",
+      "Memory-clock": "1750 MHz",
+      "Shaders/TMUs/ROPs": "2048 / 128 / 64"
+    },
+    "img": "https://asset.msi.com/resize/image/global/product/product_1606818986b132688019712a39b40dfb6206a67f49.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+    "images": {
+      "img1": "https://asset.msi.com/resize/image/global/product/product_1606818986b132688019712a39b40dfb6206a67f49.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img2": "https://asset.msi.com/resize/image/global/product/product_160682128066f9d7b7efdd8ebedb344ea22da0e3ed.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img3": "https://asset.msi.com/resize/image/global/product/product_1606819715ae4a024938ebbf43cd04d82b151d4f5c.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img4": "https://asset.msi.com/resize/image/global/product/product_1606819723f60ea255859cbf6e0d353473db22a93b.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img5": "https://asset.msi.com/resize/image/global/product/product_16068197286826d2b1687abef90c71df2a525ebaca.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+    },
+    "stock": 999,
+    "shipment": 30,
+    "tag": "gpu"
+  },
+  {
+    "id": 5,
+    "name": "GeForce RTX 3090 Ti",
+    "brand": "MSI",
+    "title": "GeForce RTX 3090 Ti, 24 GB, GDDR6, PCIe 3.0 x16",
+    "price": 850,
+    "specs": {
+      "Year": "Jan 27th, 2022",
+      "Bus": "PCIe 3.0 x16",
+      "Memory": "24 GB",
+      "Memory-Type": "GDDR6, 384 bit",
+      "GPU-clock": "1500 MHz",
+      "Memory-clock": "1313 MHz",
+      "Shaders/TMUs/ROPs": "10752 / 336 / 112"
+    },
+    "img": "https://asset.msi.com/resize/image/global/product/product_1648607796d7a974fcea5b16024b9fe9e2e090c798.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+    "images": {
+      "img1": "https://asset.msi.com/resize/image/global/product/product_1648607796d7a974fcea5b16024b9fe9e2e090c798.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img2": "https://asset.msi.com/resize/image/global/product/product_164854716082b355cd2352f13599779a0e83bf07f3.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img3": "https://asset.msi.com/resize/image/global/product/product_16485471620d7095a5b7fc5645052c710b8c3cd948.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+      "img4": "https://asset.msi.com/resize/image/global/product/product_16485471605b265d6b1bc031e18bb78c792f057193.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+    },
+    "stock": 999,
+    "shipment": 30,
+    "tag": "gpu"
+  },
+
+  {
+    "id": 6,
+    "name": "Core i9-13900K",
+    "brand": "Intel",
+    "title": "Core i9-13900K, 5.8 GHz, 24 core, Socket 1700, 36MB Cache",
+    "price": 725,
+    "specs": {
+      "Year": "2022",
+      "Cores": "24 / 32",
+      "Clock": "3 to 5.8 GHz",
+      "Socket": "Socket 1700",
+      "Process": "10 nm",
+      "L3 Cache": "36MB",
+      "TDP": "125 W"
+    },
+    "img": "https://inventus.com.tr/Images/products/v3/11290_01.jpg",
+    "images": {},
+    "stock": 5,
+    "shipment": 30,
+    "tag": "cpu"
+  },
+  {
+    "id": 7,
+    "name": "Ryzen 9 7950X",
+    "brand": "AMD",
+    "title": "Ryzen 9 7950X, 16 core, 5.7 GHz, AM5 Socket, 5nm, 64MB Cache",
+    "price": 725,
+    "specs": {
+      "Year": "Sep 27th, 2022",
+      "Cores": "16 / 32",
+      "Clock": "4.5 to 5.7 GHz",
+      "Socket": "AM5",
+      "Process": "5 nm",
+      "L3 Cache": "64MB",
+      "TDP": "170 W"
+    },
+    "img": "https://img-itopya.mncdn.com/cdn/350/yeni-proje-2022-08-25t133831010-24d4cf.jpg",
+    "stock": 5,
+    "shipment": 30,
+    "tag": "cpu"
+  },
+  {
+    "id": 8,
+    "name": "Ryzen 5 5600X",
+    "brand": "AMD",
+    "title": "Ryzen 5 5600X, 4.6 GHz, AM4, 7nm, 32MB Cache",
+    "price": 725,
+    "specs": {
+      "Year": "2022",
+      "Cores": "6 / 12",
+      "Clock": "3.7 to 4.6 GHz",
+      "Socket": "AM4",
+      "Process": "7 nm",
+      "L3 Cache": "32MB",
+      "TDP": "65 W"
+    },
+    "img": "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/amd/thumb/3_large.jpg",
+    "stock": 12,
+    "shipment": 30,
+    "tag": "cpu"
+  },
+  {
+    "id": 9,
+    "name": "Ryzen 5 3600",
+    "brand": "AMD",
+    "title": "Ryzen 5 3600, 4.2GHz, AM4, 7nm, 32MB Cache",
+    "price": 725,
+    "specs": {
+      "Year": "2022",
+      "Cores": "6 / 12",
+      "Clock": "3.6 to 4.2 GHz",
+      "Socket": "AM4",
+      "Process": "7 nm",
+      "L3 Cache": "32MB",
+      "TDP": "65 W"
+    },
+    "img": "https://cdn.vatanbilgisayar.com/Upload/PRODUCT/amd/thumb/3_large.jpg",
+    "stock": 9,
+    "shipment": 30,
+    "tag": "cpu"
+  },
+  {
+    "id": 10,
+    "name": "i5-13600K",
+    "brand": "Intel",
+    "title": "Core i5-13600K, 5.1 GHz, 24MB Cache, 10nm, Socket 1700",
+    "price": 725,
+    "specs": {
+      "Year": "2022",
+      "Cores": "14 / 20",
+      "Clock": "3.5 to 5.1 GHz",
+      "Socket": "Socket 1700",
+      "Process": "10 nm",
+      "L3 Cache": "24MB",
+      "TDP": "125 W"
+    },
+    "img": "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Intel_Core_i5_13600k_header.png",
+    "stock": 99,
+    "shipment": 30,
+    "tag": "cpu"
+  }
+]

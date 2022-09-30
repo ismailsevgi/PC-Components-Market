@@ -47,7 +47,7 @@ function BasketList() {
                           icon={'Sub'}
                           id={item.id}
                         >
-                          <i class='fa-solid fa-minus'></i>
+                          <i className='fa-solid fa-minus'></i>
                         </BasketButton>
                       ) : (
                         <BasketButton
@@ -55,7 +55,7 @@ function BasketList() {
                           icon={'Del'}
                           id={item.id}
                         >
-                          <i class='fa-solid fa-trash-can'></i>
+                          <i className='fa-solid fa-trash-can'></i>
                         </BasketButton>
                       )}
 
@@ -65,7 +65,7 @@ function BasketList() {
                         icon={'Add'}
                         id={item.id}
                       >
-                        <i class='fa-solid fa-plus'></i>
+                        <i className='fa-solid fa-plus'></i>
                       </BasketButton>
                     </div>
                   </div>

@@ -1,0 +1,132 @@
+.ProductDetailsPage {
+  .container {
+    display: grid;
+    border: 1px solid green;
+    grid-template-columns: repeat(2, 1fr);
+    font-family: $primary-font;
+    gap: 1rem;
+
+    .leftCol {
+      min-height: 80vh;
+      width: 100%;
+
+      .allProductImagesContainer {
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .imageContainer {
+          width: 100%;
+          height: 50%;
+
+          display: flex;
+
+          img {
+            width: 95%;
+            height: 95%;
+            object-fit: fill;
+            margin: 1rem auto;
+          }
+        }
+
+        .imagesMasonary {
+          display: grid;
+          padding: 1rem;
+          width: 100%;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0.1rem;
+
+          .imageBox {
+            width: 100%;
+            height: 100%;
+            img {
+              object-fit: fill;
+              width: 10rem;
+              height: 10rem;
+              border: 1px solid gray;
+            }
+          }
+        }
+      }
+    }
+    .rightCol {
+      min-height: 80vh;
+      padding: 1rem;
+      .titleDiv {
+        line-height: 2rem;
+
+        font-weight: 500;
+        &-title {
+          font-size: 2.2rem;
+          font-weight: 500;
+        }
+        &-brand {
+        }
+
+        &-price {
+          @include flex-display($space: space-between);
+          line-height: 2rem;
+          height: 5rem;
+          .oldPrice {
+            font-family: $secondary-font;
+            .topFont {
+              .sale {
+                .dolarSign {
+                  font-size: 1rem;
+                }
+              }
+
+              span:first-child {
+                text-shadow: 1px 1px 1px gray;
+                font-size: 1.6rem;
+                color: lighten(gray, 15%);
+                text-decoration: line-through;
+                letter-spacing: 1px;
+              }
+              span:last-child {
+                color: $green-light;
+              }
+            }
+
+            h1 {
+              text-shadow: 1px 1px 1px gray;
+              color: $green-light;
+
+              letter-spacing: 1px;
+            }
+          }
+          &-buttons {
+            width: 50%;
+            height: 100%;
+            border: 1px solid peru;
+          }
+        }
+      }
+
+      .productDetails {
+        width: 100%;
+        &-table {
+          width: 100%;
+          h3 {
+            color: blue;
+          }
+
+          .header {
+            box-shadow: 0 1px $component-background;
+          }
+
+          width: 100%;
+
+          tr {
+            td {
+              width: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

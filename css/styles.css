@@ -149,6 +149,50 @@
   color: #c8d6e5;
 }
 
+.card-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  height: 23rem;
+  padding: 0.5rem;
+  color: rgb(56, 55, 55);
+  border: 1px solid #c8d6e5;
+}
+.card-skeleton-box {
+  width: 90%;
+  height: 54%;
+  border-radius: 10px;
+}
+.card-skeleton-box span {
+  height: 100%;
+}
+.card-skeleton-title {
+  width: 90%;
+  height: 5%;
+}
+.card-skeleton-title span {
+  height: 100%;
+}
+.card-skeleton-price {
+  align-self: flex-start;
+  width: 20%;
+  height: 5%;
+}
+.card-skeleton-price span {
+  margin-left: 0.5rem;
+  height: 100%;
+}
+.card-skeleton-button {
+  width: 90%;
+  height: 15%;
+  margin-top: 1rem;
+}
+.card-skeleton-button span {
+  height: 100%;
+  border-radius: 15px;
+}
+
 .productListItem {
   border: 1px solid rgb(214, 214, 214);
   width: 100%;
@@ -160,16 +204,23 @@
   text-align: left;
 }
 .productListItem a {
-  width: 100%;
+  width: 90%;
   height: 100%;
   display: block;
-  padding: 0.3rem;
+  padding: 0.5rem;
   text-decoration: none;
+  font-family: "Changa", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6rem;
 }
 .productListItem a:visited, .productListItem a:hover, .productListItem a:active {
   color: inherit;
 }
 .productListItem a .imageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 70%;
   position: relative;
@@ -178,7 +229,7 @@
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  background-color: white;
+  background-color: #ffffff;
   position: absolute;
   -o-object-fit: fill;
      object-fit: fill;
@@ -199,8 +250,8 @@
   width: 1rem;
   height: 1rem;
   text-decoration: none;
-  top: 0.5rem;
-  left: 0.5rem;
+  top: -5rem;
+  left: -7rem;
 }
 .productListItem a .imageContainer .saleBadge p {
   border: none;
@@ -425,6 +476,7 @@
   background-color: transparent;
 }
 .loggers-icons a {
+  text-decoration: none;
   background: transparent;
 }
 .loggers-icons .basketDiv {
@@ -498,6 +550,117 @@
 .loggers-buttons-sign:hover {
   background-color: #c8d6e5;
   color: black;
+}
+
+.ProductDetailsPage .container {
+  display: grid;
+  border: 1px solid green;
+  grid-template-columns: repeat(2, 1fr);
+  font-family: "Changa", sans-serif;
+  gap: 1rem;
+}
+.ProductDetailsPage .container .leftCol {
+  min-height: 80vh;
+  width: 100%;
+}
+.ProductDetailsPage .container .leftCol .allProductImagesContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ProductDetailsPage .container .leftCol .allProductImagesContainer .imageContainer {
+  width: 100%;
+  height: 50%;
+  display: flex;
+}
+.ProductDetailsPage .container .leftCol .allProductImagesContainer .imageContainer img {
+  width: 95%;
+  height: 95%;
+  -o-object-fit: fill;
+     object-fit: fill;
+  margin: 1rem auto;
+}
+.ProductDetailsPage .container .leftCol .allProductImagesContainer .imagesMasonary {
+  display: grid;
+  padding: 1rem;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.1rem;
+}
+.ProductDetailsPage .container .leftCol .allProductImagesContainer .imagesMasonary .imageBox {
+  width: 100%;
+  height: 100%;
+}
+.ProductDetailsPage .container .leftCol .allProductImagesContainer .imagesMasonary .imageBox img {
+  -o-object-fit: fill;
+     object-fit: fill;
+  width: 10rem;
+  height: 10rem;
+  border: 1px solid gray;
+}
+.ProductDetailsPage .container .rightCol {
+  min-height: 80vh;
+  padding: 1rem;
+}
+.ProductDetailsPage .container .rightCol .titleDiv {
+  line-height: 2rem;
+  font-weight: 500;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-title {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 2rem;
+  height: 5rem;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-price .oldPrice {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-price .oldPrice .topFont .sale .dolarSign {
+  font-size: 1rem;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-price .oldPrice .topFont span:first-child {
+  text-shadow: 1px 1px 1px gray;
+  font-size: 1.6rem;
+  color: #a6a6a6;
+  text-decoration: line-through;
+  letter-spacing: 1px;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-price .oldPrice .topFont span:last-child {
+  color: #1dd1a1;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-price .oldPrice h1 {
+  text-shadow: 1px 1px 1px gray;
+  color: #1dd1a1;
+  letter-spacing: 1px;
+}
+.ProductDetailsPage .container .rightCol .titleDiv-price-buttons {
+  width: 50%;
+  height: 100%;
+  border: 1px solid peru;
+}
+.ProductDetailsPage .container .rightCol .productDetails {
+  width: 100%;
+}
+.ProductDetailsPage .container .rightCol .productDetails-table {
+  width: 100%;
+  width: 100%;
+}
+.ProductDetailsPage .container .rightCol .productDetails-table h3 {
+  color: blue;
+}
+.ProductDetailsPage .container .rightCol .productDetails-table .header {
+  box-shadow: 0 1px #c8d6e5;
+}
+.ProductDetailsPage .container .rightCol .productDetails-table tr td {
+  width: 50%;
 }
 
 .listingPages {

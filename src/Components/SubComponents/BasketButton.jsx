@@ -26,9 +26,9 @@ function BasketButton({ icon, handle, id }) {
 
   return (
     <button onClick={() => myFunc(handle)}>
-      {icon === 'Add' && <i class='fa-solid fa-plus'></i>}
-      {icon === 'Sub' && <i class='fa-solid fa-minus'></i>}
-      {icon === 'Del' && <i class='fa-solid fa-trash-can'></i>}
+      {icon === 'Add' && <i className='fa-solid fa-plus'></i>}
+      {icon === 'Sub' && <i className='fa-solid fa-minus'></i>}
+      {icon === 'Del' && <i className='fa-solid fa-trash-can'></i>}
     </button>
   );
 }
