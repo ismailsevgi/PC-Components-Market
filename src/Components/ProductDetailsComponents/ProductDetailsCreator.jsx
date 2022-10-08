@@ -1,8 +1,7 @@
 import React from 'react';
 
-function ProductDetailsCreator({ details }) {
+const ProductDetailsCreator = React.memo(({ details }) => {
   const productSpecs = Object.entries(details);
-  console.log('Creator Gelen Obj:', productSpecs);
 
   return (
     <div>
@@ -23,6 +22,6 @@ function ProductDetailsCreator({ details }) {
       </table>
     </div>
   );
-}
+});
 
 export default ProductDetailsCreator;

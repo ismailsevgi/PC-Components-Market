@@ -1,6 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+//firebase imports
+import app from '../DataBASE/firebase';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
+
+//firebase vars
+const dataBase = getFirestore(app);
+const productsRef = collection(dataBase, 'products');
+
 //update MockAPI
 // import Data from '../DataBASE/jsondb.json';
 
@@ -14,9 +22,11 @@ import axios from 'axios';
 // console.log(AllProducts);
 
 const initialState = {
+  filteredDatas: [],
   data: [],
   status: 'idle', //loading, "succeeded", "failed"
   error: null,
+  label: 'allProducts',
 };
 
 //DataBase Update
@@ -25,20 +35,32 @@ const initialState = {
 //   Data
 // );
 
+//  API VERSION
+// export const fetchProducts = createAsyncThunk(
+//   'productList/fetchProducts',
+//   async () => {
+//     try {
+//       const response = await axios.get(
+//         'https://63342f3090a73d0fede8ebdd.mockapi.io/computerProducts/products'
+//       );
+//       //Axios gives a response object with data property
+//       //In order to not get non-serializable error, one should extract data here not inside reducer
+
+//       return response.data;
+//     } catch (error) {
+//       return error.message;
+//     }
+//   }
+// );
+
+//Firebase version will be here
 export const fetchProducts = createAsyncThunk(
   'productList/fetchProducts',
-  async () => {
-    try {
-      const response = await axios.get(
-        'https://63342f3090a73d0fede8ebdd.mockapi.io/computerProducts/products'
-      );
-      //Axios gives a response object with data property
-      //In order to not get non-serializable error, one should extract data here not inside reducer
-
-      return response.data;
-    } catch (error) {
-      return error.message;
-    }
+  async function (db) {
+    const productsSnapshot = await getDocs(productsRef);
+    const productList = productsSnapshot.docs.map((doc) => doc.data());
+    console.log('productList:', productList);
+    return productList;
   }
 );
 
@@ -46,7 +68,31 @@ const productSlice = createSlice({
   name: 'productList',
   initialState,
   reducers: {
-    LIST_PRODUCTS: (state, payload) => {
+    LIST_PRODUCTS: (state, { type, payload }) => {
+      console.log('type, payload: ', type, payload);
+      switch (payload) {
+        case 'allProducts':
+          state = {
+            ...state,
+            filteredDatas: state.data,
+          };
+          break;
+
+        case 'GPUs':
+          state = {
+            ...state,
+            label: 'GPUs',
+            filteredDatas: state.data.filter((obj) => obj.tag === 'gpu'),
+          };
+          break;
+        case 'CPUs':
+          state = {
+            ...state,
+            label: 'CPUs',
+            filteredDatas: state.data.filter((obj) => obj.tag === 'cpu'),
+          };
+          break;
+      }
       return state;
     },
   },
@@ -58,7 +104,8 @@ const productSlice = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      state.data = [...action.payload];
+      state.data = action.payload;
+      state.filteredDatas = action.payload;
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.status = 'failed';

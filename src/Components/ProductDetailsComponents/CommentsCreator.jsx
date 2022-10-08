@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 
-function CommentsCreator({ commentsArray }) {
+const CommentsCreator = React.memo(({ commentsArray }) => {
   //   React.useEffect(() => {
   //     const fetchingUsers = async () => {
   //       const response = await axios.get(
@@ -17,6 +17,6 @@ function CommentsCreator({ commentsArray }) {
   //   }, []);
 
   return <div>CommentsCreator</div>;
-}
+});
 
 export default CommentsCreator;

@@ -2,54 +2,54 @@ import React, { useEffect } from 'react';
 import Card from '../Carts/Card';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../Features/productListSlice';
-import Skeleton from 'react-loading-skeleton';
 import CardSkeleton from '../Carts/CardSkeleton';
 
 function ProductList() {
   let data = useSelector((state) => {
+    console.log('Product list selector: ', state.products.data);
     return state.products.data;
   });
+
+  let productState = useSelector((state) => state.products);
+
+  //For Loading Skeleton
   let loading = false;
   let notFound = false;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if ((data.status === 'idle', data)) {
-      console.log('idle');
+    //if data isn't falsy
+    console.log('productState.status: ', productState.status);
+    if ((productState.status === 'idle', data)) {
       dispatch(fetchProducts());
+      loading = true;
     }
-    if ((data.status === 'loading', data)) {
-      console.log('Loading!');
+    if ((productState.status === 'loading', data)) {
+      // loading = true;
       loading = true;
     }
 
-    if (data.status === 'succeeded') {
-      console.log('SUCCESS!', data);
+    if (productState.status === 'succeeded') {
+      // loading = false;
+      loading = false;
     }
-    if (data.status === 'failed') {
-      console.log('Failed!', data);
-      notFound = true;
+    if (productState.status === 'failed') {
+      // notFound = true;
+      loading = false;
     }
-  }, [data.status]);
-
-  console.log('Data: ', data);
-
-  // const allEntries = Object.entries(data);
-
-  // let AllProducts = [];
-  // allEntries.forEach((arr) => (AllProducts = AllProducts.concat(arr[1])));
+  }, []);
 
   return (
     <div className='productList'>
-      {data.length > 0 ? (
-        data.map((obj) => {
+      {productState.filteredDatas.length > 0 ? (
+        productState.filteredDatas.map((obj) => {
           return (
             <Card
               key={obj.id}
               id={obj.id}
               title={obj.title}
-              img={obj.img}
+              img={obj.images['1']}
               price={obj.price}
               tag={obj.tag}
               stock={obj.stock}

@@ -129,6 +129,7 @@
     width: 100%;
     gap: 0.5rem;
     @include flex-display($space: center);
+
     button {
       width: 6rem;
       height: 3rem;
@@ -158,6 +159,23 @@
         background-color: $white-font;
         color: black;
       }
+    }
+  }
+
+  .userBox {
+    @include flex-display($space: space-between);
+    border: 1px solid white;
+
+    .userIMG {
+      img {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+      }
+    }
+
+    .userPanel {
+      border: 3px solid green;
     }
   }
 }

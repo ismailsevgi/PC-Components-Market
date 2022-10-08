@@ -364,8 +364,7 @@
 
 .productList {
   display: grid;
-  width: 80%;
-  flex: 5;
+  width: 100%;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 1rem;
@@ -551,6 +550,58 @@
   background-color: #c8d6e5;
   color: black;
 }
+.loggers .userBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid white;
+}
+.loggers .userBox .userIMG img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+}
+.loggers .userBox .userPanel {
+  border: 3px solid green;
+}
+
+.filterBar {
+  position: relative;
+  border: 1px solid black;
+  height: 5rem;
+  width: 100%;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.filterBar .radios {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.filterBar .radios input {
+  visibility: hidden;
+  scale: 0;
+  z-index: -10;
+}
+.filterBar .labels {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.filterBar .labels .break {
+  font-size: 2.4rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.filterBar .labels .label-activated {
+  color: #545a73;
+  font-size: 1.4rem;
+}
 
 .ProductDetailsPage .container {
   display: grid;
@@ -663,14 +714,52 @@
   width: 50%;
 }
 
+.dashboard {
+  width: 100%;
+  height: 100vh;
+}
+.dashboard .container {
+  border: 1px solid black;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 20% 80%;
+}
+.dashboard .container .profileCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-right: 1px solid rgb(0, 0, 0);
+}
+.dashboard .container .profileCol-imageContainer {
+  height: 15rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.dashboard .container .profileCol-imageContainer img {
+  border: 2px solid gray;
+  border-radius: 8px;
+  height: 90%;
+  width: 90%;
+}
+.dashboard .container .profileCol-userDetails {
+  display: block;
+}
+.dashboard .container .dashboard-panel {
+  border: 1px solid pink;
+}
+
 .listingPages {
   display: flex;
-  border: 2px solid blue;
+  border: 1px solid rgb(0, 0, 0);
   flex-direction: row;
 }
 
 .filter {
-  flex: 1;
+  width: 20%;
   border: 1px solid red;
 }
 
@@ -847,6 +936,9 @@
 * {
   margin: 0;
   padding: 0;
+}
+
+body {
   background-color: #dce2e7;
 }
 

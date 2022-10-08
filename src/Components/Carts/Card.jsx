@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-function Card({ id, title, img, price, tag, stock }) {
+const Card = React.memo(({ id, title, img, price, tag, stock }) => {
   /*Link Note: <Link to={`/productDetails/id=` + id}> means saving id into the URL
     Without "id=" is also useable but to clarification, I wanted to leave it.
   */
@@ -30,6 +30,6 @@ function Card({ id, title, img, price, tag, stock }) {
       <CardButton id={id} />
     </div>
   );
-}
+});
 
 export default Card;

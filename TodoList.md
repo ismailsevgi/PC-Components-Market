@@ -30,7 +30,7 @@ Userlogin > UserDashboard
 
 <h2>Product Page</h2>
 <ol>
-    <li>Image Carousel</li>
+    <li><s>Image Carousel</s></li>
     <li>Star Review Rating</li>
     <li>Amount Selecting</li>
     <li>Adding Item Button</li>
@@ -52,7 +52,7 @@ Userlogin > UserDashboard
 <h2>DataBase, Api integrations</h2>
 <ol>
     <li><s>Custom short DB</s></li>
-    <li>JSON Server for Testing</li>
+    <li><s>JSON Server for Testing Enviroment</s></li>
     <li>MockAPI CRUD</li>    
 </ol>
 
