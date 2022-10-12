@@ -9,13 +9,24 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  onSnapshot,
+} from 'firebase/firestore';
+
 const auth = getAuth(app);
+const dataBase = getFirestore(app);
+
+const userCollection = collection(dataBase, 'users');
 
 //yaratılan product'a userId verilebiliyormu bak!
 
 let initialState = {
   userName: '',
-  userId: '',
+  userId: 'default',
   firstName: '',
 
   birthDate: '',
@@ -37,7 +48,7 @@ export const saveUser = createAsyncThunk(
         unsubscribe();
         if (user) {
           //User Exists
-          console.log('user: ', user);
+
           resolve({
             displayName: user.displayName,
             email: user.email,
@@ -46,16 +57,14 @@ export const saveUser = createAsyncThunk(
         } else {
           //User not found
 
-          resolve(false);
+          reject(false);
         }
       });
     });
   }
 );
 
-//type loging ise login
-//type signin ise signin
-
+//Loginden sonra regist çalışıyor?
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -64,19 +73,30 @@ const userSlice = createSlice({
       const { email, password, firstName, lastName } = payload;
       createUserWithEmailAndPassword(auth, email, password)
         .then((cred) => {
-          console.log('Registered: ', cred.user);
+          // console.log('Registered: ', cred.user);
 
           updateProfile(cred.user, {
             displayName: `${firstName} ${lastName}`,
           });
+
+          try {
+            const docRef = addDoc(collectionRef, {
+              id: cred.user.uid,
+              birth: '',
+              gender: '',
+              createdAt: serverTimestamp(),
+            }).then(() => {
+              // console.log('User Dosyasına kullanıcı eklendi');
+            });
+          } catch (e) {
+            // console.error('Error adding document: ', e);
+          }
         })
-        .catch((err) =>
-          console.log('Kayıt sırasında bir hata oldu: ', err.message)
-        );
+        .catch((err) => alert('Kayıt sırasında bir hata oldu: ', err.message));
     },
     LOGIN_USER: (state, { type, payload }) => {
       const { email, password } = payload;
-      console.log('Payload: ', type);
+
       signInWithEmailAndPassword(auth, email, password)
         .then((cred) => {
           console.log('Cred: ', cred.user);
@@ -89,12 +109,20 @@ const userSlice = createSlice({
           console.log('Giriş sırasında bir hata oldu: ', err.message)
         );
     },
+    SET_USER_PRODUCTS: (state, { type, payload }) => {
+      console.log('Gelen Payload: ', payload);
+      return {
+        ...state,
+        userProducts: payload,
+      };
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(saveUser.fulfilled, (state, action) => {
+    builder.addCase(saveUser.fulfilled, (state, { type, payload }) => {
       state.userStatus = true;
       state.userName = auth.currentUser.displayName;
       state.email = auth.currentUser.email;
+      state.userId = payload.userId;
     });
     builder.addCase(saveUser.rejected, (state, action) => {
       state.error = action.error.message;
@@ -104,4 +132,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { REGIST_USER, LOGIN_USER } = userSlice.actions;
+export const { REGIST_USER, LOGIN_USER, SET_USER_PRODUCTS } = userSlice.actions;

@@ -6,7 +6,6 @@ import CardSkeleton from '../Carts/CardSkeleton';
 
 function ProductList() {
   let data = useSelector((state) => {
-    console.log('Product list selector: ', state.products.data);
     return state.products.data;
   });
 
@@ -20,7 +19,7 @@ function ProductList() {
 
   useEffect(() => {
     //if data isn't falsy
-    console.log('productState.status: ', productState.status);
+
     if ((productState.status === 'idle', data)) {
       dispatch(fetchProducts());
       loading = true;

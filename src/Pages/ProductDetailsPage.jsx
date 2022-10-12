@@ -8,6 +8,7 @@ import axios from 'axios';
 
 //Note: Getting products from the redux but not api.
 //Requesting item before loding product page will result nothing
+//FIREBASE FOR FETCHING
 
 function ProductDetailsPage() {
   //useState ile resim değiştirilecek

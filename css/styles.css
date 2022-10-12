@@ -718,6 +718,28 @@
   width: 100%;
   height: 100vh;
 }
+.dashboard .bg-productForm {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  visibility: none;
+  scale: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard .bg-productForm-content {
+  width: 25rem;
+  height: 35rem;
+  background-color: white;
+}
+.dashboard .activated {
+  visibility: visible;
+  scale: 1;
+}
 .dashboard .container {
   border: 1px solid black;
   display: grid;
@@ -748,8 +770,53 @@
 .dashboard .container .profileCol-userDetails {
   display: block;
 }
-.dashboard .container .dashboard-panel {
-  border: 1px solid pink;
+.dashboard .container .dashboard-panel .productsDiv {
+  font-family: "Changa", sans-serif;
+  height: 30rem;
+  border: 5px solid blue;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable {
+  width: 95%;
+  text-align: center;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-head {
+  color: red;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row-data {
+  border: 1px solid red;
+  height: 100%;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row-data .hangleDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row-data .hangleDiv input {
+  border: 5px solid green;
+  height: 1.8rem;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row-data .titleUpdate {
+  border: 1px solid rgb(48, 38, 134);
+  height: 2rem;
+  font-size: 1.2rem;
+  width: 85%;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row-data .stockUpdate {
+  width: 1.4rem;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row-data .priceUpdate {
+  width: 2.6rem;
+  text-align: right;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row-data .saleRateUpdate {
+  width: 1.2rem;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows-row input {
+  outline: none;
+  border: none;
+  height: 100%;
+  width: 100%;
 }
 
 .listingPages {

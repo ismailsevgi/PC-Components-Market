@@ -59,7 +59,7 @@ export const fetchProducts = createAsyncThunk(
   async function (db) {
     const productsSnapshot = await getDocs(productsRef);
     const productList = productsSnapshot.docs.map((doc) => doc.data());
-    console.log('productList:', productList);
+
     return productList;
   }
 );
@@ -114,8 +114,6 @@ const productSlice = createSlice({
     });
   },
 });
-
-console.log('productList...');
 
 export default productSlice.reducer;
 export const { LIST_PRODUCTS } = productSlice.actions;
