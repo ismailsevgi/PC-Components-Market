@@ -35,6 +35,8 @@ let initialState = {
   profileImageURL: '',
   email: '',
 
+  userBasket: [],
+  userFavorites: [],
   userProducts: [],
 };
 

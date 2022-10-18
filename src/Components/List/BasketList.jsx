@@ -1,14 +1,42 @@
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { usersRef } from '../../DataBASE/firebase';
+import { getUserBasket } from '../../Features/basketSlice';
 
 //basket Buttons
 import BasketButton from '../SubComponents/BasketButton';
 import CheckButton from '../SubComponents/CheckButton';
 
 function BasketList() {
+  const dispatch = useDispatch();
   const itemsInBasket = useSelector((state) => {
     return state.basket.basketItems;
   });
+
+  //If basket is empty program dispatch an action to get items from user's basket
+  //If there is no item in user's basket nothing will change
+  useEffect(() => {
+    //eğer redux store yenileme ile basketItemlerini silmiş ise
+    if (itemsInBasket.length < 1) {
+      console.log('Baskette item yok, userdan fetch edilecek');
+      const auth = getAuth();
+      const unsubAuth = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log('Kullanıcı var, dispatch edildi');
+          dispatch(getUserBasket('Gönderilen data!'));
+        } else {
+          console.log('Kullanıcı yok');
+        }
+      });
+
+      unsubAuth();
+    } else {
+      console.log('Basket dolu, fetch etmeye gerek yok');
+    }
+  }, []);
+
   return (
     <div className='basketList'>
       {itemsInBasket &&

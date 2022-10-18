@@ -16,6 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const dataBase = getFirestore(app);
 
+export const usersRef = collection(dataBase, 'users');
 export const productsRef = collection(dataBase, 'products');
 export default app;
 // collection ref

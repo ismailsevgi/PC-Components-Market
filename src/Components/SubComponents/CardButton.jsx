@@ -3,6 +3,7 @@ import { ADD_TO_BASKET } from '../../Features/basketSlice';
 import React from 'react';
 const CardButton = React.memo(({ id }) => {
   const dispatch = useDispatch();
+
   let data = useSelector((state) => {
     return state.products.data;
   });
