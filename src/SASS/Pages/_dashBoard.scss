@@ -1,7 +1,7 @@
 .dashboard {
   width: 100%;
   height: 100vh;
-
+  margin-top: 1rem;
   .bg-productForm {
     position: absolute;
     top: 0;
@@ -56,61 +56,44 @@
       .productsDiv {
         font-family: $primary-font;
         height: 30rem;
-        border: 5px solid blue;
+
         .productTable {
-          width: 95%;
+          width: 100%;
+          height: 30vh;
           text-align: center;
-          &-head {
-            color: red;
-          }
+          margin: 1rem;
 
           &-specs {
+            tr {
+              td:first-child {
+                width: 20rem;
+              }
+              td:last-child {
+                width: 10rem;
+                input {
+                  width: 8rem;
+                }
+              }
+            }
           }
 
           &-rows {
             &-row {
-              &-data {
-                border: 1px solid red;
-                height: 100%;
-
-                .hangleDiv {
-                  @include flex-display();
-
-                  input {
-                    border: 5px solid green;
-                    height: 1.8rem;
-                  }
-                }
-
-                .titleUpdate {
-                  border: 1px solid rgb(48, 38, 134);
-                  height: 2rem;
-                  font-size: 1.2rem;
-                  width: 85%;
-                }
-
-                .stockUpdate {
-                  width: 1.4rem;
-                }
-
-                .priceUpdate {
-                  width: 2.6rem;
-                  text-align: right;
-                }
-
-                .saleRateUpdate {
-                  width: 1.2rem;
-                }
+              th {
+                text-align: left;
               }
-
-              input {
-                outline: none;
-                border: none;
-                height: 100%;
-                width: 100%;
+              td {
+                i {
+                  margin: 0.4rem;
+                  font-size: 1.4rem;
+                }
               }
             }
           }
+        }
+        .createProductDiv {
+          @include flex-display($space: flex-end);
+          margin-right: 1.2rem;
         }
       }
     }

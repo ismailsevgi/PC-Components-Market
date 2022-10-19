@@ -2,11 +2,14 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { productsRef } from '../../DataBASE/firebase';
+import { useUpdateProductMutation } from '../../Features/firebaseApi';
 
 function UpdateProductForm({ formState, modalRef }) {
   const [updateFormState, setUpdateFormState] = useState({});
 
   //YARIN YAPILACAK İLK ŞEY: BURADA UPDATE EDİLEN STATEİN ÖZELLİKLERİ FİREBASE DE GÜNCELLENECEK!
+
+  const [updateProduct] = useUpdateProductMutation();
 
   useEffect(() => {
     setUpdateFormState({ ...formState });
@@ -15,16 +18,7 @@ function UpdateProductForm({ formState, modalRef }) {
   }, [formState]);
 
   const handleForm = (type, e) => {
-    console.log('Gelen type', type, 'Gelen e', e);
     e && e.preventDefault();
-
-    /*
-        productHaggle: false
-        productOgPrice: 0
-        productSaleRate: 0
-        productStock: 0
-        productTitle: ""
-    */
     switch (type) {
       case 'close':
         if (modalRef.current.classList.contains('activated')) {
@@ -74,31 +68,22 @@ function UpdateProductForm({ formState, modalRef }) {
     }
   };
 
-  const submitUpdate = (e) => {
+  const submitUpdate = async (e) => {
     e.preventDefault();
 
-    const docRef = doc(productsRef, updateFormState.productId);
-
-    getDoc(docRef)
-      .then((product) => {
-        let data = product.data();
-
-        updateDoc(docRef, {
-          ...data,
-          haggle: updateFormState.productHaggle,
-          price: updateFormState.productOgPrice,
-          saleRate: updateFormState.productSaleRate,
-          stock: updateFormState.productStock,
-          title: updateFormState.productTitle,
-        }).then(() => {
-          if (modalRef.current.classList.contains('activated')) {
-            modalRef.current.classList.remove('activated');
-          }
-        });
-      })
-      .catch((err) => {
-        alert('There is no doc', err.message);
-      });
+    await updateProduct({
+      id: updateFormState.productId,
+      formData: {
+        haggle: updateFormState.productHaggle,
+        price: updateFormState.productOgPrice,
+        saleRate: updateFormState.productSaleRate,
+        stock: updateFormState.productStock,
+        title: updateFormState.productTitle,
+      },
+    });
+    if (modalRef.current.classList.contains('activated')) {
+      modalRef.current.classList.remove('activated');
+    }
   };
 
   return (

@@ -10,9 +10,9 @@ function BasketBadge() {
 
   //Underline problem with yusuf
   return (
-    <div className='badge'>
+    <span className='badge'>
       <p>{itemsInBasket.length}</p>
-    </div>
+    </span>
   );
 }
 

@@ -10,10 +10,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingPage from '../Components/SubComponents/LoadingPage';
 import { useNavigate } from 'react-router-dom';
-
-//güncel plan
-//burada verileri al dispatch et
-//reduxSlice üzerinden değişiklik olsun
+import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 
 function Registration() {
   const dispatch = useDispatch();
@@ -85,60 +82,126 @@ function Registration() {
       });
   }
 
-  //You have already Logged in
-  //so user will be directed to the main page
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     //log
-  //   } else {
-  //     //
-  //   }
-  // });
-
   return (
-    <div className='container'>
-      {formState === 'regist' ? <h1>SIGN UP FORM</h1> : <h1>LOGIN FORM</h1>}
+    <div className='container form-container'>
+      {formState !== 'regist' ? (
+        <form className='registration-form'>
+          <h1>LOGIN</h1>
+          <div className='form-group emailBox'>
+            <label htmlFor='first name'>First name</label>
+            <input
+              aria-describedby='emailHelp'
+              className='form-control'
+              name='firstName'
+              placeholder='Enter your email...'
+            />
+            <small id='emailHelp' className='form-text text-muted'>
+              We'll never share your email with anyone else unless you want.
+            </small>
+          </div>
+          <div className='form-group emailBox'>
+            <label htmlFor='last name'>Last Name</label>
+            <input
+              className='form-control'
+              name='lastName'
+              placeholder='Enter your email...'
+            />
+          </div>
+          <button className='btn btn-primary loginbtn'>LOGIN</button>
+          <div className='otherBtns'>
+            <MDBBtn
+              className='m-1'
+              style={{ backgroundColor: '#dd4b39' }}
+              href='#'
+              onClick={googleLog}
+            >
+              <MDBIcon fab icon='google' />
+            </MDBBtn>
+            <MDBBtn
+              className='m-1'
+              style={{ backgroundColor: '#3b5998' }}
+              href='#'
+            >
+              <MDBIcon fab icon='facebook-f' />
+            </MDBBtn>
 
-      <form ref={formRef} className='registrationForm' onSubmit={submitForm}>
-        {formState === 'regist' && (
-          <>
-            <div className='emailBox'>
-              <label htmlFor='first name'>First name</label>
-              <input name='firstName' placeholder='Enter your email...' />
-            </div>
-            <div className='emailBox'>
-              <label htmlFor='last name'>Last Name</label>
-              <input name='lastName' placeholder='Enter your email...' />
-            </div>
-          </>
-        )}
+            <MDBBtn
+              className='m-1'
+              style={{ backgroundColor: '#55acee' }}
+              href='#'
+            >
+              <MDBIcon fab icon='twitter' />
+            </MDBBtn>
+          </div>
+          <small>
+            <a onClick={handleForm}>Don't you have an account yet?</a>
+          </small>
+        </form>
+      ) : (
+        <form
+          ref={formRef}
+          className=' registration-form'
+          onSubmit={submitForm}
+        >
+          <h1>SIGN UP</h1>
+          <div className='form-group emailBox'>
+            <label htmlFor='email'>Email</label>
+            <input
+              className='form-control'
+              name='email'
+              placeholder='Enter your email...'
+            />
+          </div>
+          <div className='form-group passwordBox'>
+            <label htmlFor='password'>Password</label>
+            <input
+              className='form-control'
+              name='password'
+              placeholder='Enter your password...'
+            />
+          </div>
 
-        <div className='emailBox'>
-          <label htmlFor='email'>Email</label>
-          <input name='email' placeholder='Enter your email...' />
-        </div>
-        <div className='passwordBox'>
-          <label htmlFor='password'>Password</label>
-          <input name='password' placeholder='Enter your password...' />
-        </div>
-        {formState === 'regist' && (
           <div className='passwordConfirmBox'>
             <label htmlFor='passwordConfirm'>Confirm Password</label>
             <input
+              className='form-control'
               type='passwordConfirm'
               name='passwordConfirm'
               placeholder='Confirm your password...'
             />
           </div>
-        )}
 
-        <button>SUBMIT</button>
-        <div>
-          <button onClick={googleLog}>G</button>
-        </div>
-      </form>
+          <button className='btn btn-primary loginbtn'>SIGN UP</button>
+          <div className='otherBtns'>
+            <MDBBtn
+              className='m-1'
+              style={{ backgroundColor: '#dd4b39' }}
+              href='#'
+              onClick={googleLog}
+            >
+              <MDBIcon fab icon='google' />
+            </MDBBtn>
+            <MDBBtn
+              className='m-1'
+              style={{ backgroundColor: '#3b5998' }}
+              href='#'
+            >
+              <MDBIcon fab icon='facebook-f' />
+            </MDBBtn>
 
-      <a onClick={handleForm}>Already have an account?</a>
+            <MDBBtn
+              className='m-1'
+              style={{ backgroundColor: '#55acee' }}
+              href='#'
+            >
+              <MDBIcon fab icon='twitter' />
+            </MDBBtn>
+          </div>
+          <small>
+            <a onClick={handleForm}>Already have an account?</a>
+          </small>
+        </form>
+      )}
     </div>
   );
 }

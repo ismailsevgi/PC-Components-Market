@@ -1,6 +1,17 @@
+import { MDBIcon } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
+import { useDeleteProductMutation } from '../../Features/firebaseApi';
 
 export default function ProductTableData(props) {
+  const [deleteProduct] = useDeleteProductMutation();
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure to delete this product?')) {
+      await deleteProduct(id);
+      toast.success('Your product is deleted!');
+    }
+  };
+
   function handleForm(e, id) {
     e.preventDefault();
 
@@ -20,21 +31,22 @@ export default function ProductTableData(props) {
 
   return (
     <tr key={props.data.id} className='productTable-rows-row'>
-      <td className='productTable-rows-row-data'>{props.data.title}</td>
-      <td className='productTable-rows-row-data'>
-        <div className='hangleDiv'>{props.data.haggle ? 'YES' : 'NO'}</div>
-      </td>
-      <td className='productTable-rows-row-data'>{props.data.stock}</td>
-      <td className='productTable-rows-row-data'>{props.data.price}</td>
-      <td className='productTable-rows-row-data'>%{props.data.saleRate}</td>
-      <td className='productTable-rows-row-data'>
+      <th scope='row'>{props.data.title}</th>
+
+      <td>{props.data.stock}</td>
+      <td>{props.data.price}</td>
+      <td>%{props.data.saleRate}</td>
+      <td>
         {props.data.price - (props.data.price / 100) * props.data.saleRate}$
       </td>
 
-      <td className='productTable-rows-row-data'>
-        <button>DEL</button>
-        <button onClick={(e) => handleForm(e, props.data)}>EDIT</button>
-        <button>UPDATE</button>
+      <td>
+        <MDBIcon fas icon='edit' onClick={(e) => handleForm(e, props.data)} />
+        <MDBIcon
+          far
+          icon='trash-alt'
+          onClick={() => handleDelete(props.data.id)}
+        />
       </td>
     </tr>
   );

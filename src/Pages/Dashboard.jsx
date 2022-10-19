@@ -14,18 +14,24 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const productCollection = collection(dataBase, 'products');
 
+//NEW API IMPORTS - firebaseBranch
+import { toast } from 'react-toastify';
+import {
+  useGetProductsQuery,
+  useUpdateProductMutation,
+} from '../Features/firebaseApi';
+import Spinner from '../Components/SubComponents/Spinner';
+import { MDBBtn } from 'mdb-react-ui-kit';
+
+//
+
 //REDUX
 //bu sayfa lazyload yapılacak
 
 function Dashboard() {
-  //DECLARATIONS
-  const modalRef = useRef();
-  const dispatch = useDispatch();
-  const auth = getAuth();
-
   //STATES
   let [userId, setUserId] = useState('');
-  const [productsArray, setProductsArray] = useState([]);
+
   const [formState, setFormState] = useState({
     productTitle: '',
     productHaggle: false,
@@ -34,7 +40,10 @@ function Dashboard() {
     productSaleRate: 0,
   });
 
-  // let allUsersProducts = useSelector((state) => state.user.userProducts);
+  //DECLARATIONS
+  const modalRef = useRef();
+  const dispatch = useDispatch();
+  const auth = getAuth();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -47,86 +56,98 @@ function Dashboard() {
     unsub();
   }, []);
 
+  //-getuserproducts!
+  //-updateUserProduct! , realtime
+  //-deleteUserProduct!
+  //-addUserProduct Form with many Images!
+
+  //firebaseBranch
+  const {
+    isError,
+    isLoading,
+    isFetching,
+    isSuccess,
+    data: dataArray,
+    error,
+  } = useGetProductsQuery(userId || '');
+
+  useState(() => {
+    isError && toast.error(error);
+  }, [isError]);
+
+  // let allUsersProducts = useSelector((state) => state.user.userProducts);
+
   useEffect(() => {
-    const q = query(productCollection, where('productOwner', '==', userId));
+    if (dataArray) {
+      console.log('dataArray: ', dataArray);
+      dispatch(SET_USER_PRODUCTS(dataArray));
+    }
+  }, [dataArray, isFetching, isSuccess]);
 
-    const unsub = onSnapshot(q, (snapshot) => {
-      let snapArray = snapshot.docs.map((doc) => doc.data());
-      dispatch(SET_USER_PRODUCTS(snapArray));
-      setProductsArray([...snapArray]);
-    });
-
-    return unsub;
-  }, [userId]);
-
-  return (
-    <div className='dashboard'>
-      <div className='container'>
-        <div className='profileCol'>
-          <div className='profileCol-imageContainer'>
-            <img src={anonImg} />
+  if (isLoading) {
+    return <Spinner />;
+  } else {
+    return (
+      <div className='dashboard'>
+        <div className='container'>
+          <div className='profileCol'>
+            <div className='profileCol-imageContainer'>
+              <img src={anonImg} />
+            </div>
+            <h2>İsmail Sevgi</h2>
+            <div className='profileCol-userDetails'>
+              <table>
+                <thead>
+                  <tr>
+                    <td>User Informations</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Birth Date</td>
+                    <td>Not Specified</td>
+                  </tr>
+                  <tr>
+                    <td>Gender</td>
+                    <td>Not Specified</td>
+                  </tr>
+                  <tr>
+                    <td>Rate</td>
+                    <td>3.2</td>
+                  </tr>
+                  <tr>
+                    <td>Products</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>Sold</td>
+                    <td>5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <h2>İsmail Sevgi</h2>
-          <div className='profileCol-userDetails'>
-            <table>
-              <thead>
-                <tr>
-                  <td>User Informations</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Birth Date</td>
-                  <td>Not Specified</td>
-                </tr>
-                <tr>
-                  <td>Gender</td>
-                  <td>Not Specified</td>
-                </tr>
-                <tr>
-                  <td>Rate</td>
-                  <td>3.2</td>
-                </tr>
-                <tr>
-                  <td>Products</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>Sold</td>
-                  <td>5</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className='dashboard-panel'>
-          <div className='productsDiv'>
-            <table className='productTable ml-1'>
-              <thead className='productTable-head'>
-                <tr>
-                  <td>Your Products</td>
-                </tr>
-              </thead>
 
-              <tbody className='productTable-specs'>
-                <tr>
-                  <td>PRODUCT NAME</td>
-                  <td>HANGLE</td>
-                  <td>STOCK</td>
-                  <td>ORIGINAL PRICE</td>
-                  <td>SALE RATE</td>
-                  <td>PRICE</td>
+          <div className='dashboard-panel'>
+            <div className='productsDiv'>
+              <table className='productTable ml-1'>
+                <thead className='productTable-specs'>
+                  <tr>
+                    <td scope='col'>PRODUCT NAME</td>
 
-                  <td>
-                    SEARCH
-                    <input placeholder='Search product...' />
-                  </td>
-                </tr>
-              </tbody>
-              <tbody className='productTable-rows'>
-                {productsArray.length > 0 &&
-                  productsArray.map((product) => {
-                    console.log('Product Array Güncellendi?', product);
+                    <td scope='col'>STOCK</td>
+                    <td scope='col'>ORIGINAL PRICE</td>
+                    <td scope='col'>SALE RATE</td>
+                    <td scope='col'>PRICE</td>
+
+                    <td scope='col'>
+                      <input placeholder='Search product...' />
+                    </td>
+                  </tr>
+                </thead>
+
+                <tbody className='productTable-rows'>
+                  {dataArray?.map((product) => {
                     return (
                       <ProductTableData
                         data={{
@@ -142,20 +163,25 @@ function Dashboard() {
                       />
                     );
                   })}
-              </tbody>
-            </table>
-            <div>ADD A NEW PRODUCT DIV</div>
+                </tbody>
+              </table>
+              <div className='createProductDiv'>
+                <MDBBtn color='mdb-color' className='text-xs-left'>
+                  Create a new Product
+                </MDBBtn>
+              </div>
+            </div>
+            <div className='orderTable'>//Gelen siparişlerin olduğu table</div>
           </div>
-          <div className='orderTable'>//Gelen siparişlerin olduğu table</div>
+        </div>
+        <div ref={modalRef} className='bg-productForm '>
+          <div className='bg-productForm-content'>
+            <UpdateProductForm formState={formState} modalRef={modalRef} />
+          </div>
         </div>
       </div>
-      <div ref={modalRef} className='bg-productForm '>
-        <div className='bg-productForm-content'>
-          <UpdateProductForm formState={formState} modalRef={modalRef} />
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Dashboard;

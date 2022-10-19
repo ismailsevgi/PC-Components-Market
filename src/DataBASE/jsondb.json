@@ -1,19 +1,28 @@
 [
   {
     "id": "1",
-    "name": "GTX 980",
-    "brand": "MSI",
-    "title": "GTX 980 4 GB Memory, GDDR5 256 Bit, PCIe 3.0 x16, 1753 MHz",
-    "price": 169,
-    "specs": {
-      "Year": "Sep 19th, 2014",
-      "Bus": "PCIe 3.0 x16",
-      "Memory": "4 GB",
-      "Memory-Type": "GDDR5, 256 bit",
-      "GPU-clock": "1127 MHz",
-      "Memory-clock": "1753 MHz",
-      "Shaders/TMUs/ROPs": "2048 / 128 / 64"
+    "haggle": true,
+    "timestamp": {
+      "seconds": 1666112179,
+      "nanoseconds": 358000000
     },
+    "tag": "gpu",
+    "name": "GTX 980",
+    "shipment": 30,
+    "brand": "MSI",
+    "price": 169,
+    "title": "GTX 980 4 GB Memory, GDDR5 256 Bit, PCIe 3.0 x16, 1753 MHz",
+    "stock": "100",
+    "specs": {
+      "Memory-Type": "GDDR5, 256 bit",
+      "Bus": "PCIe 3.0 x16",
+      "Year": "Sep 19th, 2014",
+      "GPU-clock": "1127 MHz",
+      "Memory": "4 GB",
+      "Shaders/TMUs/ROPs": "2048 / 128 / 64",
+      "Memory-clock": "1753 MHz"
+    },
+    "saleRate": "20",
     "img": "https://asset.msi.com/resize/image/global/product/product_5_20160309181808_56dff8607eabb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
     "images": {
       "1": "https://asset.msi.com/resize/image/global/product/five_pictures2_3262_20140919100433.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
@@ -22,9 +31,7 @@
       "4": "https://asset.msi.com/resize/image/global/product/five_pictures5_3262_20140919100433.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
       "5": "https://asset.msi.com/resize/image/global/product/product_5_20160309181808_56dff8607eabb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png"
     },
-    "stock": 5,
-    "shipment": 30,
-    "tag": "gpu"
+    "productOwner": "yaQH77NyFKUW1yMuuYGF65A3EJ13"
   },
   {
     "id": "2",

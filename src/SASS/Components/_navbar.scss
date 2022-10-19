@@ -2,125 +2,87 @@
   box-sizing: border-box;
   height: 15vh;
   margin: 0;
-  padding: 0;
-
-  .container {
-    @include flex-display($space: none, $align: none);
-    box-shadow: 0 5px 5px $dark-font;
-  }
+  padding: 0 !important;
 }
 
 .navigation {
-  flex: 65%;
+  height: 100%;
+  width: 100% !important;
+  background-color: $navbar-background;
 
-  background-color: $navbar-left-background;
-
-  @include flex-display($space: flex-start);
-
-  &-logo {
-    font-family: $primary-font;
-    font-size: $logo-size;
-    background-color: transparent;
-    color: $white-font;
-  }
+  @include flex-display($space: space-between);
 
   &-links {
-    flex: 1;
+    width: 75%;
     background-color: transparent;
     font-size: $link-size;
     font-family: $secondary-font;
     text-decoration: none;
-    @include flex-display($space: flex-end);
-
+    @include flex-display($space: flex-start);
+    &-logo {
+      font-family: $primary-font;
+      font-size: $logo-size;
+      background-color: transparent;
+      color: $white-font;
+    }
     a {
       color: $white-font;
       background-color: transparent;
       padding-left: 1rem;
-    }
-  }
-
-  &-searchBar {
-    flex: 1;
-
-    background-color: transparent;
-    @include flex-display($space: flex-end);
-
-    input {
-      background-color: transparent;
-      font-size: 1rem;
-      border: 2px solid darken($dark-font, 20%);
-      border-radius: 30px;
-      width: $search-width - 3rem;
-      height: $search-height;
-      transition: $transition;
-      padding-left: 1rem;
-      color: $white-font;
-      &::placeholder {
-        color: $white-font;
-        font-family: $secondary-font;
-      }
-
-      &:focus {
-        outline: none;
-        width: $search-width;
-      }
-    }
-
-    i {
-      margin-left: -2.4rem;
-      background: transparent;
-      color: lighten($dark-font, 15%);
-      font-size: $search-icon-size;
     }
   }
 }
 
 .loggers {
-  background-color: $navbar-right-background;
-  flex: 15%;
-  @include flex-display($space: space-between);
+  background-color: $navbar-background;
+  width: 25%;
+  height: 100%;
+  @include flex-display($space: space-around);
   &-icons {
-    flex: 50%;
     width: 100%;
 
-    a {
-      text-decoration: none;
-      background: transparent;
-    }
-
     @include flex-display($space: center);
-    gap: 1rem;
-
-    background-color: transparent;
 
     .basketDiv {
       background-color: transparent;
+      @include flex-display($space: center);
       position: relative;
       text-decoration: none;
-      i {
-        font-size: 1.8rem;
-        color: white;
+      width: fit-content;
+      height: 100%;
+      padding-bottom: 0.6rem;
+      a {
+        text-decoration: none;
+        background: transparent;
+        width: 100%;
+        font-size: 1.4rem;
         background-color: transparent;
-        transition: $transition;
+        i {
+          width: 100%;
+          font-size: 2.6rem;
+          color: white;
+          background-color: transparent;
+          transition: $transition;
 
-        &:hover {
-          color: $orange;
+          &:hover {
+            color: $orange;
+          }
         }
-      }
 
-      .badge {
-        @include flex-display();
-        background-color: darken($red-dark, 10%);
-        @include badge(
-          $width: 1.2rem,
-          $height: 1.2rem,
-          $font-size: 0.8rem,
-          $top: 0.6rem,
-          $left: 1.4rem,
+        .badge {
+          @include flex-display();
+          background-color: darken($red-dark, 10%);
+          @include badge(
+            $width: 1.6rem,
+            $height: 1.6rem,
+            $font-size: 1rem,
+            $top: 0.8rem,
+            $left: 2rem,
 
-          $border-radius: 50%,
-          $borderColor: $white-font
-        );
+            $border-radius: 50%,
+            $borderColor: $white-font
+          );
+        }
       }
     }
   }
