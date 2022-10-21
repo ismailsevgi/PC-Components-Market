@@ -1,0 +1,172 @@
+.createProductsForm {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'formTitle formTitle'
+    'leftSide rightSide'
+    'button button';
+  border: 1px solid $dark-font;
+  height: auto;
+  width: 70vw;
+  margin: 0 auto;
+  margin-top: 5rem;
+  background-color: $component-background;
+
+  .addSpecs {
+    table {
+      tbody {
+        tr {
+          border: 1px solid pink;
+
+          td {
+            text-align: right;
+            margin-left: 0.6rem;
+            width: 8rem;
+            input {
+              margin-left: 1.2rem;
+              width: 5rem;
+            }
+          }
+
+          // input {
+          //   width: 10rem;
+          // }
+        }
+      }
+    }
+  }
+
+  .formTitle {
+    font-family: $primary-font;
+    color: $dark-font;
+    margin-top: 1rem;
+
+    grid-area: formTitle;
+    text-align: center;
+
+    h2 {
+      font-size: 3rem;
+    }
+  }
+
+  .leftSide {
+    grid-area: leftSide;
+    color: $dark-font;
+    font-family: $primary-font;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .labelBox {
+      @include flex-display($space: flex-end);
+    }
+    label {
+      font-size: 1.4rem;
+    }
+
+    @include hintBox();
+    gap: 0.4rem;
+    line-height: 1.4rem;
+
+    label {
+      box-sizing: content-box;
+      margin: 0.4rem;
+    }
+
+    select {
+      display: inline-block !important;
+
+      width: 10rem;
+    }
+  }
+
+  .rightSide {
+    padding: 1rem;
+    width: 100%;
+    grid-area: rightSide;
+    .uploadImageCanvas {
+      border: 1px solid rgb(107, 107, 107);
+      background-color: rgba(128, 128, 128, 0.37);
+      border-radius: 5px;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      height: 14rem;
+      @include flex-display();
+
+      .images {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-row-gap: 0.5rem;
+        padding: 0.5rem;
+        width: 100%;
+        height: 100%;
+        margin: 1rem 0;
+        border: 1px solid $dark-font;
+        column-gap: 0.5rem;
+
+        .image {
+          border: 1px solid $dark-font;
+          height: 6rem;
+          width: 6rem;
+          img {
+            height: 100%;
+            width: 100%;
+          }
+        }
+      }
+
+      .wrapper {
+        position: relative;
+        @include flex-display($align: flex-end);
+        height: 8rem;
+        width: 12rem;
+        border: 1px solid rgb(124, 123, 123);
+        border-radius: 15px;
+
+        &:hover {
+          background-color: rgba(128, 128, 128, 0.1);
+        }
+
+        svg {
+          font-size: 5rem;
+
+          top: 10%;
+          left: 50%;
+          position: absolute;
+          z-index: 0;
+          cursor: pointer;
+          transform: translateX(-50%);
+        }
+        input {
+          height: 10rem;
+          width: 7rem;
+          cursor: pointer;
+
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          opacity: 0;
+          z-index: 1;
+        }
+        small {
+          color: $dark-font;
+          font-family: 'Times New Roman', Times, serif;
+          font-weight: bold;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .btn {
+    grid-area: button;
+    width: 50%;
+    padding: 1rem;
+    font-family: $primary-font;
+    letter-spacing: 1px;
+    font-size: 1.8rem;
+    margin-left: 25%;
+  }
+}

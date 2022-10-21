@@ -1,0 +1,37 @@
+@mixin hintBox {
+  .hintBox {
+    position: relative;
+
+    width: fit-content;
+    &:hover {
+      .hint {
+        visibility: visible;
+      }
+    }
+    svg {
+      border: 1px solid black;
+      width: 1rem;
+      padding: 0.2rem;
+      background-color: yellow;
+      height: 1rem;
+      border-radius: 50%;
+    }
+
+    .hint {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+
+      width: 120px;
+      top: 100%;
+      left: 50%;
+      margin-left: -60px;
+    }
+  }
+}

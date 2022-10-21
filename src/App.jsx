@@ -19,6 +19,7 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import { saveUser } from './Features/userSlice';
 import { useDispatch } from 'react-redux';
 import Dashboard from './Pages/Dashboard';
+import CreateProductForm from './Components/DashboardComponents/CreateProductForm';
 
 function App() {
   /* NOTE: <Route path='/productDetails/:id' element={<ProductDetailsPage />} /> with ":id" 
@@ -48,6 +49,8 @@ function App() {
               element={<ProductDetailsPage />}
             />
             <Route path='/about' element={<About />} />
+
+            <Route path='/productAdd' element={<CreateProductForm />} />
           </Routes>
         </div>
       </Router>

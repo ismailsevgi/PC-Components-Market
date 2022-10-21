@@ -599,6 +599,187 @@
   font-size: 1.4rem;
 }
 
+.createProductsForm {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "formTitle formTitle" "leftSide rightSide" "button button";
+  border: 1px solid #292c38;
+  height: auto;
+  width: 70vw;
+  margin: 0 auto;
+  margin-top: 5rem;
+  background-color: #c8d6e5;
+}
+.createProductsForm .addSpecs table tbody tr {
+  border: 1px solid pink;
+}
+.createProductsForm .addSpecs table tbody tr td {
+  text-align: right;
+  margin-left: 0.6rem;
+  width: 8rem;
+}
+.createProductsForm .addSpecs table tbody tr td input {
+  margin-left: 1.2rem;
+  width: 5rem;
+}
+.createProductsForm .formTitle {
+  font-family: "Changa", sans-serif;
+  color: #292c38;
+  margin-top: 1rem;
+  grid-area: formTitle;
+  text-align: center;
+}
+.createProductsForm .formTitle h2 {
+  font-size: 3rem;
+}
+.createProductsForm .leftSide {
+  grid-area: leftSide;
+  color: #292c38;
+  font-family: "Changa", sans-serif;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  line-height: 1.4rem;
+}
+.createProductsForm .leftSide .labelBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.createProductsForm .leftSide label {
+  font-size: 1.4rem;
+}
+.createProductsForm .leftSide .hintBox {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.createProductsForm .leftSide .hintBox:hover .hint {
+  visibility: visible;
+}
+.createProductsForm .leftSide .hintBox svg {
+  border: 1px solid black;
+  width: 1rem;
+  padding: 0.2rem;
+  background-color: yellow;
+  height: 1rem;
+  border-radius: 50%;
+}
+.createProductsForm .leftSide .hintBox .hint {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+.createProductsForm .leftSide label {
+  box-sizing: content-box;
+  margin: 0.4rem;
+}
+.createProductsForm .leftSide select {
+  display: inline-block !important;
+  width: 10rem;
+}
+.createProductsForm .rightSide {
+  padding: 1rem;
+  width: 100%;
+  grid-area: rightSide;
+}
+.createProductsForm .rightSide .uploadImageCanvas {
+  border: 1px solid rgb(107, 107, 107);
+  background-color: rgba(128, 128, 128, 0.37);
+  border-radius: 5px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 14rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.createProductsForm .rightSide .uploadImageCanvas .images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 0.5rem;
+  padding: 0.5rem;
+  width: 100%;
+  height: 100%;
+  margin: 1rem 0;
+  border: 1px solid #292c38;
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
+}
+.createProductsForm .rightSide .uploadImageCanvas .images .image {
+  border: 1px solid #292c38;
+  height: 6rem;
+  width: 6rem;
+}
+.createProductsForm .rightSide .uploadImageCanvas .images .image img {
+  height: 100%;
+  width: 100%;
+}
+.createProductsForm .rightSide .uploadImageCanvas .wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  height: 8rem;
+  width: 12rem;
+  border: 1px solid rgb(124, 123, 123);
+  border-radius: 15px;
+}
+.createProductsForm .rightSide .uploadImageCanvas .wrapper:hover {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+.createProductsForm .rightSide .uploadImageCanvas .wrapper svg {
+  font-size: 5rem;
+  top: 10%;
+  left: 50%;
+  position: absolute;
+  z-index: 0;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+.createProductsForm .rightSide .uploadImageCanvas .wrapper input {
+  height: 10rem;
+  width: 7rem;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 1;
+}
+.createProductsForm .rightSide .uploadImageCanvas .wrapper small {
+  color: #292c38;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+.createProductsForm .btn {
+  grid-area: button;
+  width: 50%;
+  padding: 1rem;
+  font-family: "Changa", sans-serif;
+  letter-spacing: 1px;
+  font-size: 1.8rem;
+  margin-left: 25%;
+}
+
 .ProductDetailsPage .container {
   display: grid;
   border: 1px solid green;

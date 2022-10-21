@@ -22,6 +22,7 @@ import {
 } from '../Features/firebaseApi';
 import Spinner from '../Components/SubComponents/Spinner';
 import { MDBBtn } from 'mdb-react-ui-kit';
+import { Link } from 'react-router-dom';
 
 //
 
@@ -166,9 +167,11 @@ function Dashboard() {
                 </tbody>
               </table>
               <div className='createProductDiv'>
-                <MDBBtn color='mdb-color' className='text-xs-left'>
-                  Create a new Product
-                </MDBBtn>
+                <Link to='/productAdd'>
+                  <MDBBtn color='mdb-color' className='text-xs-left'>
+                    Create a new Product
+                  </MDBBtn>
+                </Link>
               </div>
             </div>
             <div className='orderTable'>//Gelen siparişlerin olduğu table</div>

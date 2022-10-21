@@ -58,6 +58,7 @@ export const firebaseApi = createApi({
           });
           return { data: 'ok' };
         } catch (error) {
+          console.log('Data Update Edilemedi, ', error);
           return { data: error };
         }
       },
@@ -81,6 +82,20 @@ export const firebaseApi = createApi({
 
       invalidatesTags: ['products'],
     }),
+    addProduct: builder.mutation({
+      async queryFn(obj) {
+        console.log('Product Ekleme Başladı! eklenecek nesne: ', obj);
+        try {
+          await addDoc(productsCollection, {
+            ...obj,
+          });
+          return { data: 'ok' };
+        } catch (error) {
+          return { data: error };
+        }
+      },
+      invalidatesTags: ['products'],
+    }),
   }),
 });
 
@@ -88,4 +103,5 @@ export const {
   useGetProductsQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useAddProductMutation,
 } = firebaseApi;

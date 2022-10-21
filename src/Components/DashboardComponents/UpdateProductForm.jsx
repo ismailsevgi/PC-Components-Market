@@ -70,11 +70,11 @@ function UpdateProductForm({ formState, modalRef }) {
 
   const submitUpdate = async (e) => {
     e.preventDefault();
+    console.log(updateFormState);
 
     await updateProduct({
       id: updateFormState.productId,
       formData: {
-        haggle: updateFormState.productHaggle,
         price: updateFormState.productOgPrice,
         saleRate: updateFormState.productSaleRate,
         stock: updateFormState.productStock,
@@ -93,14 +93,7 @@ function UpdateProductForm({ formState, modalRef }) {
         <label>Product Name:</label>
         <input name='productName' value={updateFormState.productTitle} />
       </div>
-      <div className='haggleDiv'>
-        <label>Haggle</label>
-        {updateFormState.productHaggle ? (
-          <input type='checkbox' checked onClick={() => handleForm('haggle')} />
-        ) : (
-          <input type='checkbox' onClick={() => handleForm('haggle')} />
-        )}
-      </div>
+
       <div className='stockDiv'>
         <label>Stock</label>
         <input
