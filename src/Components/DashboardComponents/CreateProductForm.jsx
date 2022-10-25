@@ -39,7 +39,7 @@ function CreateProductForm() {
     },
     onSubmit: async (values) => {
       //RESİMLER YÜKLENENE KADAR BUTTON DISABLE OLMALI
-      await addProduct(values);
+      await addProduct({ values, productType });
       navigate('/dashboard');
     },
   });
@@ -53,8 +53,11 @@ function CreateProductForm() {
     { value: 'ram', label: 'RAM' },
     { value: 'psu', label: 'PSU' },
     { value: 'case', label: 'Computer Case' },
+    { value: 'ssd', label: 'SSD' },
+    { value: 'hdd', label: 'HDD' },
   ];
 
+  console.log(createProductForm.values);
   function handleProductType({ value }) {
     console.log('Seçilen Value', value);
 
@@ -74,109 +77,115 @@ function CreateProductForm() {
         </div>
 
         <div className='leftSide'>
-          <div className='labelBox'>
-            <HintMark
-              hintMassage={
-                'Write your products specific features like brand, speed'
-              }
+          <h2>General</h2>
+          <div className='generalContainer'>
+            <div className='labelBox'>
+              <HintMark
+                hintMassage={
+                  'Write your products specific features like brand, speed'
+                }
+              />
+              <label htmlFor='name' className='label-title'>
+                Product Title
+              </label>
+            </div>
+            <input
+              className='input'
+              type='text'
+              name='title'
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.title}
+              required
             />
-            <label htmlFor='name' className='label-title'>
-              Product Title
-            </label>
-          </div>
-          <input
-            className='input'
-            type='text'
-            name='title'
-            onChange={createProductForm.handleChange}
-            value={createProductForm.values.title}
-            required
-          />
-          <div className='labelBox'>
-            <label htmlFor='exampleFormControlSelect1'>Product Type</label>
-          </div>
-          <Select onChange={(e) => handleProductType(e)} options={tagOptions} />
+            <div className='labelBox'>
+              <label htmlFor='exampleFormControlSelect1'>Product Type</label>
+            </div>
+            <Select
+              onChange={(e) => handleProductType(e)}
+              options={tagOptions}
+            />
 
-          <div className='labelBox'>
-            <label>Price</label>
+            <div className='labelBox'>
+              <label>Price</label>
+            </div>
+            <input
+              name='price'
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.price}
+              className='form-control'
+              placeholder='Enter price'
+            />
+            <div className='labelBox'>
+              <label>BRAND</label>
+            </div>
+            <input
+              name='brand'
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.brand}
+              className='form-control'
+              placeholder="Enter product's brand"
+            />
+            <div className='labelBox'>
+              <label>MODAL</label>
+            </div>
+            <input
+              name='name'
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.name}
+              className='form-control'
+              placeholder="Enter product's modal"
+            />
+            <div className='labelBox'>
+              <label>STOCK</label>
+            </div>
+            <input
+              name='stock'
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.stock}
+              className='form-control'
+              placeholder='Enter stock size'
+            />
+            <div className='labelBox'>
+              <label>SALE RATE</label>
+            </div>
+            <input
+              name='saleRate'
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.saleRate}
+              className='form-control'
+              placeholder="Enter product's sale rate"
+            />
+            <div className='labelBox'>
+              <label>Shipment Cost</label>
+            </div>
+            <input
+              name='shipment'
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.shipment}
+              type='number'
+              className='form-control'
+              placeholder="Enter product's sale rate"
+            />
           </div>
-          <input
-            name='price'
-            onChange={createProductForm.handleChange}
-            value={createProductForm.values.price}
-            className='form-control'
-            placeholder='Enter price'
-          />
-          <div className='labelBox'>
-            <label>BRAND</label>
-          </div>
-          <input
-            name='brand'
-            onChange={createProductForm.handleChange}
-            value={createProductForm.values.brand}
-            className='form-control'
-            placeholder="Enter product's brand"
-          />
-          <div className='labelBox'>
-            <label>MODAL</label>
-          </div>
-          <input
-            name='name'
-            onChange={createProductForm.handleChange}
-            value={createProductForm.values.name}
-            className='form-control'
-            placeholder="Enter product's modal"
-          />
-          <div className='labelBox'>
-            <label>STOCK</label>
-          </div>
-          <input
-            name='stock'
-            onChange={createProductForm.handleChange}
-            value={createProductForm.values.stock}
-            className='form-control'
-            placeholder='Enter stock size'
-          />
-          <div className='labelBox'>
-            <label>SALE RATE</label>
-          </div>
-          <input
-            name='saleRate'
-            onChange={createProductForm.handleChange}
-            value={createProductForm.values.saleRate}
-            className='form-control'
-            placeholder="Enter product's sale rate"
-          />
-          <div className='labelBox'>
-            <label>Shipment Cost</label>
-          </div>
-          <input
-            name='shipment'
-            onChange={createProductForm.handleChange}
-            value={createProductForm.values.shipment}
-            type='number'
-            className='form-control'
-            placeholder="Enter product's sale rate"
-          />
         </div>
 
         <div className='rightSide'>
           <div className='addSpecs'>
+            <h2>Product Specs</h2>
             <ProductTempleteTypes
               specsHandler={createProductForm}
               type={productType}
             />
           </div>
-
-          <UploadImg
-            setImages={setImages}
-            images={images}
-            productName={createProductForm.values.title}
-            formImages={createProductForm.values.images}
-            progress={progress}
-            setProgress={setProgress}
-          />
         </div>
+        <UploadImg
+          setImages={setImages}
+          images={images}
+          productName={createProductForm.values.title}
+          formImages={createProductForm.values.images}
+          progress={progress}
+          setProgress={setProgress}
+        />
         <button
           disabled={progress === 0 || progress === 100 ? false : true}
           type='submit'

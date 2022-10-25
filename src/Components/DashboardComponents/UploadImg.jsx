@@ -17,8 +17,6 @@ export default function UploadImg({
 }) {
   const userId = useSelector((state) => state.user.userId);
 
-  console.log('productName: ', productName);
-
   //yüklemeden sonra url string ini imageHandler ile formikteki arraye kayıt edilecek
 
   useEffect(() => {

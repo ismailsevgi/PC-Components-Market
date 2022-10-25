@@ -1,63 +1,46 @@
 import React, { useEffect } from 'react';
 import Card from '../Carts/Card';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from '../../Features/productListSlice';
+
 import CardSkeleton from '../Carts/CardSkeleton';
+import { useGetProductsQuery } from '../../Features/firebaseApi';
+import { toast } from 'react-toastify';
 
 function ProductList() {
-  let data = useSelector((state) => {
-    return state.products.data;
-  });
+  let label = useSelector((state) => state.filter.label);
+  console.log('Current Label: ', label);
+  const {
+    isError,
 
-  let productState = useSelector((state) => state.products);
+    isLoading,
+    isSuccess,
 
-  //For Loading Skeleton
-  let loading = false;
-  let notFound = false;
-
-  const dispatch = useDispatch();
+    data: productList,
+    error,
+  } = useGetProductsQuery({ type: 'filtering', label: label });
 
   useEffect(() => {
-    //if data isn't falsy
-
-    if ((productState.status === 'idle', data)) {
-      dispatch(fetchProducts());
-      loading = true;
-    }
-    if ((productState.status === 'loading', data)) {
-      // loading = true;
-      loading = true;
-    }
-
-    if (productState.status === 'succeeded') {
-      // loading = false;
-      loading = false;
-    }
-    if (productState.status === 'failed') {
-      // notFound = true;
-      loading = false;
-    }
-  }, []);
+    console.log('productList: ', productList);
+    isError && toast.error('Something went wrong: ', error);
+  }, [isError, isSuccess]);
 
   return (
     <div className='productList'>
-      {productState.filteredDatas.length > 0 ? (
-        productState.filteredDatas.map((obj) => {
-          return (
-            <Card
-              key={obj.id}
-              id={obj.id}
-              title={obj.title}
-              img={obj.images['1']}
-              price={obj.price}
-              tag={obj.tag}
-              stock={obj.stock}
-            />
-          );
-        })
-      ) : (
-        <CardSkeleton cards={8} />
-      )}
+      {productList?.map((obj) => {
+        return (
+          <Card
+            key={obj.id}
+            id={obj.id}
+            title={obj.title}
+            img={obj.images[0]}
+            price={obj.price}
+            tag={obj.tag}
+            stock={obj.stock}
+          />
+        );
+      })}
+
+      {isLoading && <CardSkeleton cards={8} />}
     </div>
   );
 }

@@ -70,7 +70,7 @@ function Dashboard() {
     isSuccess,
     data: dataArray,
     error,
-  } = useGetProductsQuery(userId || '');
+  } = useGetProductsQuery({ type: 'userProducts', label: userId } || '');
 
   useState(() => {
     isError && toast.error(error);

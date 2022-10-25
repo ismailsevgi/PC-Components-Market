@@ -275,6 +275,39 @@
   margin-bottom: 1rem;
 }
 
+.hintBox {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.hintBox:hover .hint {
+  visibility: visible;
+}
+.hintBox svg {
+  border: 1px solid black;
+  width: 1rem;
+  padding: 0.2rem;
+  background-color: yellow;
+  height: 1rem;
+  border-radius: 50%;
+}
+.hintBox .hint {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
 .menu-container {
   display: flex;
   flex-direction: column;
@@ -556,17 +589,69 @@
 .filterBar .labels {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 100%;
+  letter-spacing: 1px;
+  font-family: "Changa", sans-serif;
 }
-.filterBar .labels .break {
-  font-size: 2.4rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+.filterBar .labels h3 {
+  font-size: 1.8rem;
+}
+.filterBar .labels .label {
+  cursor: pointer;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+}
+.filterBar .labels .label:hover {
+  height: 100%;
+}
+.filterBar .labels .label:hover:after {
+  width: 100%;
+  background-color: #ee5253;
+}
+.filterBar .labels .label:after {
+  content: "";
+  display: block;
+  width: 1.4rem;
+  height: 0.2rem;
+  background-color: #ff9f43;
+  position: absolute;
+  left: 0;
+  bottom: 0.4rem;
+  transition: all 0.5s ease;
 }
 .filterBar .labels .label-activated {
-  color: #545a73;
-  font-size: 1.4rem;
+  color: #dc6c00;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.filterBar .labels .label-activated:hover:after {
+  width: 100%;
+  background-color: #ee5253;
+}
+.filterBar .labels .label-activated:after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #ee5253;
+  width: 1.4rem;
+  height: 0.2rem;
+  bottom: 0.4rem;
+  left: 0;
+  transition: all 0.5s ease;
 }
 
 .form-container {
@@ -602,13 +687,14 @@
 .createProductsForm {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-areas: "formTitle formTitle" "leftSide rightSide" "button button";
+  grid-template-areas: "formTitle formTitle" "leftSide rightSide" "imageCanvas imageCanvas" "button button";
   border: 1px solid #292c38;
   height: auto;
   width: 70vw;
   margin: 0 auto;
   margin-top: 5rem;
   background-color: #c8d6e5;
+  font-family: "Changa", sans-serif;
 }
 .createProductsForm .addSpecs table tbody tr {
   border: 1px solid pink;
@@ -632,7 +718,7 @@
 .createProductsForm .formTitle h2 {
   font-size: 3rem;
 }
-.createProductsForm .leftSide {
+.createProductsForm .leftSide .generalContainer {
   grid-area: leftSide;
   color: #292c38;
   font-family: "Changa", sans-serif;
@@ -642,52 +728,20 @@
   gap: 0.4rem;
   line-height: 1.4rem;
 }
-.createProductsForm .leftSide .labelBox {
+.createProductsForm .leftSide .generalContainer .labelBox {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 }
-.createProductsForm .leftSide label {
+.createProductsForm .leftSide .generalContainer label {
   font-size: 1.4rem;
 }
-.createProductsForm .leftSide .hintBox {
-  position: relative;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-.createProductsForm .leftSide .hintBox:hover .hint {
-  visibility: visible;
-}
-.createProductsForm .leftSide .hintBox svg {
-  border: 1px solid black;
-  width: 1rem;
-  padding: 0.2rem;
-  background-color: yellow;
-  height: 1rem;
-  border-radius: 50%;
-}
-.createProductsForm .leftSide .hintBox .hint {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-  width: 120px;
-  top: 100%;
-  left: 50%;
-  margin-left: -60px;
-}
-.createProductsForm .leftSide label {
+.createProductsForm .leftSide .generalContainer label {
   box-sizing: content-box;
   margin: 0.4rem;
 }
-.createProductsForm .leftSide select {
+.createProductsForm .leftSide .generalContainer select {
   display: inline-block !important;
   width: 10rem;
 }
@@ -696,7 +750,22 @@
   width: 100%;
   grid-area: rightSide;
 }
-.createProductsForm .rightSide .uploadImageCanvas {
+.createProductsForm .rightSide .addSpecs h2 {
+  padding-left: 1rem;
+}
+.createProductsForm .rightSide .addSpecs .templeteContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.createProductsForm .rightSide .addSpecs .templeteContainer .templeteInputBox {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-left: 1rem;
+}
+.createProductsForm .rightSide .addSpecs .templeteContainer .templeteInputBox input {
+  width: 5rem;
+}
+.createProductsForm .uploadImageCanvas {
   border: 1px solid rgb(107, 107, 107);
   background-color: rgba(128, 128, 128, 0.37);
   border-radius: 5px;
@@ -704,12 +773,13 @@
   padding: 0;
   margin: 0;
   height: 14rem;
+  grid-area: imageCanvas;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.createProductsForm .rightSide .uploadImageCanvas .images {
+.createProductsForm .uploadImageCanvas .images {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 0.5rem;
@@ -721,16 +791,16 @@
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
 }
-.createProductsForm .rightSide .uploadImageCanvas .images .image {
+.createProductsForm .uploadImageCanvas .images .image {
   border: 1px solid #292c38;
   height: 6rem;
   width: 6rem;
 }
-.createProductsForm .rightSide .uploadImageCanvas .images .image img {
+.createProductsForm .uploadImageCanvas .images .image img {
   height: 100%;
   width: 100%;
 }
-.createProductsForm .rightSide .uploadImageCanvas .wrapper {
+.createProductsForm .uploadImageCanvas .wrapper {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -741,10 +811,10 @@
   border: 1px solid rgb(124, 123, 123);
   border-radius: 15px;
 }
-.createProductsForm .rightSide .uploadImageCanvas .wrapper:hover {
+.createProductsForm .uploadImageCanvas .wrapper:hover {
   background-color: rgba(128, 128, 128, 0.1);
 }
-.createProductsForm .rightSide .uploadImageCanvas .wrapper svg {
+.createProductsForm .uploadImageCanvas .wrapper svg {
   font-size: 5rem;
   top: 10%;
   left: 50%;
@@ -753,7 +823,7 @@
   cursor: pointer;
   transform: translateX(-50%);
 }
-.createProductsForm .rightSide .uploadImageCanvas .wrapper input {
+.createProductsForm .uploadImageCanvas .wrapper input {
   height: 10rem;
   width: 7rem;
   cursor: pointer;
@@ -764,7 +834,7 @@
   opacity: 0;
   z-index: 1;
 }
-.createProductsForm .rightSide .uploadImageCanvas .wrapper small {
+.createProductsForm .uploadImageCanvas .wrapper small {
   color: #292c38;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
@@ -951,6 +1021,7 @@
 .dashboard .container .dashboard-panel .productsDiv {
   font-family: "Changa", sans-serif;
   height: 30rem;
+  width: 100%;
 }
 .dashboard .container .dashboard-panel .productsDiv .productTable {
   width: 100%;
@@ -966,6 +1037,11 @@
 }
 .dashboard .container .dashboard-panel .productsDiv .productTable-specs tr td:last-child input {
   width: 8rem;
+}
+.dashboard .container .dashboard-panel .productsDiv .productTable-rows {
+  border: 1px solid black;
+  width: 100%;
+  height: 30vh;
 }
 .dashboard .container .dashboard-panel .productsDiv .productTable-rows-row th {
   text-align: left;

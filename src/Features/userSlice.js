@@ -16,6 +16,7 @@ import {
   where,
   onSnapshot,
 } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const auth = getAuth(app);
 const dataBase = getFirestore(app);
@@ -88,10 +89,10 @@ const userSlice = createSlice({
               gender: '',
               createdAt: serverTimestamp(),
             }).then(() => {
-              // console.log('User Dosyasına kullanıcı eklendi');
+              console.log('User Dosyasına kullanıcı eklendi');
             });
           } catch (e) {
-            // console.error('Error adding document: ', e);
+            console.error('Error adding document: ', e);
           }
         })
         .catch((err) => alert('Kayıt sırasında bir hata oldu: ', err.message));
@@ -106,6 +107,9 @@ const userSlice = createSlice({
             userId: cred.user.uid,
             firstName: cred.user.displayName,
           };
+        })
+        .then(() => {
+          console.log('Success!!!');
         })
         .catch((err) =>
           console.log('Giriş sırasında bir hata oldu: ', err.message)

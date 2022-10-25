@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoadingPage from '../Components/SubComponents/LoadingPage';
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
+import HintMark from '../Components/SubComponents/HintMark';
 
 function Registration() {
   const dispatch = useDispatch();
@@ -29,9 +30,11 @@ function Registration() {
         return 'regist';
       }
     });
+
+    console.log('Current Form: ', formState);
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
 
     if (formState === 'regist') {
@@ -49,6 +52,7 @@ function Registration() {
             password: formRef.current.password.value,
           })
         );
+        navigate('/store');
       } else {
         alert('Şifreler aynı değil');
       }
@@ -61,6 +65,7 @@ function Registration() {
           password: formRef.current.password.value,
         })
       );
+      navigate('/store');
     }
   };
 
@@ -85,25 +90,29 @@ function Registration() {
   return (
     <div className='container form-container'>
       {formState !== 'regist' ? (
-        <form className='registration-form'>
+        <form ref={formRef} className='registration-form' onSubmit={submitForm}>
           <h1>LOGIN</h1>
           <div className='form-group emailBox'>
-            <label htmlFor='first name'>First name</label>
+            <label htmlFor='email'>
+              <HintMark
+                hintMassage={
+                  "We'll never share your email with anyone else unless you want."
+                }
+              />
+              Email
+            </label>
             <input
               aria-describedby='emailHelp'
               className='form-control'
-              name='firstName'
+              name='email'
               placeholder='Enter your email...'
             />
-            <small id='emailHelp' className='form-text text-muted'>
-              We'll never share your email with anyone else unless you want.
-            </small>
           </div>
           <div className='form-group emailBox'>
-            <label htmlFor='last name'>Last Name</label>
+            <label htmlFor='password'>Password</label>
             <input
               className='form-control'
-              name='lastName'
+              name='password'
               placeholder='Enter your email...'
             />
           </div>
@@ -144,6 +153,22 @@ function Registration() {
           onSubmit={submitForm}
         >
           <h1>SIGN UP</h1>
+          <div className='form-group nameBox'>
+            <label htmlFor='firstName'>First Name: </label>
+            <input
+              className='form-control'
+              name='firstName'
+              placeholder='Enter your firstname...'
+            />
+          </div>
+          <div className='form-group lastnameBox'>
+            <label htmlFor='lastName'>Last Name: </label>
+            <input
+              className='form-control'
+              name='lastName'
+              placeholder='Enter your lastname...'
+            />
+          </div>
           <div className='form-group emailBox'>
             <label htmlFor='email'>Email</label>
             <input

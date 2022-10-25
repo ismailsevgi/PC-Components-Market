@@ -18,20 +18,71 @@
   }
 
   .labels {
-    @include flex-display();
+    @include flex-display($space: space-between);
+    font-size: 1.8rem;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100%;
+    letter-spacing: 1px;
+    font-family: $primary-font;
 
-    .break {
-      font-size: 2.4rem;
-      margin-left: 1rem;
-      margin-right: 1rem;
+    h3 {
+      font-size: 1.8rem;
     }
 
     .label {
-    }
+      cursor: pointer;
+      height: 100%;
+      position: relative;
+      @include flex-display($direction: row, $space: space-between);
 
-    .label-activated {
-      color: lighten($dark-font, 20%);
-      font-size: 1.4rem;
+      border-radius: 8px;
+      &:hover {
+        height: 100%;
+
+        &:after {
+          width: 100%;
+          background-color: $red-dark;
+        }
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        width: 1.4rem;
+        height: 0.2rem;
+        background-color: $orange;
+        position: absolute;
+        left: 0;
+        bottom: 0.4rem;
+        transition: all 0.5s ease;
+      }
+
+      &-activated {
+        color: darken($orange, 20%);
+        @include flex-display($direction: row);
+
+        position: relative;
+
+        &:hover {
+          &:after {
+            width: 100%;
+            background-color: $red-dark;
+          }
+        }
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          background-color: $red-dark;
+          width: 1.4rem;
+          height: 0.2rem;
+          bottom: 0.4rem;
+          left: 0;
+          transition: all 0.5s ease;
+        }
+      }
     }
   }
 }

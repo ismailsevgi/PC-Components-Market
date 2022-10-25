@@ -23,22 +23,78 @@ export const firebaseApi = createApi({
   tagTypes: ['products'],
   endpoints: (builder) => ({
     getProducts: builder.query({
-      async queryFn(id) {
-        console.log('Yeniden Fetch Edildi!!!');
-        try {
-          const q = query(productsCollection, where('productOwner', '==', id));
-          const querySnapshot = await getDocs(q);
-          let productsData = [];
+      //type:"userDashboard" payload:userId
 
-          querySnapshot?.forEach((doc) => {
-            productsData.push({
-              id: doc.id,
-              ...doc.data(),
-            });
-          });
-          return { data: productsData };
-        } catch (error) {
-          return { data: error };
+      //type:"filter" payload: label
+      async queryFn({ type, label }) {
+        if (type === 'userProducts') {
+          //if there is an userid then query fetch user's products
+          if (label) {
+            console.log('type user..., label... ', label);
+            try {
+              const q = query(
+                productsCollection,
+                where('productOwner', '==', label)
+              );
+              const querySnapshot = await getDocs(q);
+              let productsData = [];
+
+              querySnapshot?.forEach((doc) => {
+                productsData.push({
+                  id: doc.id,
+                  ...doc.data(),
+                });
+              });
+              return { data: productsData };
+            } catch (error) {
+              return { data: error };
+            }
+          }
+        }
+
+        if (type === 'filtering') {
+          console.log('Label:, ', label);
+
+          if (label === 'all') {
+            try {
+              const querySnapshot = await getDocs(productsCollection);
+
+              let productsData = [];
+
+              querySnapshot?.forEach((doc) => {
+                productsData.push({
+                  id: doc.id,
+                  ...doc.data(),
+                });
+              });
+              console.log('hepsi çekildi...', productsData);
+              return { data: productsData };
+            } catch (error) {
+              return { data: error };
+            }
+          } else {
+            let filterQuery = query(
+              productsCollection,
+              where('tag', '==', label)
+            );
+
+            try {
+              const querySnapshot = await getDocs(filterQuery);
+
+              let productsData = [];
+
+              querySnapshot?.forEach((doc) => {
+                productsData.push({
+                  id: doc.id,
+                  ...doc.data(),
+                });
+              });
+              console.log('filterlandı...', productsData);
+              return { data: productsData };
+            } catch (error) {
+              return { data: error };
+            }
+          }
         }
       },
       transformResponse: (res) => res.sort((a, b) => b.id - a.id),
@@ -83,11 +139,15 @@ export const firebaseApi = createApi({
       invalidatesTags: ['products'],
     }),
     addProduct: builder.mutation({
-      async queryFn(obj) {
-        console.log('Product Ekleme Başladı! eklenecek nesne: ', obj);
+      async queryFn({ values, productType }) {
+        console.log('Product Ekleme Başladı! eklenecek nesne: ', {
+          values,
+          productType,
+        });
         try {
           await addDoc(productsCollection, {
-            ...obj,
+            ...values,
+            tag: productType,
           });
           return { data: 'ok' };
         } catch (error) {
@@ -95,6 +155,18 @@ export const firebaseApi = createApi({
         }
       },
       invalidatesTags: ['products'],
+    }),
+    getProduct: builder.query({
+      //singleFetch
+      async queryFn(id) {
+        try {
+          let productQuery = doc(productsCollection, id);
+          let product = await getDoc(productQuery);
+          return { data: product.data() };
+        } catch (error) {
+          return { data: error };
+        }
+      },
     }),
   }),
 });
@@ -104,4 +176,5 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useAddProductMutation,
+  useGetProductQuery,
 } = firebaseApi;

@@ -1,13 +1,14 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import productListReducer from './productListSlice';
+
 import basketSliceReducer from './basketSlice';
 import userSliceReducer from './userSlice';
 import { firebaseApi } from './firebaseApi';
+import filterSliceReducer from './filterSlice';
 
 const store = configureStore({
   reducer: {
     [firebaseApi.reducerPath]: firebaseApi.reducer,
-    products: productListReducer,
+    filter: filterSliceReducer,
     basket: basketSliceReducer,
     user: userSliceReducer,
   },
