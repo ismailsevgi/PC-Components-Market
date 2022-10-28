@@ -15,12 +15,12 @@ const Card = React.memo(({ id, title, img, price, tag, stock }) => {
     <div key={id} className='productListItem'>
       <Link to={`/productDetails/` + id}>
         <div className='imageContainer'>
-          <FavoriteBadge />
+          <FavoriteBadge top={10} right={10} fontSize={'2rem'} />
           <img className='productListItem-img' src={img || <Skeleton />} />
         </div>
 
         <h3 className='productListItem-title'>
-          {title}
+          {title.slice(0, 30)}
 
           <br></br>
           <span>${price}</span>

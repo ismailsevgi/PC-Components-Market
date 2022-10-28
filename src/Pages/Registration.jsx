@@ -3,15 +3,20 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
-import app from '../DataBASE/firebase';
-import { REGIST_USER, LOGIN_USER } from '../Features/userSlice';
+import app, { usersRef } from '../DataBASE/firebase';
+import { LOGIN_USER } from '../Features/userSlice';
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import LoadingPage from '../Components/SubComponents/LoadingPage';
+
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import HintMark from '../Components/SubComponents/HintMark';
+import { toast } from 'react-toastify';
+import { addDoc, serverTimestamp } from 'firebase/firestore';
 
 function Registration() {
   const dispatch = useDispatch();
@@ -20,6 +25,7 @@ function Registration() {
   const [formState, setFormState] = useState('login');
   const auth = getAuth(app);
   const formRef = useRef();
+  const formRefRegist = useRef();
   const googleAuthProvider = new GoogleAuthProvider();
 
   const handleForm = (e) => {
@@ -30,8 +36,6 @@ function Registration() {
         return 'regist';
       }
     });
-
-    console.log('Current Form: ', formState);
   };
 
   const submitForm = async (e) => {
@@ -39,33 +43,89 @@ function Registration() {
 
     if (formState === 'regist') {
       if (
-        formRef.current.password.value ===
-          formRef.current.passwordConfirm.value &&
-        formRef.current.password.value.length > 5
+        formRefRegist.current.password.value ===
+          formRefRegist.current.passwordConfirm.value &&
+        formRefRegist.current.password.value.length > 5
       ) {
-        dispatch(
-          REGIST_USER({
-            firstName: formRef.current.firstName.value,
-            lastName: formRef.current.lastName.value,
-
-            email: formRef.current.email.value,
-            password: formRef.current.password.value,
-          })
+        console.log(
+          `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value} ${formRefRegist.current.email.value}
+          ${formRefRegist.current.password.value}
+          ${formRefRegist.current.passwordConfirm.value}`
         );
-        navigate('/store');
+
+        createUserWithEmailAndPassword(
+          auth,
+          formRefRegist.current.email.value,
+          formRefRegist.current.password.value
+        )
+          .then((cred) => {
+            toast.success('Kayıt Başarılı');
+
+            updateProfile(cred.user, {
+              displayName: `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value}`,
+            }).then(() => {
+              try {
+                //adds a user's private doc inside "users" collection
+                addDoc(usersRef, {
+                  id: cred.user.uid,
+                  birth: '',
+                  gender: '',
+                  createdAt: serverTimestamp(),
+
+                  userBasket: [],
+                  userFavorites: [],
+                })
+                  .then(() => {
+                    toast.success('Profile has created');
+                    navigate('/loading');
+                  })
+                  .catch((error) => {
+                    toast.error(
+                      'Profile Dosyası oluşturulamadı: ',
+                      error.massege
+                    );
+                  });
+              } catch (err) {
+                console.log('Something went wrong: ', err);
+                toast.error('Something went wrong: ', err);
+              }
+            });
+          })
+          .catch((err) =>
+            toast.error('Kayıt sırasında bir hata oldu: ', err.message)
+          );
+
+        // navigate('/store');
       } else {
-        alert('Şifreler aynı değil');
+        toast.error('Şifreler aynı değil');
       }
     }
 
     if (formState === 'login') {
-      dispatch(
-        LOGIN_USER({
-          email: formRef.current.email.value,
-          password: formRef.current.password.value,
+      signInWithEmailAndPassword(
+        auth,
+        formRef.current.email.value,
+        formRef.current.password.value
+      )
+        .then((cred) => {
+          console.log('Giriş Başarılı ', cred.user);
+
+          //burada users collection dan user'ın dökümanı çekilip redux a kayıt edilecek
+
+          dispatch(
+            LOGIN_USER({
+              userId: cred.user.uid,
+
+              email: formRef.current.email.value,
+            })
+          );
         })
-      );
-      navigate('/store');
+        .then(() => {
+          navigate('/loading');
+        })
+        .catch((err) =>
+          toast.error('Giriş sırasında bir hata oldu: ', JSON.stringify(err))
+        );
     }
   };
 
@@ -148,7 +208,7 @@ function Registration() {
         </form>
       ) : (
         <form
-          ref={formRef}
+          ref={formRefRegist}
           className=' registration-form'
           onSubmit={submitForm}
         >

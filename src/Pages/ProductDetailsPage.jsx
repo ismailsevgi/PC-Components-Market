@@ -1,65 +1,71 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+
 import { useParams } from 'react-router-dom';
 import CommentsCreator from '../Components/ProductDetailsComponents/CommentsCreator';
 import ProductDetailsCreator from '../Components/ProductDetailsComponents/ProductDetailsCreator';
 import ImageListCreator from '../Components/ProductDetailsComponents/ImageListCreator';
 import axios from 'axios';
+import { useGetProductQuery } from '../Features/firebaseApi';
+import { toast } from 'react-toastify';
+import Spinner from '../Components/SubComponents/Spinner';
+import CardButton from '../Components/SubComponents/CardButton';
+import { FavoriteBadge } from '../Components/SubComponents/Badges';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_BASKET } from '../Features/basketSlice';
 
-//Note: Getting products from the redux but not api.
-//Requesting item before loding product page will result nothing
-//FIREBASE FOR FETCHING
+//favBadge takes solid prop as true if user has added it into his fav product!
 
 function ProductDetailsPage() {
+  const dispatch = useDispatch();
+  const params = useParams();
+  console.log('params: ', params.id);
+  const { isFetching, isError, isSuccess, data, error } = useGetProductQuery(
+    params.id
+  );
+
   //useState ile resim değiştirilecek
-  const [changeImg, setChangeImg] = useState(1);
-  const [product, setProduct] = useState(null);
+  const [changeImg, setChangeImg] = useState('1');
+
   const [images, setImages] = useState([]);
   //Params gets the id from the URL
 
-  const params = useParams();
+  useEffect(() => {
+    isError && toast.error(error);
+  }, [isError]);
 
   useEffect(() => {
-    if (product) {
-      console.log('product: ', product);
-      setImages([...Object.entries(product.images)]);
+    console.log('isFetching: ', isFetching);
+    if (data) {
+      setImages([...data.images]);
+      setChangeImg(data.images[0]);
       console.log('images: ', images);
     }
-
-    if (!product) {
-      axios
-        .get(
-          'https://63342f3090a73d0fede8ebdd.mockapi.io/computerProducts/products/' +
-            params.id
-        )
-        .then((response) => {
-          setProduct(response.data);
-        });
-    }
-  }, [product]);
+  }, [data, isFetching]);
 
   function handleChange(changeImg) {
-    let image = images.find((arr) => arr[0] == changeImg);
-
-    return image[1];
+    //if data comes and set images array with url's
+    if (images) {
+      return changeImg;
+    }
   }
 
-  return product ? (
+  return !isFetching ? (
     <div className='ProductDetailsPage'>
       <div className='container'>
         <div className='leftCol'>
           <div className='allProductImagesContainer'>
             <div className='imageContainer'>
-              {changeImg === 1 && product != null ? (
-                <img src={product.img} />
+              {isFetching ? (
+                <Spinner />
               ) : (
-                <img src={handleChange(changeImg)} />
+                //
+                <img src={handleChange(changeImg)} alt='Product Image' />
               )}
             </div>
 
             {images.length > 0 && (
               <ImageListCreator
-                imageListArray={product.images}
+                imageListArray={data.images}
                 setChangeImg={setChangeImg}
               />
             )}
@@ -68,45 +74,48 @@ function ProductDetailsPage() {
         </div>
         <div className='rightCol'>
           <div className='titleDiv'>
-            <h1 className='titleDiv-title'>{product && product.title}</h1>
-            <span className='titleDiv-brand'>"Brand: MSI //search" </span>
+            <h1 className='titleDiv-title'>{data && data.title}</h1>
+            <span className='titleDiv-brand'>Brand: {data.brand}</span>
             <div className='titleDiv-price'>
-              {product.saleRate > 0 ? (
+              {data.saleRate > 0 ? (
                 <div className='oldPrice'>
                   <div className='topFont'>
                     <span className='sale'>
-                      {product.price}
+                      {data.price}
                       <span className='dolarSign'>$</span>
                     </span>
-                    <span>{product.saleRate}%</span>
+                    <span>{data.saleRate}%</span>
                   </div>
 
-                  <h1>{product.price - (product.price / 100) * 20}$</h1>
+                  <h1>{data.price - (data.price / 100) * 20}$</h1>
                 </div>
               ) : (
-                <h1>{product.price}</h1>
+                <h1>{data.price}</h1>
               )}
               <div className='titleDiv-price-buttons'>
-                FAV | ADDLIST | ADDBASKET
+                <button className='favoriteContainer'>
+                  <FavoriteBadge solid={true} fontSize='2.4rem' />
+                </button>
+                <CardButton id={params.id} />
               </div>
             </div>
             <hr></hr>
             <div className='titleDiv-reviews'>
               <span>Stars 5</span>
-              <span> 203 ratings</span>
+              <span>203 ratings</span>
             </div>
           </div>
           <hr></hr>
           <div className='productDetails'>
-            {product && <ProductDetailsCreator details={product.specs} />}
+            {data && <ProductDetailsCreator details={data.specs} />}
           </div>
           <hr></hr>
         </div>
-        {product && <CommentsCreator />}
+        {data && <CommentsCreator />}
       </div>
     </div>
   ) : (
-    <div>Going to be fetch specifically</div>
+    <Spinner />
   );
 }
 

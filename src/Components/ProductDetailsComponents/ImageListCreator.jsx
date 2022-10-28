@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function ImageListCreator({ imageListArray, setChangeImg }) {
-  const imagesArray = Object.entries(imageListArray);
+  //imageListArray: tüm url stringlerini içeren bir liste
 
   return (
     <div className='imagesMasonary'>
-      {imagesArray.map((arr, index) => (
+      {imageListArray?.map((url, index) => (
         <div key={index} className='imageBox'>
           <img
-            src={arr[1]}
+            src={url}
             onMouseEnter={() => {
-              setChangeImg(arr[0]);
+              setChangeImg(url);
             }}
           />
         </div>

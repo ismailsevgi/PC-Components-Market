@@ -5,9 +5,17 @@ import UpdateProductForm from '../Components/DashboardComponents/UpdateProductFo
 import anonImg from '../Images/profile.webp';
 
 //FIREBASE
-import { query, onSnapshot, where, collection } from 'firebase/firestore';
+import {
+  query,
+  onSnapshot,
+  where,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+} from 'firebase/firestore';
 
-import app, { productsRef, dataBase } from '../DataBASE/firebase';
+import app, { productsRef, dataBase, usersRef } from '../DataBASE/firebase';
 import { useDispatch } from 'react-redux';
 import { SET_USER_PRODUCTS } from '../Features/userSlice';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -55,12 +63,17 @@ function Dashboard() {
       }
     });
     unsub();
-  }, []);
 
-  //-getuserproducts!
-  //-updateUserProduct! , realtime
-  //-deleteUserProduct!
-  //-addUserProduct Form with many Images!
+    if (userId) {
+      console.log('Id: ', userId);
+      const userQuery = query(usersRef, where('id', '==', userId));
+      getDocs(userQuery).then((userData) => {
+        userData.forEach((doc) => {
+          console.log(doc.id, ' => ', doc.data());
+        });
+      });
+    }
+  }, [userId]);
 
   //firebaseBranch
   const {
@@ -95,7 +108,7 @@ function Dashboard() {
             <div className='profileCol-imageContainer'>
               <img src={anonImg} />
             </div>
-            <h2>İsmail Sevgi</h2>
+            <h2>{'İsmail Sevgi'}</h2>
             <div className='profileCol-userDetails'>
               <table>
                 <thead>

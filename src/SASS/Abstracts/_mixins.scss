@@ -4,3 +4,36 @@
   justify-content: $space;
   align-items: $align;
 }
+
+//badge mixin
+@mixin badge(
+  $width,
+  $height,
+  $font-size,
+  $top,
+  $left,
+  $border-radius,
+  $borderColor
+) {
+  position: relative;
+  z-index: 10;
+
+  border-radius: $border-radius;
+  font-size: $font-size;
+
+  border: 1px solid $borderColor;
+  width: $width;
+  height: $height;
+
+  text-decoration: none;
+  top: $top;
+  left: $left;
+
+  p {
+    margin-bottom: 0;
+    border: none;
+    color: $white-font;
+    text-decoration: none;
+    background-color: transparent;
+  }
+}

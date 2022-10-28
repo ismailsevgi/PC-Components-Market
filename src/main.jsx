@@ -11,6 +11,7 @@ import {
   faRightFromBracket,
   faQuestion,
   faUpload,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 
 import 'react-toastify/dist/ReactToastify.css';

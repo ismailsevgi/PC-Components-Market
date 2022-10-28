@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 function ProductList() {
   let label = useSelector((state) => state.filter.label);
-  console.log('Current Label: ', label);
+
   const {
     isError,
 
@@ -20,7 +20,6 @@ function ProductList() {
   } = useGetProductsQuery({ type: 'filtering', label: label });
 
   useEffect(() => {
-    console.log('productList: ', productList);
     isError && toast.error('Something went wrong: ', error);
   }, [isError, isSuccess]);
 

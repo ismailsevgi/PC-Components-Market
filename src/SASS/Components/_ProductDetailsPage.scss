@@ -101,7 +101,21 @@
           &-buttons {
             width: 50%;
             height: 100%;
-            border: 1px solid peru;
+
+            @include flex-display($space: space-evenly);
+            .favoriteContainer {
+              //favori badge container
+              border-radius: 8px;
+              @include flex-display();
+              background-color: transparent;
+              width: 150px;
+              height: 50px;
+              border: 1px solid transparent;
+            }
+            .cardButton {
+              width: 10rem;
+              height: 4rem;
+            }
           }
         }
       }

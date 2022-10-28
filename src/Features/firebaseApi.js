@@ -11,9 +11,11 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 import {
   productsRef as productsCollection,
+  usersRef as usersCollection,
   dataBase,
 } from '../DataBASE/firebase';
 
@@ -30,7 +32,6 @@ export const firebaseApi = createApi({
         if (type === 'userProducts') {
           //if there is an userid then query fetch user's products
           if (label) {
-            console.log('type user..., label... ', label);
             try {
               const q = query(
                 productsCollection,
@@ -53,8 +54,6 @@ export const firebaseApi = createApi({
         }
 
         if (type === 'filtering') {
-          console.log('Label:, ', label);
-
           if (label === 'all') {
             try {
               const querySnapshot = await getDocs(productsCollection);
@@ -67,7 +66,7 @@ export const firebaseApi = createApi({
                   ...doc.data(),
                 });
               });
-              console.log('hepsi çekildi...', productsData);
+
               return { data: productsData };
             } catch (error) {
               return { data: error };
@@ -89,7 +88,7 @@ export const firebaseApi = createApi({
                   ...doc.data(),
                 });
               });
-              console.log('filterlandı...', productsData);
+
               return { data: productsData };
             } catch (error) {
               return { data: error };
@@ -110,11 +109,11 @@ export const firebaseApi = createApi({
             ...formData,
             timestamp: serverTimestamp(),
           }).then(() => {
-            console.log('update başarılı!');
+            toast.success('Update Başarılı');
           });
           return { data: 'ok' };
         } catch (error) {
-          console.log('Data Update Edilemedi, ', error);
+          toast.error('Something went wrong: ', error);
           return { data: error };
         }
       },
@@ -123,12 +122,11 @@ export const firebaseApi = createApi({
     }),
     deleteProduct: builder.mutation({
       async queryFn(id) {
-        console.log('Delete e gelen ID', id);
         try {
           const docRef = doc(productsCollection, id);
 
           await deleteDoc(docRef, id).then(() => {
-            console.log('product deleted!');
+            toast.success('Product Deleted!');
           });
           return { data: 'ok' };
         } catch (error) {
@@ -140,10 +138,6 @@ export const firebaseApi = createApi({
     }),
     addProduct: builder.mutation({
       async queryFn({ values, productType }) {
-        console.log('Product Ekleme Başladı! eklenecek nesne: ', {
-          values,
-          productType,
-        });
         try {
           await addDoc(productsCollection, {
             ...values,

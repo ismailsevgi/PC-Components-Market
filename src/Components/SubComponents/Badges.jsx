@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MDBIcon } from 'mdb-react-ui-kit';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -18,15 +20,35 @@ function BasketBadge() {
 
 //Favorite Badge
 
-function FavoriteBadge() {
-  const element = <i className='fa-solid fa-heart'></i>;
-  return (
-    <div className='badge'>
-      <div className='saleBadge'>
-        <i className='fa-regular fa-heart'></i>
+function FavoriteBadge({
+  top = 0,
+  right = 0,
+  fontSize = '1rem',
+  solid = false,
+}) {
+  //if props gives some value that means badge has to be a position property with top and high values.
+  //if badge
+  if (top && right) {
+    return (
+      <div
+        className='favBadge'
+        style={{
+          position: 'absolute',
+          top: top,
+          right: right,
+          fontSize: fontSize,
+        }}
+      >
+        {solid ? <MDBIcon fas icon='heart' /> : <MDBIcon far icon='heart' />}
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className='favBadge' style={{ fontSize: fontSize }}>
+        {solid ? <MDBIcon fas icon='heart' /> : <MDBIcon far icon='heart' />}
+      </div>
+    );
+  }
 }
 
 export { BasketBadge, FavoriteBadge };

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ADD_TO_BASKET } from '../../Features/basketSlice';
 import React, { useEffect } from 'react';
 import { useGetProductQuery } from '../../Features/firebaseApi';
-const CardButton = React.memo(({ id }) => {
+const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
   let basketList = useSelector((state) => {
     return state.basket.basketItems;
   });
@@ -46,7 +46,12 @@ const CardButton = React.memo(({ id }) => {
   };
 
   return (
-    <button key={id} className='cardButton' onClick={() => handleClick(id)}>
+    <button
+      key={id}
+      className='cardButton'
+      onClick={() => handleClick(id)}
+      style={{ width: width, height: height }}
+    >
       ADD
     </button>
   );

@@ -47,7 +47,7 @@ function BasketList() {
                 <CheckButton id={item.id} />
 
                 <div className='basketItem-Left-Img'>
-                  <img src={item.img} />
+                  <img src={item.images[0]} />
                 </div>
                 <div className='basketItem-Left-Body'>
                   <div className='Body-Title'>
