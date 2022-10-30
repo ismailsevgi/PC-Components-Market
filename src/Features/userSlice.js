@@ -30,7 +30,7 @@ let initialState = {
   userStatus: false,
   profileImageURL: '',
   email: '',
-
+  userProducts: [],
   userBasket: [],
   userFavorites: [],
 };
@@ -66,6 +66,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    SET_USER: (state, { type, payload }) => {
+      console.log('Set User payload.userFavorites', payload.userFavorites);
+      state.userFavorites = payload.userFavorites;
+    },
     LOGIN_USER: (state, { type, payload }) => {
       const { email } = payload;
 
@@ -77,6 +81,11 @@ const userSlice = createSlice({
         ...state,
         userProducts: payload,
       };
+    },
+    HANDLE_USER_FAVORITES: (state, { type, payload }) => {
+      //type add ise gelen payload'ı listeye ekle,
+      //type remove ise gelen payload'ı sil
+      console.log(type, payload);
     },
   },
   extraReducers: (builder) => {
@@ -94,4 +103,9 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { LOGIN_USER, SET_USER_PRODUCTS } = userSlice.actions;
+export const {
+  SET_USER,
+  LOGIN_USER,
+  SET_USER_PRODUCTS,
+  HANDLE_USER_FAVORITES,
+} = userSlice.actions;

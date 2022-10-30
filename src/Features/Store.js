@@ -12,6 +12,7 @@ const store = configureStore({
     basket: basketSliceReducer,
     user: userSliceReducer,
   },
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(
       firebaseApi.middleware

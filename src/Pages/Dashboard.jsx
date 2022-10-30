@@ -16,7 +16,7 @@ import {
 } from 'firebase/firestore';
 
 import app, { productsRef, dataBase, usersRef } from '../DataBASE/firebase';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SET_USER_PRODUCTS } from '../Features/userSlice';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
@@ -38,12 +38,16 @@ import { Link } from 'react-router-dom';
 //bu sayfa lazyload yapılacak
 
 function Dashboard() {
+  //spinner control burada olacak
+  //true tablodaki loading bittiği anda buradaki spinner state i false
+
+  let userId = useSelector((state) => state.user.userId);
+
   //STATES
-  let [userId, setUserId] = useState('');
 
   const [formState, setFormState] = useState({
     productTitle: '',
-    productHaggle: false,
+
     productStock: 0,
     productOgPrice: 0,
     productSaleRate: 0,
@@ -52,28 +56,6 @@ function Dashboard() {
   //DECLARATIONS
   const modalRef = useRef();
   const dispatch = useDispatch();
-  const auth = getAuth();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserId(() => {
-          return user.uid;
-        });
-      }
-    });
-    unsub();
-
-    if (userId) {
-      console.log('Id: ', userId);
-      const userQuery = query(usersRef, where('id', '==', userId));
-      getDocs(userQuery).then((userData) => {
-        userData.forEach((doc) => {
-          console.log(doc.id, ' => ', doc.data());
-        });
-      });
-    }
-  }, [userId]);
 
   //firebaseBranch
   const {
@@ -87,7 +69,7 @@ function Dashboard() {
 
   useState(() => {
     isError && toast.error(error);
-  }, [isError]);
+  }, [isError, userId]);
 
   // let allUsersProducts = useSelector((state) => state.user.userProducts);
 

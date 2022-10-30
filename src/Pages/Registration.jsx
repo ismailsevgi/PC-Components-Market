@@ -68,6 +68,7 @@ function Registration() {
                 //adds a user's private doc inside "users" collection
                 addDoc(usersRef, {
                   id: cred.user.uid,
+                  userName: `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value}`,
                   birth: '',
                   gender: '',
                   createdAt: serverTimestamp(),
@@ -124,7 +125,7 @@ function Registration() {
           navigate('/loading');
         })
         .catch((err) =>
-          toast.error('Giriş sırasında bir hata oldu: ', JSON.stringify(err))
+          toast.error('Giriş sırasında bir hata oldu: ', err.message)
         );
     }
   };

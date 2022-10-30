@@ -10,15 +10,12 @@ import { toast } from 'react-toastify';
 import Spinner from '../Components/SubComponents/Spinner';
 import CardButton from '../Components/SubComponents/CardButton';
 import { FavoriteBadge } from '../Components/SubComponents/Badges';
-import { useDispatch } from 'react-redux';
-import { ADD_TO_BASKET } from '../Features/basketSlice';
 
 //favBadge takes solid prop as true if user has added it into his fav product!
 
 function ProductDetailsPage() {
-  const dispatch = useDispatch();
   const params = useParams();
-  console.log('params: ', params.id);
+
   const { isFetching, isError, isSuccess, data, error } = useGetProductQuery(
     params.id
   );
@@ -34,11 +31,9 @@ function ProductDetailsPage() {
   }, [isError]);
 
   useEffect(() => {
-    console.log('isFetching: ', isFetching);
     if (data) {
       setImages([...data.images]);
       setChangeImg(data.images[0]);
-      console.log('images: ', images);
     }
   }, [data, isFetching]);
 
@@ -94,7 +89,7 @@ function ProductDetailsPage() {
               )}
               <div className='titleDiv-price-buttons'>
                 <button className='favoriteContainer'>
-                  <FavoriteBadge solid={true} fontSize='2.4rem' />
+                  <FavoriteBadge fontSize='2.4rem' id={data.id} />
                 </button>
                 <CardButton id={params.id} />
               </div>

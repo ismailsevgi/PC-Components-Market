@@ -4,20 +4,49 @@ import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
 import { BasketBadge } from '../Components/SubComponents/Badges';
 import userImage from '../Images/profile.webp';
 
-import app from '../DataBASE/firebase';
+import app, { usersRef } from '../DataBASE/firebase';
 //import auth from '../DataBASE/firebase';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 //ICONs
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const auth = getAuth(app);
+import { toast } from 'react-toastify';
+import { SET_USER } from '../Features/userSlice';
+
+import { useGetUserQuery } from '../Features/firebaseApi';
 
 function Navbar() {
   const [userLog, setUserLog] = useState([false, '']);
   let email = useSelector((state) => state.user.email);
+  let [userId, setUserId] = useState(null);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const auth = getAuth();
+  const { isFetching, data, error, isError, isLoading } =
+    useGetUserQuery(userId);
+
+  //old version. //User comes from docs
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(() => {
+          return user.uid;
+        });
+      }
+    });
+    unsub();
+  }, [userId]);
+
+  useEffect(() => {
+    if (!isFetching) {
+      console.log('Data Başarı ile queryden çekildi:');
+      dispatch(SET_USER(data[0]));
+    }
+  }, [isFetching]);
 
   useEffect(() => {
     const unsubUserLog = onAuthStateChanged(auth, (user) => {
@@ -29,9 +58,7 @@ function Navbar() {
     });
     unsubUserLog();
   }, [email]);
-
-  //userId si ile kayıtlanmış olan userObjesi çekilir ve profil resmi alınır!
-  //Profil resmi yoksa anon resim kullanılır
+  //------------------------------
 
   return (
     <div className='container'>
