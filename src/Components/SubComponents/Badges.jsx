@@ -1,8 +1,9 @@
+import { faV } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getAuth } from 'firebase/auth';
 import { MDBIcon } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAddFavoritesMutation } from '../../Features/firebaseApi';
@@ -24,81 +25,43 @@ function BasketBadge() {
 
 //Favorite Badge
 
-function FavoriteBadge({ top = 0, right = 0, fontSize = '1rem', id }) {
+function FavoriteBadge({ fontSize = '1rem', id }) {
   const params = useParams();
   const [addFavorites] = useAddFavoritesMutation();
 
   const auth = getAuth();
   const [solid, setSolid] = useState(false);
   const favArr = useSelector((state) => state.user.userFavorites);
-  const [refetch, setRefetch] = useState(true);
 
   useEffect(() => {
-    if (favArr.includes(params.id || id)) {
+    if (favArr.includes(id)) {
       setSolid(true);
     } else {
       setSolid(false);
     }
-    console.log('Refetch: ', refetch);
-  }, [favArr, refetch]);
+  }, [favArr]);
 
-  if (top && right) {
-    return (
-      <div
-        className='favBadge'
-        style={{
-          position: 'absolute',
-          top: top,
-          right: right,
-          fontSize: fontSize,
-        }}
-      >
-        {solid ? (
-          <MDBIcon
-            fas
-            icon='heart'
-            onClick={() => {
-              setRefetch((refetch) => !refetch);
-              addFavorites({ id: auth.currentUser.uid, url: params.id });
-            }}
-          />
-        ) : (
-          <MDBIcon
-            far
-            icon='heart'
-            onClick={() => {
-              setRefetch((refetch) => !refetch);
-              addFavorites({ id: auth.currentUser.uid, url: params.id });
-            }}
-          />
-        )}
-      </div>
-    );
-  } else {
-    return (
-      <div className='favBadge' style={{ fontSize: fontSize }}>
-        {solid ? (
-          <MDBIcon
-            fas
-            icon='heart'
-            onClick={() => {
-              setRefetch((refetch) => !refetch);
-              addFavorites({ id: auth.currentUser.uid, url: params.id });
-            }}
-          />
-        ) : (
-          <MDBIcon
-            far
-            icon='heart'
-            onClick={() => {
-              setRefetch((refetch) => !refetch);
-              addFavorites({ id: auth.currentUser.uid, url: params.id });
-            }}
-          />
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className='favBadge' style={{ fontSize: fontSize }}>
+      {solid ? (
+        <MDBIcon
+          fas
+          icon='heart'
+          onClick={() => {
+            addFavorites({ id: auth.currentUser.uid, url: id });
+          }}
+        />
+      ) : (
+        <MDBIcon
+          far
+          icon='heart'
+          onClick={() => {
+            addFavorites({ id: auth.currentUser.uid, url: id });
+          }}
+        />
+      )}
+    </div>
+  );
 }
 
 export { BasketBadge, FavoriteBadge };

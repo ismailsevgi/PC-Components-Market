@@ -4,7 +4,6 @@ import { FavoriteBadge } from '../SubComponents/Badges';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useSelector } from 'react-redux';
 
 const Card = React.memo(({ id, title, img, price, tag, stock }) => {
   /*Link Note: <Link to={`/productDetails/id=` + id}> means saving id into the URL
@@ -12,11 +11,12 @@ const Card = React.memo(({ id, title, img, price, tag, stock }) => {
   */
   //Stock is for later arrangements
 
+  console.log("Card'a gelen id: ", id);
+
   return (
     <div key={id} className='productListItem'>
       <Link to={`/productDetails/` + id}>
         <div className='imageContainer'>
-          <FavoriteBadge top={10} right={10} fontSize={'2rem'} id={id} />
           <img className='productListItem-img' src={img || <Skeleton />} />
         </div>
 
@@ -27,8 +27,12 @@ const Card = React.memo(({ id, title, img, price, tag, stock }) => {
           <span>${price}</span>
         </h3>
       </Link>
-
-      <CardButton id={id} />
+      <div className='buttons'>
+        <CardButton id={id} />
+        <button className='favoriteContainer'>
+          <FavoriteBadge id={id} />
+        </button>
+      </div>
     </div>
   );
 });

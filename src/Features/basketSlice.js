@@ -39,7 +39,7 @@ const basketSlice = createSlice({
   reducers: {
     ADD_TO_BASKET: (state, action) => {
       //checks if there is an obj has the same id.
-      console.log('add to basket type: ', action.type);
+      console.log('action: ', action);
       const findObj = state.basketItems.find(
         (obj) => obj.id === action.payload.id
       );

@@ -67,8 +67,22 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     SET_USER: (state, { type, payload }) => {
-      console.log('Set User payload.userFavorites', payload.userFavorites);
+      // console.log('Set User payload', payload);
       state.userFavorites = payload.userFavorites;
+      if (type == 'remove') {
+        console.log('remove calisti', payload);
+        return {
+          ...state,
+          userFavorites: state.userFavorites.filter((str) => payload != str),
+        };
+      }
+      if (type == 'add') {
+        console.log('Add calisti', payload);
+        return {
+          ...state,
+          userFavorites: state.userFavorites.push(payload),
+        };
+      }
     },
     LOGIN_USER: (state, { type, payload }) => {
       const { email } = payload;
@@ -85,7 +99,6 @@ const userSlice = createSlice({
     HANDLE_USER_FAVORITES: (state, { type, payload }) => {
       //type add ise gelen payload'ı listeye ekle,
       //type remove ise gelen payload'ı sil
-      console.log(type, payload);
     },
   },
   extraReducers: (builder) => {

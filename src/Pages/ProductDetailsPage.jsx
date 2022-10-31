@@ -10,12 +10,13 @@ import { toast } from 'react-toastify';
 import Spinner from '../Components/SubComponents/Spinner';
 import CardButton from '../Components/SubComponents/CardButton';
 import { FavoriteBadge } from '../Components/SubComponents/Badges';
+import { useSelector } from 'react-redux';
 
 //favBadge takes solid prop as true if user has added it into his fav product!
 
 function ProductDetailsPage() {
   const params = useParams();
-
+  const userId = useSelector((state) => state.user.userId);
   const { isFetching, isError, isSuccess, data, error } = useGetProductQuery(
     params.id
   );
@@ -89,7 +90,7 @@ function ProductDetailsPage() {
               )}
               <div className='titleDiv-price-buttons'>
                 <button className='favoriteContainer'>
-                  <FavoriteBadge fontSize='2.4rem' id={data.id} />
+                  <FavoriteBadge fontSize='2.4rem' id={params.id} />
                 </button>
                 <CardButton id={params.id} />
               </div>

@@ -13,6 +13,8 @@ import {
   where,
 } from 'firebase/firestore';
 
+import { v4 } from 'uuid';
+
 import { toast } from 'react-toastify';
 
 import {
@@ -100,7 +102,7 @@ export const firebaseApi = createApi({
       },
       transformResponse: (res) => res.sort((a, b) => b.id - a.id),
 
-      providesTags: ['products'],
+      providesTags: ['products', 'users'],
     }),
     getUser: builder.query({
       //singleFetch
@@ -125,6 +127,19 @@ export const firebaseApi = createApi({
         }
       },
       providesTags: ['users', 'products'],
+    }),
+    getProduct: builder.query({
+      //singleFetch
+      async queryFn(id) {
+        try {
+          let productQuery = doc(productsCollection, id);
+          let product = await getDoc(productQuery);
+          return { data: product.data() };
+        } catch (error) {
+          return { data: error };
+        }
+      },
+      providesTags: ['products', 'users'],
     }),
     updateProduct: builder.mutation({
       async queryFn({ id, formData }) {
@@ -168,6 +183,13 @@ export const firebaseApi = createApi({
           await addDoc(productsCollection, {
             ...values,
             tag: productType,
+          }).then((docRef) => {
+            const documentRef = doc(productsCollection, docRef.id);
+            //await is a must: fetching has to wait for update!!!
+            updateDoc(documentRef, {
+              id: docRef.id,
+              timestamp: serverTimestamp(),
+            });
           });
           return { data: 'ok' };
         } catch (error) {
@@ -176,18 +198,7 @@ export const firebaseApi = createApi({
       },
       invalidatesTags: ['products'],
     }),
-    getProduct: builder.query({
-      //singleFetch
-      async queryFn(id) {
-        try {
-          let productQuery = doc(productsCollection, id);
-          let product = await getDoc(productQuery);
-          return { data: product.data() };
-        } catch (error) {
-          return { data: error };
-        }
-      },
-    }),
+
     addFavorites: builder.mutation({
       async queryFn({ id, url }) {
         try {
@@ -229,13 +240,24 @@ export const firebaseApi = createApi({
               return { data: 'false' };
             }
           });
+          return { data: 'ok' };
         } catch (error) {
           toast.error("Product couldn't add into favorites!, try again later.");
 
           return { data: error };
         }
       },
-      invalidatesTags: ['users', 'products'],
+      invalidatesTags: ['users'],
+    }),
+    //getBasketHere
+    //basket
+    setBasket: builder.mutation({
+      //Kullanıcının sahip olduğu listeyi burada güncellemek lazım.
+      //Gelen type'a göre işlemler yapılabilir
+      queryFn({ id, basketList }) {
+        console.log('setBasket: Gelen ID', id);
+        console.log('setBasket: Gelen BasketList', basketList);
+      },
     }),
   }),
 });
@@ -248,4 +270,5 @@ export const {
   useGetProductQuery,
   useAddFavoritesMutation,
   useGetUserQuery,
+  useSetBasketMutation,
 } = firebaseApi;
