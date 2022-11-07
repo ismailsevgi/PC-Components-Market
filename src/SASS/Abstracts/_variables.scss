@@ -1,17 +1,17 @@
 @import './subClasses';
 
 //card
-$card-height: 23rem;
-
+$card-height: 35rem;
 $border: 1px solid red;
 $transition: all 0.5s;
+$card-border: rgb(214, 214, 214);
 //colors
 
 $dark-font: #292c38;
 $white-font: #c8d6e5;
 
 $component-background: #c8d6e5;
-$background-color: #8395a7;
+$background-color: #a3b1be;
 
 $navbar-background: #292c38;
 
@@ -27,8 +27,8 @@ $blue-light: #54a0ff;
 $blue: #2e86de;
 $blue-dark: #341f97;
 
-$red-dark: #ee5253;
-$red-light: #ee5253;
+$red-dark: #d32525;
+$red-light: #f36a6a;
 
 $pink-light: #ff9ff3;
 $pink: #f368e0;

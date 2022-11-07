@@ -7,8 +7,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-import app, { usersRef } from '../DataBASE/firebase';
-import { LOGIN_USER } from '../Features/userSlice';
+import app, { usersRef as usersCollection } from '../DataBASE/firebase';
+
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,12 +16,19 @@ import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import HintMark from '../Components/SubComponents/HintMark';
 import { toast } from 'react-toastify';
-import { addDoc, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
+import { async } from '@firebase/util';
 
 function Registration() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userStatus = useSelector((state) => state.user.userStatus);
+
   const [formState, setFormState] = useState('login');
   const auth = getAuth(app);
   const formRef = useRef();
@@ -47,12 +54,6 @@ function Registration() {
           formRefRegist.current.passwordConfirm.value &&
         formRefRegist.current.password.value.length > 5
       ) {
-        console.log(
-          `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value} ${formRefRegist.current.email.value}
-          ${formRefRegist.current.password.value}
-          ${formRefRegist.current.passwordConfirm.value}`
-        );
-
         createUserWithEmailAndPassword(
           auth,
           formRefRegist.current.email.value,
@@ -61,39 +62,47 @@ function Registration() {
           .then((cred) => {
             toast.success('Kayıt Başarılı');
 
-            updateProfile(cred.user, {
-              displayName: `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value}`,
-            }).then(() => {
-              try {
-                //adds a user's private doc inside "users" collection
-                addDoc(usersRef, {
-                  id: cred.user.uid,
-                  userName: `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value}`,
-                  birth: '',
-                  gender: '',
-                  createdAt: serverTimestamp(),
+            try {
+              //adds a user's private doc inside "users" collection
+              addDoc(usersCollection, {
+                userName: `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value}`,
+                birth: '',
+                gender: '',
+                createdAt: serverTimestamp(),
 
-                  userBasket: [],
-                  userFavorites: [],
-                })
-                  .then(() => {
+                userBasket: [],
+                userFavorites: [],
+              })
+                .then((userRef) => {
+                  updateProfile(cred.user, {
+                    displayName: userRef.id,
+                  });
+
+                  const documentRef = doc(usersCollection, userRef.id);
+
+                  updateDoc(documentRef, {
+                    email: cred.user.email,
+                    ordersBasket: [],
+                    productRequests: [],
+                    userId: cred.user.uid,
+                    id: userRef.id,
+                  }).then(() => {
                     toast.success('Profile has created');
                     navigate('/loading');
-                  })
-                  .catch((error) => {
-                    toast.error(
-                      'Profile Dosyası oluşturulamadı: ',
-                      error.massege
-                    );
                   });
-              } catch (err) {
-                console.log('Something went wrong: ', err);
-                toast.error('Something went wrong: ', err);
-              }
-            });
+                })
+                .catch((error) => {
+                  toast.error(
+                    'Profile Dosyası oluşturulamadı: ',
+                    error.massege
+                  );
+                });
+            } catch (err) {
+              toast.error('Something went wrong: ', err);
+            }
           })
           .catch((err) =>
-            toast.error('Kayıt sırasında bir hata oldu: ', err.message)
+            toast.error('Something went wrong while registering', err.message)
           );
 
         // navigate('/store');
@@ -110,20 +119,10 @@ function Registration() {
       )
         .then((cred) => {
           console.log('Giriş Başarılı ', cred.user);
-
-          //burada users collection dan user'ın dökümanı çekilip redux a kayıt edilecek
-
-          dispatch(
-            LOGIN_USER({
-              userId: cred.user.uid,
-
-              email: formRef.current.email.value,
-            })
-          );
-        })
-        .then(() => {
           navigate('/loading');
+          //burada users collection dan user'ın dökümanı çekilip redux a kayıt edilecek
         })
+
         .catch((err) =>
           toast.error('Giriş sırasında bir hata oldu: ', err.message)
         );
@@ -132,19 +131,56 @@ function Registration() {
 
   function googleLog() {
     signInWithPopup(auth, googleAuthProvider)
-      .then((auth) => {
-        //direct to loading page
-        dispatch(
-          REGIST_USER({
-            email: auth.user.email,
-            userId: auth.user.uid,
-          })
-        );
-        navigate('/loading');
-        console.log('auth?', auth);
+      .then(async (userCred) => {
+        console.log('Google log..:', userCred);
+        let userDoc = doc(usersCollection, userCred.user.displayName);
+        let userObj = await getDoc(userDoc);
+        if (userObj.data()) {
+          toast.success('Logged In Successfully');
+          navigate('/loading');
+        } else {
+          console.log('There is no userObj, created a new one...');
+          try {
+            addDoc(usersCollection, {
+              userId: userCred.user.uid,
+              userName: userCred.user.displayName,
+              birth: '',
+              gender: '',
+              createdAt: serverTimestamp(),
+              email: userCred.user.email,
+              userBasket: [],
+              userFavorites: [],
+              productRequests: [],
+              basketOrders: [],
+            })
+              .then((userRef) => {
+                updateProfile(userCred.user, {
+                  displayName: userRef.id,
+                });
+
+                const documentRef = doc(usersCollection, userRef.id);
+                updateDoc(documentRef, {
+                  id: userRef.id,
+                }).then(() => {
+                  toast.success('Profile has created');
+                  navigate('/loading');
+                });
+              })
+              .catch((error) => {
+                toast.error('Profile Dosyası oluşturulamadı: ', error.massege);
+              });
+          } catch (error) {
+            toast.error(
+              "User document couldn't have been created: ",
+              error.massege
+            );
+          }
+        }
+
+        //getDoc işler eğer userDoc zaten varsa
       })
       .catch((err) => {
-        console.log('Something went wrong: ', err.massege);
+        toast.error('Something went wrong: ', err, err.massege);
       });
   }
 

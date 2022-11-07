@@ -1,11 +1,16 @@
 .filterBar {
   position: relative;
-  border: 1px solid black;
+
+  border-top: 1px solid $yellow;
+  border-bottom: 1px solid $yellow;
   height: 5rem;
   width: 100%;
   margin-left: auto;
+  background-color: $navbar-background;
+  color: $white-font;
   @include flex-display($space: flex-start);
   .radios {
+    background-color: transparent;
     position: absolute;
     top: 0;
     left: 0;
@@ -26,12 +31,15 @@
     width: 100%;
     letter-spacing: 1px;
     font-family: $primary-font;
+    background-color: transparent;
 
     h3 {
+      background-color: inherit;
       font-size: 1.8rem;
     }
 
     .label {
+      background-color: inherit;
       cursor: pointer;
       height: 100%;
       position: relative;
@@ -48,6 +56,7 @@
       }
 
       &:after {
+        background-color: inherit;
         content: '';
         display: block;
         width: 1.4rem;
@@ -60,6 +69,7 @@
       }
 
       &-activated {
+        background-color: inherit;
         color: darken($orange, 20%);
         @include flex-display($direction: row);
 
@@ -83,6 +93,10 @@
           transition: all 0.5s ease;
         }
       }
+    }
+
+    span {
+      background-color: inherit;
     }
   }
 }

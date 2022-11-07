@@ -1,63 +1,19 @@
 import React, { useState, useEffect } from 'react';
-
-import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BasketBadge } from '../Components/SubComponents/Badges';
 import userImage from '../Images/profile.webp';
 
-import app, { usersRef } from '../DataBASE/firebase';
 //import auth from '../DataBASE/firebase';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { useSelector, useDispatch } from 'react-redux';
+import { getAuth, signOut } from 'firebase/auth';
 
 //ICONs
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { toast } from 'react-toastify';
-import { SET_USER } from '../Features/userSlice';
-
-import { useGetUserQuery } from '../Features/firebaseApi';
-
-function Navbar() {
-  const [userLog, setUserLog] = useState([false, '']);
-  let email = useSelector((state) => state.user.email);
-  let [userId, setUserId] = useState(null);
-
+function Navbar({ userDetails }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const auth = getAuth();
-  const { isFetching, data, error, isError, isLoading } =
-    useGetUserQuery(userId);
+  const location = useLocation();
 
-  //old version. //User comes from docs
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserId(() => {
-          return user.uid;
-        });
-      }
-    });
-    unsub();
-  }, [userId]);
-
-  useEffect(() => {
-    if (!isFetching) {
-      console.log('Data Başarı ile queryden çekildi:');
-      dispatch(SET_USER(data[0]));
-    }
-  }, [isFetching]);
-
-  useEffect(() => {
-    const unsubUserLog = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserLog([true, user.displayName]);
-      } else {
-        setUserLog([false, '']);
-      }
-    });
-    unsubUserLog();
-  }, [email]);
   //------------------------------
 
   return (
@@ -65,24 +21,43 @@ function Navbar() {
       <div className='navbar navbar-expand-lg'>
         <div className='navigation collapse navbar-collapse'>
           <div className='navigation-links pl-1'>
-            <div className='navigation-logo pl-2'>R.S.</div>
-            <Link to='/store'>Store</Link>
-            <Link to='/sellers'>Sellers</Link>
+            <div className='navigation-logo pl-2'>
+              <span>Computer</span>
+              <span>P.S.</span>
+            </div>
+            <Link to='/store'>Products</Link>
+
             <Link to='/about'>About</Link>
-            <Link to='/dashboard'>Dashboard</Link>
-            <Link to='/contact'>Contact</Link>
+            {userDetails.userStatus && <Link to='/dashboard'>Dashboard</Link>}
           </div>
+
+          {location.pathname == '/store' && (
+            <div className='searchBar'>
+              <div className='inputField'>
+                <input className='searchInput' placeholder='Seach product' />
+
+                <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' />
+              </div>
+            </div>
+          )}
 
           <div className='loggers'>
             <div className='loggers-icons'>
               <div className='basketDiv'>
-                <Link to='/basket'>
-                  <BasketBadge />
-                  <i className='fa-solid fa-cart-shopping'></i>
-                </Link>
+                {userDetails.uid.length > 0 ? (
+                  <Link to={`/basket/${userDetails.uid}`}>
+                    <BasketBadge />
+                    <i className='fa-solid fa-cart-shopping'></i>
+                  </Link>
+                ) : (
+                  <Link to='/basket'>
+                    <BasketBadge />
+                    <i className='fa-solid fa-cart-shopping'></i>
+                  </Link>
+                )}
               </div>
             </div>
-            {!userLog[0] ? (
+            {userDetails.displayName == '' ? (
               <div className='loggers-buttons'>
                 <button
                   className='btn btn-light loggers-buttons-log'
@@ -111,7 +86,6 @@ function Navbar() {
                   <img src={userImage} />
                 </div>
                 <div className='userPanel'>
-                  <h2>{userLog[1]}</h2>
                   <button
                     className='logoutUser'
                     onClick={() => {

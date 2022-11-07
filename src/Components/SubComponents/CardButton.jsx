@@ -16,14 +16,13 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
     return state.basket.basketItems;
   });
 
+  let userId = localStorage.getItem('userId');
+
   const dispatch = useDispatch();
 
-  const [setBasket] = useSetBasketMutation();
   const { isError, isFetching, data, error } = useGetProductQuery(id);
-
-  useEffect(() => {
-    console.log('Data: ', data);
-  }, [isFetching]);
+  const [setBasket] = useSetBasketMutation();
+  useEffect(() => {}, [isFetching]);
 
   const handleClick = () => {
     //Find the item inside the basket
@@ -33,10 +32,18 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
 
     //If basket has the item
     if (checkFind) {
+      //type increase
       //Compare the quantity of product with the product in the basket
-      console.log('checkFind: ', checkFind);
+
       if (checkFind.quantity < data.stock) {
-        console.log('Selam ürün zaten var', data);
+        setBasket({
+          type: 'increase',
+          product: {
+            ...data,
+            quantity: 1,
+            check: true,
+          },
+        });
         dispatch(
           ADD_TO_BASKET({
             ...data,
@@ -51,6 +58,19 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
       }
     } else {
       console.log('Selam ürün ilk kez ekleniyor', data);
+      //type add
+      if (userId) {
+        setBasket({
+          id: userId,
+          type: 'add',
+          product: {
+            ...data,
+            quantity: 1,
+            check: true,
+          },
+        });
+      }
+
       dispatch(
         ADD_TO_BASKET({
           ...data,
@@ -59,7 +79,6 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
         })
       );
     }
-    setBasket({ id, basketList });
   };
 
   return (

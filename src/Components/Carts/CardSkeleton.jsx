@@ -4,9 +4,9 @@ import Skeleton from 'react-loading-skeleton';
 function CardSkeleton({ cards }) {
   return Array(cards)
     .fill(0)
-    .map((n) => {
+    .map((n, index) => {
       return (
-        <div className='card-skeleton'>
+        <div key={index} className='card-skeleton'>
           <div className='card-skeleton-box'>
             <Skeleton />
           </div>

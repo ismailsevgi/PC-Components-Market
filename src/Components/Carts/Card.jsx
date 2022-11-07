@@ -5,34 +5,49 @@ import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const Card = React.memo(({ id, title, img, price, tag, stock }) => {
+const Card = React.memo(({ id, title, img, price, tag, stock, saleRate }) => {
   /*Link Note: <Link to={`/productDetails/id=` + id}> means saving id into the URL
     Without "id=" is also useable but to clarification, I wanted to leave it.
   */
   //Stock is for later arrangements
 
-  console.log("Card'a gelen id: ", id);
-
   return (
     <div key={id} className='productListItem'>
-      <Link to={`/productDetails/` + id}>
-        <div className='imageContainer'>
-          <img className='productListItem-img' src={img || <Skeleton />} />
-        </div>
-
-        <h3 className='productListItem-title'>
-          {title.slice(0, 30)}
-
-          <br></br>
-          <span>${price}</span>
-        </h3>
-      </Link>
-      <div className='buttons'>
-        <CardButton id={id} />
-        <button className='favoriteContainer'>
+      <div className='imageContainer'>
+        <button className='favoriteDiv'>
           <FavoriteBadge id={id} />
         </button>
+        <Link to={`/productDetails/` + id}>
+          <img className='productListItem-img' src={img || <Skeleton />} />
+        </Link>
       </div>
+
+      <div className='productListItem-title'>
+        <div className='title'>
+          <span>{title.slice(0, 55)}</span>
+        </div>
+        {saleRate > 0 ? (
+          <div className='priceContainer'>
+            <div className='priceContainer-old'>
+              <div className='saleContainer'>
+                <span className='saleContainer-oldPrice'>{price}$</span>
+
+                <span className='saleContainer-rate'>{'%' + saleRate}</span>
+              </div>
+              <span className='currentPrice'>
+                {(price - (price / 100) * saleRate).toFixed(2)}$
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className='priceContainer'>
+            <span>{''}</span>
+            <span className='currentPrice'>{price.toFixed(2)}$</span>
+          </div>
+        )}
+      </div>
+
+      <CardButton id={id} />
     </div>
   );
 });

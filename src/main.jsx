@@ -12,12 +12,13 @@ import {
   faQuestion,
   faUpload,
   faHeart,
+  faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-library.add(faRightFromBracket, faQuestion, faUpload);
+library.add(faRightFromBracket, faQuestion, faUpload, faMagnifyingGlass);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

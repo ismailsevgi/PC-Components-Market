@@ -1,37 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addDoc } from 'firebase/firestore';
-import { usersRef } from '../DataBASE/firebase';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   basketItems: [],
 };
-
-export const getUserBasket = createAsyncThunk(
-  'BASKET/getUserBasket',
-  async () => {
-    //bu kısım ürünleri firebaseden alıp kayıt etmek için
-    const docRef = doc(usersRef, user.uid);
-    console.log('getUserBasket dispatch edildi!');
-    return new Promise((resolve, reject) => {
-      console.log('Promise Girildi');
-      getDoc(docRef)
-        .then((doc) => {
-          let data = doc.data();
-          console.log("BasketSlice'a gelen data: ", data);
-          resolve(data);
-        })
-        .catch((err) => {
-          alert('Dökümanlar alınamadı!');
-          reject(err.message);
-        });
-    });
-  }
-);
-
-//Local storage ile çözüm bul.
-
-//auth lazım böylece buradaki sepeti kullanıcının sepetinden alarak doldurabilirim
-//buradaki sepeti her zaman kullanıcının sepeti
 
 const basketSlice = createSlice({
   name: 'BASKET',
@@ -105,13 +76,6 @@ const basketSlice = createSlice({
     builder.addCase('BASKET/ADD_TO_BASKET', (state) => {
       state.error = action.error.message;
       state.userStatus = false;
-    });
-    builder.addCase(getUserBasket.fulfilled, (state, { type, payload }) => {
-      console.log(
-        'Basşarılı bir şekilde kullanıcının basketi alındı! gelen ürünler: ',
-        payload
-      );
-      state.basketItems = payload;
     });
   },
 });

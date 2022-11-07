@@ -1,12 +1,13 @@
-import { faV } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getAuth } from 'firebase/auth';
 import { MDBIcon } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useAddFavoritesMutation } from '../../Features/firebaseApi';
+import {
+  useAddFavoritesMutation,
+  useGetFavoritesQuery,
+} from '../../Features/firebaseApi';
 
 //Basket Item Counter
 function BasketBadge() {
@@ -28,21 +29,22 @@ function BasketBadge() {
 function FavoriteBadge({ fontSize = '1rem', id }) {
   const params = useParams();
   const [addFavorites] = useAddFavoritesMutation();
-
+  const { isFetching, isError, error, data } = useGetFavoritesQuery();
   const auth = getAuth();
   const [solid, setSolid] = useState(false);
-  const favArr = useSelector((state) => state.user.userFavorites);
 
   useEffect(() => {
-    if (favArr.includes(id)) {
+    if (data?.includes(id)) {
       setSolid(true);
     } else {
       setSolid(false);
     }
-  }, [favArr]);
+  }, [isFetching]);
 
+  //favori butonu buraya çek
+  //fetch true ise disable et
   return (
-    <div className='favBadge' style={{ fontSize: fontSize }}>
+    <button className='favoriteContainer' disabled={!isFetching}>
       {solid ? (
         <MDBIcon
           fas
@@ -60,7 +62,7 @@ function FavoriteBadge({ fontSize = '1rem', id }) {
           }}
         />
       )}
-    </div>
+    </button>
   );
 }
 

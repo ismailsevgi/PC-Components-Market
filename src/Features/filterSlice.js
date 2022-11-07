@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //dashboard da type: "user" olacak
 const initialState = {
   label: 'all',
+  placement: 'newest',
 };
 
 const filterSlice = createSlice({
@@ -13,11 +14,18 @@ const filterSlice = createSlice({
       console.log('Gelen type: ', type, ' payload: ', payload);
 
       return {
+        ...state,
         label: payload.label,
+      };
+    },
+    SET_PLACEMENT: (state, { type, payload }) => {
+      return {
+        ...state,
+        placement: payload,
       };
     },
   },
 });
 
 export default filterSlice.reducer;
-export const { SET_FILTER } = filterSlice.actions;
+export const { SET_FILTER, SET_PLACEMENT } = filterSlice.actions;

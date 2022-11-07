@@ -5,22 +5,33 @@ import {
   DECREASE_AMOUNT,
   INCREASE_AMOUNT,
 } from '../../Features/basketSlice';
+import { useSetBasketMutation } from '../../Features/firebaseApi';
 
-function BasketButton({ icon, handle, id }) {
+const BasketButton = React.memo(({ icon, handle, id }) => {
   const dispatch = useDispatch();
+  const [setBasket] = useSetBasketMutation();
+  const userId = localStorage.getItem('userId');
+  console.log('Basket Button rendered ');
 
   const myFunc = (handle) => {
     if (handle === 'handleSub') {
-      console.log('subbb, gönderilen id:', id);
-      dispatch(DECREASE_AMOUNT(id));
+      //If there is an user active in website, firebase functions will be executed
+      //otherwise offline basket will be used.
+      userId
+        ? setBasket({ type: 'decrease', productId: id })
+        : dispatch(DECREASE_AMOUNT(id));
     }
     if (handle === 'handleDelete') {
       console.log('dellll');
-      dispatch(REMOVE_FROM_BASKET(id));
+      userId
+        ? setBasket({ type: 'delete', productId: id })
+        : dispatch(REMOVE_FROM_BASKET(id));
     }
     if (handle === 'handleAdd') {
       console.log('addd');
-      dispatch(INCREASE_AMOUNT(id));
+      userId
+        ? setBasket({ type: 'increase', productId: id })
+        : dispatch(INCREASE_AMOUNT(id));
     }
   };
 
@@ -31,6 +42,6 @@ function BasketButton({ icon, handle, id }) {
       {icon === 'Del' && <i className='fa-solid fa-trash-can'></i>}
     </button>
   );
-}
+});
 
 export default BasketButton;

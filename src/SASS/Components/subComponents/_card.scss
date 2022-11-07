@@ -1,55 +1,107 @@
 .productListItem {
-  border: 1px solid rgb(214, 214, 214);
+  border: 1px solid $card-border;
   width: 100%;
   height: $card-height;
-  @include flex-display($direction: column, $space: none, $align: none);
+  @include flex-display($direction: column, $space: none, $align: center);
   text-align: left;
+  border-radius: 15px;
 
-  a {
-    width: 90%;
-    height: 100%;
-    display: block;
-    padding: 0.5rem;
-    text-decoration: none;
-    font-family: $primary-font;
+  .imageContainer {
+    @include flex-display();
+    width: 100%;
+    min-height: 50%;
+    position: relative;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 
-    font-size: 1rem;
-    line-height: 1.6rem;
-    &:visited,
-    &:hover,
-    &:active {
-      color: inherit;
+    .favoriteDiv {
+      position: absolute;
+      top: 0.4rem;
+      right: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      border-radius: 15px;
+
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 30%,
+        100% 100%,
+        50% 75%,
+        0 100%,
+        0 50%,
+        0% 30%
+      );
     }
 
-    .imageContainer {
-      @include flex-display();
+    img {
+      display: block;
+      width: 12rem;
+      height: 12rem;
+      margin: 0 auto;
+      background-color: #ffffff;
+
+      object-fit: cover;
+    }
+    border-bottom: 1px solid $card-border;
+  }
+
+  &-title {
+    @include flex-display(
+      $direction: column,
+      $space: space-between,
+      $align: flex-start
+    );
+
+    padding: 1rem;
+    min-height: 35%;
+    width: 100%;
+    font-size: 1.2rem;
+    font-family: $card-title-font;
+    font-weight: bold;
+    color: $dark-font;
+    text-decoration: none;
+
+    .title {
+      display: flex;
+      min-height: 6rem;
       width: 100%;
-      height: 70%;
-      position: relative;
-      border: 1px solid red;
-      img {
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        background-color: #ffffff;
-        position: absolute;
-        object-fit: fill;
-        top: 0;
-        left: 0;
+    }
+
+    .priceContainer {
+      width: 12rem;
+
+      @include flex-display(
+        $direction: column,
+        $space: space-between,
+        $align: flex-start
+      );
+      &-old {
+        .saleContainer {
+          display: flex;
+
+          &-oldPrice {
+            padding-right: 0.4rem;
+            font-size: 1.2rem;
+            color: $dark-font;
+            text-decoration-line: line-through;
+            text-decoration-color: $red-dark;
+          }
+
+          &-rate {
+            color: green;
+          }
+        }
       }
     }
 
-    &-title {
-      font-size: 1rem;
-      font-family: $card-title-font;
-      padding-left: 0.6rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      text-decoration: none;
-    }
-  }
+    .currentPrice {
+      color: $dark-font;
 
-  button {
-    margin-bottom: 1rem;
+      font-size: 1.6rem;
+    }
   }
 }

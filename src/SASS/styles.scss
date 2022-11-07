@@ -19,7 +19,8 @@
 @import './Components/subComponents/cardSkeleton';
 @import './Components/subComponents/card';
 @import './Components/subComponents/hintMark';
-@import './Components/subComponents/favoriteBadge';
+
+@import './Components/subComponents/loadingPage';
 //buttons
 
 //dropdowns
@@ -58,10 +59,10 @@
 * {
   margin: 0;
   padding: 0;
+  background-color: $background-color;
 }
 
-body {
-  background-color: lighten($background-color, 30%);
+.app {
 }
 
 .container {

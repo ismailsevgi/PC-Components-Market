@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Payment from '../Components/CheckOut/Payment';
+import Spinner from '../Components/SubComponents/Spinner';
 import BasketList from '../Components/List/BasketList';
 
+import {
+  useSetBasketMutation,
+  useGetBasketQuery,
+} from '../Features/firebaseApi';
+
+import { useParams } from 'react-router-dom';
 //Sub Components
 // import BasketButton from '../Components/SubComponents/BasketButton';
 // import CheckButton from '../Components/SubComponents/CheckButton';
@@ -12,10 +19,51 @@ import BasketList from '../Components/List/BasketList';
 
 const initialBasketState = { price: 0, shipment: 0 };
 
-function Basket() {
+const Basket = React.memo(() => {
+  console.log('Basket Rendered...: ');
+  const params = useParams();
+
   const itemsInBasket = useSelector((state) => {
     return state.basket.basketItems;
   });
+
+  const dispatch = useDispatch();
+
+  const { isFetching, data, error, isError } = useGetBasketQuery();
+
+  useEffect(() => {
+    //data geldiği anda basketSlice'a dispatch etmem gerek
+    if (data?.length > 0) {
+      const output = data.reduce(
+        (prev, cur) => {
+          if (cur.check) {
+            return {
+              price: prev.price + cur.price * cur.quantity,
+              shipment: prev.shipment >= 100 ? 0 : prev.shipment + cur.shipment,
+            };
+          } else {
+            return { price: prev.price + 0, shipment: prev.shipment + 0 };
+          }
+        },
+        { price: 0, shipment: 0 }
+      );
+
+      //Arranges shipment cost if its higher than 100
+      setTotal(() => {
+        if (output.shipment > 100) {
+          return { ...output, shipment: 0 };
+        } else {
+          return output;
+        }
+      });
+    } else {
+      setTotal(initialBasketState);
+    }
+  }, [isFetching]);
+
+  useEffect(() => {
+    isError && console.log('FETCH: ', error, error.message);
+  }, [isError]);
 
   const [total, setTotal] = useState(initialBasketState);
 
@@ -49,6 +97,7 @@ function Basket() {
       setTotal(initialBasketState);
     }
   }, [itemsInBasket]);
+
   return (
     <div className='basket'>
       <div className='basketNav'>
@@ -60,15 +109,19 @@ function Basket() {
       </div>
 
       <div className='container'>
-        <BasketList />
+        <BasketList
+          itemsInBasket={params.userId ? data : itemsInBasket}
+          userStatus={params.userId ? true : false}
+        />
         <Payment
           price={total.price}
           shipment={total.shipment}
           length={itemsInBasket.length}
+          array={params.userId ? data : itemsInBasket}
         />
       </div>
     </div>
   );
-}
+});
 
 export default Basket;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_FILTER } from '../../Features/filterSlice';
+import { SET_FILTER, SET_PLACEMENT } from '../../Features/filterSlice';
 
 function FilterBar() {
   const dispatch = useDispatch();
   let label = useSelector((state) => state.filter.label);
+  let placement = useSelector((state) => state.filter.placement);
 
   return (
     <div className='filterBar'>
@@ -146,7 +147,14 @@ function FilterBar() {
           <h3>PSU</h3>
         </label>
 
-        <span>DropDown</span>
+        <select
+          value={placement}
+          onChange={(e) => dispatch(SET_PLACEMENT(e.target.value))}
+        >
+          <option defaultValue={'newest'}>Newest</option>
+          <option value={'LowToHigh'}>Price: Low to High</option>
+          <option value={'HighToLow'}>Price: High to Low</option>
+        </select>
       </div>
     </div>
   );

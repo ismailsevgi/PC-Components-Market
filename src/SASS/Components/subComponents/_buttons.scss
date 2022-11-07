@@ -1,14 +1,12 @@
 .cardButton {
-  width: 80%;
-  height: 20%;
   margin: 0 auto;
-  cursor: pointer;
-
+  width: 15rem !important;
+  height: 10%;
   border: none;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: 600;
   font-family: $primary-font;
-  font-size: 1rem;
+  font-size: 1.4rem;
   letter-spacing: 1px;
 
   background-color: darken($orange, 15%);
@@ -18,5 +16,29 @@
     border: none;
     background-color: darken($orange, 20%);
     color: $white-font;
+  }
+}
+
+.favoriteContainer {
+  text-decoration: none;
+  border: none;
+  background-color: lighten($orange, 10%);
+  @include flex-display($align: flex-start);
+  cursor: pointer;
+  &:hover {
+    background-color: $orange;
+  }
+
+  //favori badge container
+  border-radius: 8px;
+
+  width: 50px;
+  height: 50px;
+
+  i {
+    background-color: inherit;
+    padding-top: 0.2rem;
+    font-size: 2rem;
+    color: $red-dark;
   }
 }

@@ -20,5 +20,6 @@ export const storage = getStorage(app);
 
 export const usersRef = collection(dataBase, 'users');
 export const productsRef = collection(dataBase, 'products');
+export const ordersRef = collection(dataBase, 'orders');
 export default app;
 // collection ref

@@ -1,9 +1,23 @@
 import React from 'react';
+import { useSetOrderMutation } from '../../Features/firebaseApi';
 
-function Payment({ length, shipment, price }) {
+/*Validate dom nesting div inside p succreligious*/
+function Payment({ length, shipment, price, array }) {
+  const [setOrder] = useSetOrderMutation();
+
+  function handlePayment(arr) {
+    console.log('Proceeding to order...');
+    setOrder(arr);
+  }
+
   return (
     <div className='payment'>
-      <button className='payment-button mt-1'>Proceed to checkout</button>
+      <button
+        onClick={() => handlePayment(array)}
+        className='payment-button mt-1'
+      >
+        Proceed to checkout
+      </button>
       <hr></hr>
       <div className='payment-items mt-1'>
         <span>Items{`(${length})`}</span>

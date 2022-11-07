@@ -15,7 +15,7 @@ export default function UploadImg({
   productName,
   formImages,
 }) {
-  const userId = useSelector((state) => state.user.userId);
+  const userId = localStorage.getItem('userId');
 
   //yüklemeden sonra url string ini imageHandler ile formikteki arraye kayıt edilecek
 

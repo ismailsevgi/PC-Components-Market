@@ -13,22 +13,80 @@
   @include flex-display($space: space-between);
 
   &-links {
-    width: 75%;
+    width: 60%;
+    height: 70%;
     background-color: transparent;
     font-size: $link-size;
-    font-family: $secondary-font;
+    font-family: $primary-font;
     text-decoration: none;
-    @include flex-display($space: flex-start);
-    &-logo {
-      font-family: $primary-font;
-      font-size: $logo-size;
-      background-color: transparent;
-      color: $white-font;
-    }
+    @include flex-display($space: flex-start, $align: flex-end);
+
     a {
       color: $white-font;
+
       background-color: transparent;
       padding-left: 1rem;
+      text-transform: uppercase;
+    }
+  }
+
+  &-logo {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    color: $white-font;
+
+    span {
+      background-color: transparent;
+    }
+
+    span {
+      &:nth-child(1) {
+        text-align: left;
+      }
+      &:nth-child(2) {
+        text-align: center;
+      }
+
+      &:nth-child(3) {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  height: 70%;
+  padding-bottom: 0.6rem;
+  background-color: transparent;
+  .inputField {
+    position: relative;
+    background-color: inherit;
+    .searchInput {
+      width: 100%;
+
+      border-radius: 12px;
+      height: 2.4rem;
+      padding-left: 0.4rem;
+      &::placeholder {
+        color: $dark-font;
+        font-family: $secondary-font;
+
+        font-weight: 500;
+      }
+    }
+
+    svg {
+      font-size: 1.6rem;
+      position: absolute;
+      top: 20%;
+      right: 5%;
+      color: $dark-font;
     }
   }
 }
@@ -38,13 +96,14 @@
   width: 25%;
   height: 100%;
   @include flex-display($space: space-around);
+
   &-icons {
     width: 100%;
-
+    background-color: transparent;
     @include flex-display($space: center);
 
     .basketDiv {
-      background-color: transparent;
+      background-color: inherit;
       @include flex-display($space: center);
       position: relative;
       text-decoration: none;
@@ -53,15 +112,15 @@
       padding-bottom: 0.6rem;
       a {
         text-decoration: none;
-        background: transparent;
+        background: inherit;
         width: 100%;
         font-size: 1.4rem;
-        background-color: transparent;
+        background-color: inherit;
         i {
           width: 100%;
           font-size: 2.6rem;
           color: white;
-          background-color: transparent;
+          background-color: inherit;
           transition: $transition;
 
           &:hover {
@@ -126,18 +185,33 @@
 
   .userBox {
     @include flex-display($space: space-between);
-    border: 1px solid white;
 
+    width: 15rem;
+    margin-right: 1rem;
+    background-color: transparent;
     .userIMG {
+      background-color: inherit;
       img {
-        height: 3rem;
-        width: 3rem;
+        height: 4rem;
+        width: 4rem;
         border-radius: 50%;
       }
     }
 
     .userPanel {
-      border: 3px solid green;
+      background-color: transparent;
+      button {
+        background-color: lighten($red-dark, 5%);
+        height: 4rem;
+        width: 3rem;
+        border: none;
+        border-radius: 5px;
+        svg {
+          font-size: 1.6rem;
+          color: lighten($white-font, 20%);
+          background-color: lighten($red-dark, 5%);
+        }
+      }
     }
   }
 }

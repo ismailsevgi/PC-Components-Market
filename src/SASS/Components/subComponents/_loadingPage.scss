@@ -1,0 +1,26 @@
+.loadingContainer {
+  @include flex-display($direction: column);
+
+  width: 90vw;
+  height: 70vh;
+
+  .loadingBox {
+    font-family: $secondary-font;
+
+    border: 1px solid black;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px $dark-font;
+    border-radius: 15px;
+    padding: 5rem;
+    text-align: center;
+    background-color: lighten($background-color, 20%);
+    color: $dark-font;
+
+    a {
+      color: $purple;
+      &:hover {
+        color: lighten($purple, 10%);
+      }
+    }
+  }
+}

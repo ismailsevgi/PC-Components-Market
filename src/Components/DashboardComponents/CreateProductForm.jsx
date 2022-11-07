@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { storage } from '../../DataBASE/firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { toast } from 'react-toastify';
+
 import HintMark from '../SubComponents/HintMark';
 import ProductTempleteTypes from './ProductTempleteTypes';
 import { useFormik } from 'formik';
@@ -19,7 +16,7 @@ function CreateProductForm() {
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
   const [addProduct] = useAddProductMutation();
-  const userId = useSelector((state) => state.user.userId);
+
   const [progress, setProgress] = useState(0);
 
   const createProductForm = useFormik({
@@ -35,7 +32,7 @@ function CreateProductForm() {
       specs: {},
       tag: 'cpu',
       stock: 0,
-      productOwner: userId,
+      productOwner: localStorage.getItem('userId'),
     },
     onSubmit: async (values) => {
       //RESİMLER YÜKLENENE KADAR BUTTON DISABLE OLMALI
@@ -44,7 +41,7 @@ function CreateProductForm() {
     },
   });
 
-  createProductForm.values.productOwner = userId;
+  createProductForm.values.productOwner = localStorage.getItem('userId');
 
   const tagOptions = [
     { value: 'cpu', label: 'CPU' },

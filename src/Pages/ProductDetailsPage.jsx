@@ -4,19 +4,18 @@ import { useParams } from 'react-router-dom';
 import CommentsCreator from '../Components/ProductDetailsComponents/CommentsCreator';
 import ProductDetailsCreator from '../Components/ProductDetailsComponents/ProductDetailsCreator';
 import ImageListCreator from '../Components/ProductDetailsComponents/ImageListCreator';
-import axios from 'axios';
+
 import { useGetProductQuery } from '../Features/firebaseApi';
 import { toast } from 'react-toastify';
 import Spinner from '../Components/SubComponents/Spinner';
 import CardButton from '../Components/SubComponents/CardButton';
 import { FavoriteBadge } from '../Components/SubComponents/Badges';
-import { useSelector } from 'react-redux';
 
 //favBadge takes solid prop as true if user has added it into his fav product!
 
 function ProductDetailsPage() {
   const params = useParams();
-  const userId = useSelector((state) => state.user.userId);
+
   const { isFetching, isError, isSuccess, data, error } = useGetProductQuery(
     params.id
   );
@@ -89,9 +88,8 @@ function ProductDetailsPage() {
                 <h1>{data.price}</h1>
               )}
               <div className='titleDiv-price-buttons'>
-                <button className='favoriteContainer'>
-                  <FavoriteBadge fontSize='2.4rem' id={params.id} />
-                </button>
+                <FavoriteBadge fontSize='2.4rem' id={params.id} />
+
                 <CardButton id={params.id} />
               </div>
             </div>
