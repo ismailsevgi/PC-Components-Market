@@ -1,5 +1,4 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import {
   addDoc,
@@ -14,6 +13,7 @@ import {
 } from 'firebase/firestore';
 
 import { toast } from 'react-toastify';
+import useOrderConstructor from '../CustomHooks/useOrderConstructor';
 
 import {
   productsRef as productsCollection,
@@ -26,7 +26,7 @@ import {
 export const firebaseApi = createApi({
   reducerPath: 'firebaseApi',
   baseQuery: fakeBaseQuery(),
-  tagTypes: ['products', 'users', 'favorites'],
+  tagTypes: ['products', 'users', 'favorites', 'order'],
   endpoints: (builder) => ({
     getProducts: builder.query({
       //type:"userDashboard" payload:userId
@@ -202,21 +202,14 @@ export const firebaseApi = createApi({
     getFavorites: builder.query({
       async queryFn() {
         try {
-          const userQuery = query(
-            usersRef,
-            where('userId', '==', localStorage.getItem('userId'))
+          const userDoc = doc(
+            usersCollection,
+            localStorage.getItem('userDocId')
           );
-          let queryData = {};
-          await getDocs(userQuery).then((userData) => {
-            //after receiving the data, store inside queryData array
-            userData?.forEach((doc) => {
-              queryData = { ...doc.data() };
-            });
-          });
 
-          //after all is done, data is sended
-          console.log(queryData.userFavorites, 'queryData.userFavorites');
-          return { data: queryData.userFavorites };
+          let userDocument = await getDoc(userDoc);
+
+          return { data: userDocument.data().userFavorites };
         } catch (error) {
           console.log('Favoriler Çekilemedi');
           return { data: error };
@@ -228,15 +221,6 @@ export const firebaseApi = createApi({
     addFavorites: builder.mutation({
       async queryFn({ id, url }) {
         try {
-          //önce query ile users collection arasından user ı buldum
-          //getDocs bana 1 tane user verdi query ye bağlı olarak
-          //forEach ile dökümanın id sine ve dökümanın kendisine eriştim
-          //gelen dökümanın içindeki fav list'i prevDoc olarak kayıt ettim
-          //sonra bu item zaten listedemi değilmi diye kontrol ettim
-          //eğer gelen listenin içinde ürün varsa sildim
-          //yoksa ekledim
-
-          console.log('Favoriye tıklandı');
           const q = query(usersCollection, where('userId', '==', id));
           let user = await getDocs(q);
 
@@ -307,7 +291,6 @@ export const firebaseApi = createApi({
         console.log('TYPE ', type, 'PRODUCT ', product);
 
         try {
-          console.log('1');
           const q = query(
             usersCollection,
             where('userId', '==', localStorage.getItem('userId'))
@@ -390,97 +373,231 @@ export const firebaseApi = createApi({
     }),
     setOrder: builder.mutation({
       async queryFn(basketArray) {
-        //Uygun ise upload işlemlerini yap
-        //--order koleksiyonuna ekle > order koleksiyon id sini dökümana orderId olarak kayıt et > o "Id" yi aynı zamanda ürünü alan kişinin requests arrayine ekle, sonra ID yi ürün sahiplerine yollamanın yolunu bul..
-
-        //ürün başarılı bir şekide her yere yüklendiğinde dashboard'da requests ve orders arraylerini query et.
-        //Requestte kullanıcı ürünü iptal edebilir. eğer orderStatus'ü rejected'e çevir
-        //Eğer bir sipariş rejected ise confirm / reject yerine [rejected by buyer] yazsın
-
         //order kısmındaki tabloda ürünün bilgileriyle birlikte 2 tane buton olur [confirm, reject]
         //eğer confirm yapılırsa, o sipariş numarasındaki ürün bulunur ve durumu "confirmed" yapılır
         //eğer rejected yapılırsa, ürün rejected yapılır
 
         //kullanıcı sipariş sayfasına giderek ürünlerin güncel durumu hakkında bilgi alabilir //new page
 
-        //orderConstructor: taking a basketList an turning into a order document
-        function orderConstructor(array) {
-          return {
-            orderId: 'non',
-            orderStatus: 'continue',
-            orderedBy: localStorage.getItem('userDocId'),
-            productOwners: Array.from(
-              new Set(array.map((product) => product.productOwner))
-            ),
-            products: [
-              ...array
-                .filter((product) => product.check && product)
-                .map((product) => ({
-                  id: product.id,
-                  status: 'waiting',
-                  quantity: product.quantity,
-                  owner: product.productOwner,
-                  totalPrice:
-                    product.saleRate *
-                    ((product.quantity * product.price) / 100),
-                })),
-            ],
-          };
-        }
-        const order = orderConstructor(basketArray);
+        //orderConstructor: look inside useOrderConstructor custom hook.
 
+        const order = useOrderConstructor(basketArray);
+        let orderId = '';
         try {
           await addDoc(ordersCollection, order)
             .then((orderRef) => {
+              //After adding the order inside orderCollection, order document has to have the same id as well as its document id in order to find and update more easily.
+
               const documentRef = doc(ordersCollection, orderRef.id);
-              //await is a must: fetching has to wait for update!!!
+              orderId = orderRef.id;
+              //documentRef: uploaded order document's ref.
+
+              //uploadDoc: adds orderId property with value of documents id. (orderRef.id == firebaseDocId)
+
               updateDoc(documentRef, {
                 orderId: orderRef.id,
+                date: new Date(),
                 timestamp: serverTimestamp(),
               }).then(async () => {
-                //dosyayı çek ve kayıt et
+                //After updating with getDoc method one can reach updated orderDoc.
                 let orderDoc = await getDoc(documentRef);
                 let data = orderDoc.data();
+
+                //---------------------------------
+
+                //Reaching the customer's document who buys the products to add the orderDoc inside its orders array
                 const customerRef = doc(usersCollection, data.orderedBy);
                 let customerDoc = await getDoc(customerRef);
                 let customerData = customerDoc.data();
+
                 updateDoc(customerRef, {
-                  basketOrders: [...customerData.basketOrders, data],
+                  orders: [...customerData.orders, data.orderId],
+                  userBasket: [],
                 });
 
-                data.productOwners.forEach((sellerDocId) => {
+                //----------------------------
+                //reaching the seller's doc one by one with forEach method to add orderDoc inside their requestedProducts array.
+
+                await data.productOwners.forEach((sellerDocId) => {
                   console.log('Seller Request Aldı');
                   let sellerRef = doc(usersCollection, sellerDocId);
                   updateDoc(sellerRef, {
-                    productRequests: [data],
+                    productRequests: [data.orderId],
                   });
                 });
+                //------------------------------------
               });
             })
             .catch((err) =>
               console.log('Dosya etkenirken hata.., ', err.message)
             );
 
-          return { data: 'ok' };
+          return { data: orderId };
         } catch (error) {
           console.log('Something went wrong abicim...', error, error?.message);
           return { data: error };
         }
       },
+      invalidatesTags: ['order'],
+    }),
+    getOrder: builder.query({
+      //the page after giving the order
+      async queryFn(orderId) {
+        try {
+          const orderRef = doc(ordersCollection, orderId);
+
+          let orderData = await getDoc(orderRef);
+          return { data: orderData.data() };
+        } catch (error) {
+          return { data: error };
+        }
+      },
+      providesTags: ['order'],
+    }),
+    getUsersOrders: builder.query({
+      async queryFn(userDocId) {
+        try {
+          const userDocRef = query(
+            ordersCollection,
+            where('orderedBy', '==', userDocId)
+          );
+          let userData = [];
+          await getDocs(userDocRef).then((doc) => {
+            doc.forEach((data) => {
+              userData.push(data.data());
+            });
+          });
+
+          return { data: userData };
+        } catch (error) {
+          return { data: error };
+        }
+      },
+      providesTags: ['order'],
+    }),
+    updateOrder: builder.mutation({
+      async queryFn({ type, orderId }) {
+        console.log('Gelen Type:', type, ' Gelen orderıd: ', orderId);
+        try {
+          const orderRef = doc(ordersCollection, orderId);
+
+          updateDoc(orderRef, {
+            orderStatus: 'canceled',
+          });
+          return { data: 'ok' };
+        } catch (error) {
+          return { data: error };
+        }
+      },
+      invalidatesTags: ['order'],
+    }),
+    getProductRequests: builder.query({
+      async queryFn(id) {
+        try {
+          let userDocRef = doc(usersCollection, id);
+
+          let userDocument = await getDoc(userDocRef);
+          let filteredOrders = [];
+
+          for (const orderId of userDocument.data().productRequests) {
+            let orderRef = doc(ordersCollection, orderId);
+            let orderDoc = await getDoc(orderRef);
+
+            for (const order of orderDoc.data().products) {
+              if (order.owner == id) {
+                filteredOrders.push({
+                  ...order,
+                  date: orderDoc.data().date,
+                  orderId: orderId,
+                });
+              }
+            }
+          }
+
+          return {
+            data: filteredOrders,
+          };
+        } catch (error) {
+          return { data: error };
+        }
+      },
+      providesTags: ['order'],
+    }),
+    handleProductRequests: builder.mutation({
+      async queryFn({ type, orderId, productId }) {
+        console.log('işlenen: ', type, orderId, productId);
+        try {
+          let orderDocRef = doc(ordersCollection, orderId);
+
+          let orderDoc = await getDoc(orderDocRef);
+
+          for (const product of orderDoc.data().products) {
+            if (product.id === productId) {
+              console.log('Product Bulundu: ', product);
+              if (type === 'reject') {
+                updateDoc(orderDocRef, {
+                  products: [
+                    ...orderDoc.data().products.map((obj) => {
+                      if (obj.id === productId) {
+                        return { ...obj, status: 'rejected' };
+                      } else {
+                        return obj;
+                      }
+                    }),
+                  ],
+                });
+              }
+
+              if (type === 'confirm') {
+                updateDoc(orderDocRef, {
+                  products: [
+                    ...orderDoc.data().products.map((obj) => {
+                      if (obj.id === productId) {
+                        return { ...obj, status: 'confirmed' };
+                      } else {
+                        return obj;
+                      }
+                    }),
+                  ],
+                });
+              }
+            }
+          }
+
+          return { data: 'ok' };
+        } catch (error) {
+          return { data: error };
+        }
+      },
+      invalidatesTags: ['order'],
     }),
   }),
 });
 
+//userFuns
+export const { useGetUserQuery } = firebaseApi;
+
+//basketFuns
+export const { useGetBasketQuery, useSetBasketMutation } = firebaseApi;
+
+//Product Funs
 export const {
-  useGetProductsQuery,
-  useUpdateProductMutation,
-  useDeleteProductMutation,
-  useAddProductMutation,
   useGetProductQuery,
-  useAddFavoritesMutation,
-  useGetUserQuery,
-  useSetBasketMutation,
-  useGetBasketQuery,
-  useGetFavoritesQuery,
+  useGetProductsQuery,
+  useAddProductMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+} = firebaseApi;
+
+//Favorite Funs
+export const { useGetFavoritesQuery, useAddFavoritesMutation } = firebaseApi;
+
+//Order Funs
+export const {
+  useGetOrderQuery,
+  useGetUsersOrdersQuery,
   useSetOrderMutation,
+  useUpdateOrderMutation,
+  useGetProductRequestsQuery,
+  useHandleProductRequestsMutation,
 } = firebaseApi;

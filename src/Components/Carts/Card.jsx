@@ -11,11 +11,13 @@ const Card = React.memo(({ id, title, img, price, tag, stock, saleRate }) => {
   */
   //Stock is for later arrangements
 
+  let userDocId = localStorage.getItem('userDocId');
+
   return (
     <div key={id} className='productListItem'>
       <div className='imageContainer'>
         <button className='favoriteDiv'>
-          <FavoriteBadge id={id} />
+          {userDocId != 'null' ? <FavoriteBadge id={id} /> : <span></span>}
         </button>
         <Link to={`/productDetails/` + id}>
           <img className='productListItem-img' src={img || <Skeleton />} />

@@ -1,13 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSetOrderMutation } from '../../Features/firebaseApi';
 
 /*Validate dom nesting div inside p succreligious*/
 function Payment({ length, shipment, price, array }) {
   const [setOrder] = useSetOrderMutation();
-
+  const navigate = useNavigate();
   function handlePayment(arr) {
     console.log('Proceeding to order...');
-    setOrder(arr);
+    let test = setOrder(arr);
+    test.then((orderId) => {
+      navigate(`/orderAccept/${orderId.data}`);
+    });
   }
 
   return (

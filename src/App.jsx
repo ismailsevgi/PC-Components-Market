@@ -5,6 +5,7 @@ import About from './Pages/About';
 import React, { useEffect, useState } from 'react';
 import Registration from './Pages/Registration';
 import LoadingPage from './Components/SubComponents/LoadingPage';
+import Orders from './Pages/Orders';
 
 import {
   BrowserRouter as Router,
@@ -23,9 +24,9 @@ import CreateProductForm from './Components/DashboardComponents/CreateProductFor
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { usersRef } from './DataBASE/firebase';
 import { getDocs, query, where } from 'firebase/firestore';
+import OrderAccept from './Pages/OrderAccept';
 
 function App() {
-  const dispatch = useDispatch();
   const auth = getAuth();
 
   const [user, setUser] = useState({
@@ -41,7 +42,7 @@ function App() {
       if (userCred) {
         localStorage.setItem('userId', userCred.uid);
         localStorage.setItem('userDocId', userCred.displayName);
-
+        localStorage.setItem('userEmail', userCred.email);
         let userQuery = query(usersRef, where('userId', '==', userCred.uid));
         let data = {};
         getDocs(userQuery).then((dc) => {
@@ -61,6 +62,9 @@ function App() {
       }
       if (!userCred) {
         localStorage.setItem('userId', null);
+
+        localStorage.setItem('userDocId', null);
+        localStorage.setItem('userEmail', null);
       }
     });
     unsub();
@@ -86,6 +90,8 @@ function App() {
               path='/productDetails/:id'
               element={<ProductDetailsPage />}
             />
+            <Route path='/orders' element={<Orders />} />
+            <Route path='/orderAccept/:orderId' element={<OrderAccept />} />
             <Route path='/about' element={<About />} />
 
             <Route path='/productAdd' element={<CreateProductForm />} />

@@ -50,6 +50,8 @@
 @import './Pages/dashBoard';
 @import './Pages/products';
 @import './Pages/basket';
+@import './Pages/orders';
+@import './Pages/orderAccept';
 //home
 //about
 //contact
@@ -68,4 +70,19 @@
 .container {
   width: 85%;
   margin: 0 auto;
+}
+
+//css variables for inline styling
+:root {
+  --darkFont: #{$dark-font};
+  --whiteFont: #{$white-font};
+
+  --greenDark: #{$green-dark};
+  --greenLight: #{$green-light};
+
+  --redDark: #{$red-dark};
+  --redLight: #{$red-light};
+
+  --yellow: #{$yellow};
+  --orange: #{$orange};
 }

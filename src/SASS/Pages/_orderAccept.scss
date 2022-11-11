@@ -1,0 +1,96 @@
+.orderPage {
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  min-height: 70vh;
+  margin-top: 3rem;
+  &-details {
+    width: 100%;
+    height: 5rem;
+    background-color: $component-background;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 2px solid gray;
+    h3 {
+      color: $green-dark;
+      text-indent: 1rem;
+      padding-top: 0.5rem;
+      background-color: transparent;
+    }
+
+    &-detail {
+      @include flex-display($space: space-between);
+      padding: 0 2rem;
+      background-color: transparent;
+      h3 {
+        background-color: inherit;
+        font-family: $secondary-font;
+      }
+      span {
+        display: inline-block;
+        background-color: inherit;
+        font-family: $primary-font;
+
+        strong {
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          background-color: inherit;
+          padding-right: 0.3rem;
+        }
+
+        &:last-child {
+          strong {
+            color: darken($orange, 10%);
+          }
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &-products {
+    height: 70vh;
+    width: 100%;
+    padding: 1rem;
+
+    border: 1px solid rgb(124, 124, 124);
+    .productContainer {
+      height: 30vh;
+      width: 100%;
+      border: 1px solid rgb(158, 158, 158);
+      display: flex;
+      margin-bottom: 1rem;
+      .imageContainer {
+        height: 100%;
+        width: 30%;
+        border: 1px solid rgb(145, 145, 145);
+        border-radius: 5px;
+        img {
+          border-radius: inherit;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .productDetails {
+        @include flex-display(
+          $direction: column,
+          $space: flex-start,
+          $align: flex-start
+        );
+
+        color: $dark-font;
+        font-family: $primary-font;
+        width: 70%;
+        padding: 0.6rem;
+        .title {
+          height: 6vh;
+
+          width: 100%;
+          @include flex-display($space: space-between, $align: flex-start);
+        }
+      }
+    }
+  }
+}

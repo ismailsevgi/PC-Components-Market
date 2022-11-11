@@ -82,7 +82,7 @@ function ProductDetailsPage() {
                     <span>{data.saleRate}%</span>
                   </div>
 
-                  <h1>{data.price - (data.price / 100) * 20}$</h1>
+                  <h1>{data.price - (data.price / 100) * data.saleRate}$</h1>
                 </div>
               ) : (
                 <h1>{data.price}</h1>

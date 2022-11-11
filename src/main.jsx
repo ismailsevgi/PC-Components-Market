@@ -11,7 +11,6 @@ import {
   faRightFromBracket,
   faQuestion,
   faUpload,
-  faHeart,
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 

@@ -29,6 +29,7 @@ function Navbar({ userDetails }) {
 
             <Link to='/about'>About</Link>
             {userDetails.userStatus && <Link to='/dashboard'>Dashboard</Link>}
+            {userDetails.userStatus && <Link to='/orders'>Orders</Link>}
           </div>
 
           {location.pathname == '/store' && (

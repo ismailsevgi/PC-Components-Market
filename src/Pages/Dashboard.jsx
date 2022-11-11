@@ -12,11 +12,12 @@ import { useGetProductsQuery } from '../Features/firebaseApi';
 import Spinner from '../Components/SubComponents/Spinner';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
+import RequestsTableData from '../Components/DashboardComponents/RequestsTableData';
 
 function Dashboard({ userDetails }) {
   //spinner control burada olacak
   //true tablodaki loading bittiği anda buradaki spinner state i false
-  console.log("Dashboard'a gelen user details:", userDetails);
+
   //STATES
   const userDocId = localStorage.getItem('userDocId');
 
@@ -62,9 +63,7 @@ function Dashboard({ userDetails }) {
           <div className='profileCol-imageContainer'>
             <img src={anonImg} />
           </div>
-          <h2>
-            {userDetails ? userDetails.displayName : 'Username not Found'}
-          </h2>
+          <h2>{'Not Ready'}</h2>
           <div className='profileCol-userDetails'>
             <table>
               <thead>
@@ -74,9 +73,14 @@ function Dashboard({ userDetails }) {
               </thead>
               <tbody>
                 <tr>
+                  <td>User ID</td>
+                  <td>{userDetails.displayName}</td>
+                </tr>
+                <tr>
                   <td>Birth Date</td>
                   <td>Not Specified</td>
                 </tr>
+
                 <tr>
                   <td>Email</td>
                   <td>{userDetails ? userDetails.email : 'Not known'}</td>
@@ -99,69 +103,77 @@ function Dashboard({ userDetails }) {
         </div>
 
         <div className='dashboard-panel'>
-          <div className='productsDiv'>
-            <table className='productTable'>
-              <thead className='productTable-specs'>
-                <tr>
-                  <td scope='col'>PRODUCT NAME</td>
+          <div className='dashboard-products'>
+            <h3>My Products</h3>
+            <div className='productsDiv'>
+              <table className='productTable'>
+                <thead className='productTable-specs'>
+                  <tr>
+                    <td scope='col'>PRODUCT NAME</td>
 
-                  <td scope='col'>STOCK</td>
-                  <td scope='col'>ORIGINAL PRICE</td>
-                  <td scope='col'>SALE RATE</td>
-                  <td scope='col'>PRICE</td>
+                    <td scope='col'>STOCK</td>
+                    <td scope='col'>ORIGINAL PRICE</td>
+                    <td scope='col'>SALE RATE</td>
+                    <td scope='col'>PRICE</td>
 
-                  <td scope='col'></td>
-                </tr>
-              </thead>
+                    <td scope='col'></td>
+                  </tr>
+                </thead>
 
-              <tbody className='productTable-rows'>
-                {isLoading ? (
-                  <Spinner />
-                ) : (
-                  dataArray?.map((product) => {
-                    return (
-                      <ProductTableData
-                        data={{
-                          id: product.id,
-                          title: product.title,
-                          haggle: product.haggle,
-                          stock: product.stock,
-                          price: product.price,
-                          saleRate: product.saleRate,
-                        }}
-                        modalRef={modalRef}
-                        setFormState={setFormState}
-                      />
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-            <div className='createProductDiv'>
-              <Link to='/productAdd'>
-                <MDBBtn color='mdb-color' className='text-xs-left'>
-                  Create a new Product
-                </MDBBtn>
-              </Link>
+                <tbody className='productTable-rows'>
+                  {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    dataArray?.map((product) => {
+                      return (
+                        <ProductTableData
+                          key={product.id}
+                          data={{
+                            id: product.id,
+                            title: product.title,
+                            haggle: product.haggle,
+                            stock: product.stock,
+                            price: product.price,
+                            saleRate: product.saleRate,
+                          }}
+                          modalRef={modalRef}
+                          setFormState={setFormState}
+                        />
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+              <div className='createProductDiv'>
+                <Link to='/productAdd'>
+                  <MDBBtn color='mdb-color' className='text-xs-left'>
+                    Create a new Product
+                  </MDBBtn>
+                </Link>
+              </div>
             </div>
           </div>
-          <div className='productsDiv'>
-            <table className='productTable'>
-              <thead className='productTable-specs'>
-                <tr>
-                  <td scope='col'>PRODUCT NAME</td>
+          <br></br>
+          <div className='dashboard-products'>
+            <h3>Product Requests</h3>
+            <div className='productsDiv'>
+              <table className='productTable'>
+                <thead className='productTable-specs'>
+                  <tr>
+                    <td scope='col'>PRODUCT NAME</td>
+                    <td scope='col'>QUANTITY</td>
+                    <td scope='col'>CUSTOMER EMAIL</td>
+                    <td scope='col'>DATE</td>
+                    <td scope='col'>PRICE</td>
+                    <td scope='col'>STATUS</td>
+                  </tr>
+                </thead>
 
-                  <td scope='col'>CUSTOMER</td>
-                  <td scope='col'>CUSTOMER EMAIL</td>
-                  <td scope='col'>DATE</td>
-                  <td scope='col'>PRICE</td>
-
-                  <td scope='col'>STATUS</td>
-                </tr>
-              </thead>
-
-              <tbody className='productTable-rows'></tbody>
-            </table>
+                <tbody className='productTable-rows'>
+                  <RequestsTableData />
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

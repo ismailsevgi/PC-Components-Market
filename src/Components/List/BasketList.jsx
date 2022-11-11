@@ -4,8 +4,8 @@ import React from 'react';
 import BasketButton from '../SubComponents/BasketButton';
 import CheckButton from '../SubComponents/CheckButton';
 
-const BasketList = React.memo(({ itemsInBasket, userStatus }) => {
-  console.log('Basket list rendered...');
+const BasketList = ({ itemsInBasket, userStatus }) => {
+  console.log('Basket list rendered...', itemsInBasket);
 
   return (
     <div className='basketList'>
@@ -78,6 +78,6 @@ const BasketList = React.memo(({ itemsInBasket, userStatus }) => {
         })}
     </div>
   );
-});
+};
 
 export default BasketList;

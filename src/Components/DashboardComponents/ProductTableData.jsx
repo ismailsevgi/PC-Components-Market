@@ -30,8 +30,8 @@ export default function ProductTableData(props) {
   }
 
   return (
-    <tr key={props.data.id} className='productTable-rows-row'>
-      <th scope='row'>{props.data.title}</th>
+    <tr className='productTable-rows-row'>
+      <th scope='row'>{props.data.title.slice(0, 55)}</th>
 
       <td>{props.data.stock}</td>
       <td>{props.data.price}</td>

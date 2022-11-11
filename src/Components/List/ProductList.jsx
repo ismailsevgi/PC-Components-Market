@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 function ProductList() {
   let label = useSelector((state) => state.filter.label);
   let placement = useSelector((state) => state.filter.placement);
-
+  console.log('Product list rendering...');
   let {
     isError,
 
@@ -23,8 +23,6 @@ function ProductList() {
   useEffect(() => {
     isError && toast.error('Something went wrong: ', error);
   }, [isError, isSuccess]);
-
-  console.log(productList?.slice().sort((a, b) => a.price - b.price));
 
   return (
     <div className='productList'>

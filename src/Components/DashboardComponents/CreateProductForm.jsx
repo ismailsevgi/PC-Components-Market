@@ -32,7 +32,8 @@ function CreateProductForm() {
       specs: {},
       tag: 'cpu',
       stock: 0,
-      productOwner: localStorage.getItem('userId'),
+      productOwner: localStorage.getItem('userDocId'),
+      sellerEmail: localStorage.getItem('userEmail'),
     },
     onSubmit: async (values) => {
       //RESİMLER YÜKLENENE KADAR BUTTON DISABLE OLMALI

@@ -1,0 +1,152 @@
+.orderContainer {
+  border: 1px solid rgb(83, 82, 82);
+  border-radius: 15px;
+  margin-top: 3rem;
+  min-height: 80vh;
+  padding: 1rem;
+  width: 100%;
+  &-title {
+    color: $dark-font;
+    font-size: 3rem;
+    border-bottom: 1px solid gray;
+
+    line-height: 5rem;
+    font-family: $primary-font;
+  }
+
+  .orderDropdowns {
+    width: 80%;
+    height: auto; /* DONT TOUCH */
+
+    margin-bottom: 3rem;
+    &-title {
+      width: 100%;
+      margin-top: 2rem;
+      padding-top: 0.8rem;
+      padding-left: 0.8rem;
+      border-radius: 15px;
+      box-shadow: 5px 5px 3px $dark-font;
+      border: 1px solid gray;
+      @include flex-display($space: space-between);
+      &-detail {
+        color: $dark-font;
+
+        h3 {
+          font-size: 1.6rem;
+          display: inline-block;
+        }
+
+        h5 {
+          text-transform: capitalize;
+          font-size: 1.2rem;
+        }
+
+        strong {
+          padding-right: 0.4rem;
+          color: $dark-font;
+        }
+      }
+
+      i {
+        cursor: pointer;
+        height: 3rem;
+        display: inline-block;
+        padding-right: 1.2rem;
+        font-size: 2.5rem;
+      }
+    }
+
+    &-content {
+      width: 100%;
+      height: 0;
+      font-size: 0;
+      transition: all 0.5s;
+
+      .product {
+        height: inherit;
+        width: 100%;
+        color: $dark-font;
+        @include flex-display();
+        scale: 0;
+
+        .img-container {
+          height: 0;
+          width: 30%;
+          background-color: white;
+          box-sizing: border-box;
+          background-origin: content-box;
+          border-radius: 15px;
+
+          @include flex-display();
+
+          img {
+            object-fit: contain;
+            height: 100%;
+            width: 100%;
+          }
+        }
+        .details {
+          font-size: inherit;
+          width: 70%;
+          height: inherit;
+
+          text-transform: capitalize;
+
+          strong {
+            color: $dark-font;
+          }
+        }
+      }
+
+      .dropdownFooter {
+        scale: 0;
+        button {
+          scale: 0;
+        }
+      }
+    }
+
+    .show {
+      transition: all 0.5s;
+      height: auto;
+      font-size: 2rem;
+      box-shadow: 5px 5px 5px 3px $dark-font;
+      border-radius: 15px;
+      .product {
+        padding: 0.4rem;
+        scale: 1;
+        height: inherit;
+        border-radius: inherit;
+        .img-container {
+          height: inherit;
+
+          img {
+            background-color: transparent;
+            height: 20vh;
+          }
+        }
+
+        .details {
+          padding: 1rem;
+          height: 20vh;
+        }
+      }
+
+      .dropdownFooter {
+        color: $dark-font;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 15px;
+        scale: 1;
+        @include flex-display($space: space-between);
+        button {
+          scale: 1;
+          width: 13rem;
+          font-size: 1.2rem;
+          font-family: $primary-font;
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+}
