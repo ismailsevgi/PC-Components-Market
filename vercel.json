@@ -1,0 +1,13 @@
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "build": {
+    "env": {
+      "VITE_API_KEY": "AIzaSyDO_uj4erccoPQMl9NvjZB8Fqx_gOQ_2KY",
+      "VITE_AUTH_DOMAIN": "pc-commerce-project.firebaseapp.com",
+      "VITE_PROJECT_ID": "pc-commerce-project",
+      "VITE_STORAGE_BUCKET": "pc-commerce-project.appspot.com",
+      "VITE_MESSAGING_SENDER_ID": "1080755873731",
+      "VITE_APP_KEY": "1:1080755873731:web:73e70065704298c2caff76"
+    }
+  }
+}

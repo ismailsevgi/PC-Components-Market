@@ -10,7 +10,7 @@ import {
 import app, { usersRef as usersCollection } from '../DataBASE/firebase';
 
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
@@ -23,10 +23,8 @@ import {
   doc,
   getDoc,
 } from 'firebase/firestore';
-import { async } from '@firebase/util';
 
 function Registration() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [formState, setFormState] = useState('login');
@@ -120,7 +118,6 @@ function Registration() {
         .then((cred) => {
           console.log('Giriş Başarılı ', cred.user);
           navigate('/loading');
-          //burada users collection dan user'ın dökümanı çekilip redux a kayıt edilecek
         })
 
         .catch((err) =>
