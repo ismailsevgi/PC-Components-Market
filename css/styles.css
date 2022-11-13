@@ -271,7 +271,7 @@
   font-size: 1.2rem;
   font-family: "Mulish", sans-serif;
   font-weight: bold;
-  color: #292c38;
+  color: #c8d6e5;
   text-decoration: none;
 }
 .productListItem-title .title {
@@ -292,7 +292,7 @@
 .productListItem-title .priceContainer-old .saleContainer-oldPrice {
   padding-right: 0.4rem;
   font-size: 1.2rem;
-  color: #292c38;
+  color: #c8d6e5;
   -webkit-text-decoration-line: line-through;
           text-decoration-line: line-through;
   -webkit-text-decoration-color: #d32525;
@@ -302,7 +302,7 @@
   color: green;
 }
 .productListItem-title .currentPrice {
-  color: #292c38;
+  color: #c8d6e5;
   font-size: 1.6rem;
 }
 
@@ -994,6 +994,95 @@
   margin-left: 25%;
 }
 
+.bg-productForm {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
+  scale: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.bg-productForm-content {
+  width: 55rem;
+  height: 15rem;
+  background-color: #c8d6e5;
+  border: 2px solid #292c38;
+  border-radius: 15px;
+  text-align: center;
+  color: #292c38;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: none;
+}
+.bg-productForm-content .updateForm {
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+.bg-productForm-content .updateForm input {
+  height: 3rem;
+  width: 70%;
+}
+.bg-productForm-content .updateForm .formContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: none;
+  font-family: "Changa", sans-serif;
+  font-size: 1.6rem;
+  height: 10rem;
+}
+.bg-productForm-content .updateForm .formContent input {
+  background-color: #c8d6e5;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.bg-productForm-content .updateForm .formContent input:focus {
+  outline: 2px solid #48dbfb;
+}
+.bg-productForm-content .updateForm .formContent label {
+  padding-right: 0.4rem;
+}
+.bg-productForm-content .updateForm .formContent .productName {
+  margin: 1rem;
+}
+.bg-productForm-content .updateForm .formContent .productName input {
+  padding-left: 0.4rem;
+}
+.bg-productForm-content .updateForm .formContent .productDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.bg-productForm-content .updateForm .formContent .productDetails label {
+  padding-right: 0.4rem;
+}
+.bg-productForm-content .updateForm .formContent .productDetails input {
+  width: 5rem;
+  padding-left: 0.4rem;
+}
+.bg-productForm-content .updateForm .buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.bg-productForm-content .updateForm .buttons button {
+  height: 4rem;
+  width: 8rem;
+}
+
+.activated {
+  visibility: visible;
+  scale: 1;
+}
+
 .ProductDetailsPage .container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1132,28 +1221,6 @@
   height: 100vh;
   margin-top: 1rem;
 }
-.dashboard .bg-productForm {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  visibility: none;
-  scale: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.dashboard .bg-productForm-content {
-  width: 25rem;
-  height: 35rem;
-  background-color: white;
-}
-.dashboard .activated {
-  visibility: visible;
-  scale: 1;
-}
 .dashboard .container {
   display: grid;
   height: 100%;
@@ -1188,7 +1255,6 @@
 }
 .dashboard .container .dashboard-panel {
   background-color: transparent;
-  z-index: 10;
 }
 .dashboard .container .dashboard-panel .dashboard-products {
   margin-top: 1rem;
@@ -1715,11 +1781,14 @@
 * {
   margin: 0;
   padding: 0;
+}
+
+.App {
   background-color: #a3b1be;
+  min-height: 150vh;
 }
 
 .container {
-  width: 85%;
   margin: 0 auto;
 }
 

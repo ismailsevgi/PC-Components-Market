@@ -40,6 +40,7 @@
 
 //forms
 @import './Components/DashboardComponents/createProductForm';
+@import './Components/DashboardComponents/updateProductForm';
 
 //sidebar
 
@@ -61,14 +62,14 @@
 * {
   margin: 0;
   padding: 0;
-  background-color: $background-color;
 }
 
-.app {
+.App {
+  background-color: $background-color;
+  min-height: 150vh;
 }
 
 .container {
-  width: 85%;
   margin: 0 auto;
 }
 

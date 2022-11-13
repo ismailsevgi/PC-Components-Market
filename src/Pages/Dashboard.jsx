@@ -2,9 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 
 import ProductTableData from '../Components/DashboardComponents/ProductTableData';
 import UpdateProductForm from '../Components/DashboardComponents/UpdateProductForm';
-import anonImg from '../Images/profile.webp';
-
-import { useDispatch } from 'react-redux';
 
 //NEW API IMPORTS - firebaseBranch
 import { toast } from 'react-toastify';
@@ -13,6 +10,7 @@ import Spinner from '../Components/SubComponents/Spinner';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import RequestsTableData from '../Components/DashboardComponents/RequestsTableData';
+import ProfileColumn from '../Components/DashboardComponents/ProfileColumn';
 
 function Dashboard({ userDetails }) {
   //spinner control burada olacak
@@ -31,7 +29,6 @@ function Dashboard({ userDetails }) {
 
   //DECLARATIONS
   const modalRef = useRef();
-  const dispatch = useDispatch();
 
   //firebaseBranch
   const {
@@ -59,48 +56,7 @@ function Dashboard({ userDetails }) {
   return (
     <div className='dashboard'>
       <div className='container'>
-        <div className='profileCol'>
-          <div className='profileCol-imageContainer'>
-            <img src={anonImg} />
-          </div>
-          <h2>{'Not Ready'}</h2>
-          <div className='profileCol-userDetails'>
-            <table>
-              <thead>
-                <tr>
-                  <td>User Informations</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>User ID</td>
-                  <td>{userDetails.displayName}</td>
-                </tr>
-                <tr>
-                  <td>Birth Date</td>
-                  <td>Not Specified</td>
-                </tr>
-
-                <tr>
-                  <td>Email</td>
-                  <td>{userDetails ? userDetails.email : 'Not known'}</td>
-                </tr>
-                <tr>
-                  <td>Ongoing Purchases</td>
-                  <td>3.2</td>
-                </tr>
-                <tr>
-                  <td>Products</td>
-                  <td>{dataArray && dataArray.length}</td>
-                </tr>
-                <tr>
-                  <td>Sold</td>
-                  <td>5</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <ProfileColumn userDetails={userDetails} dataArray={dataArray} />
 
         <div className='dashboard-panel'>
           <div className='dashboard-products'>
@@ -178,9 +134,7 @@ function Dashboard({ userDetails }) {
         </div>
       </div>
       <div ref={modalRef} className='bg-productForm '>
-        <div className='bg-productForm-content'>
-          <UpdateProductForm formState={formState} modalRef={modalRef} />
-        </div>
+        <UpdateProductForm formState={formState} modalRef={modalRef} />
       </div>
     </div>
   );

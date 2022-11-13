@@ -1,0 +1,95 @@
+.bg-productForm {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  visibility: hidden;
+  scale: 0;
+  background: rgba(black, 0.7);
+  @include flex-display();
+
+  &-content {
+    width: 55rem;
+    height: 15rem;
+    background-color: $component-background;
+    border: 2px solid $dark-font;
+    border-radius: 15px;
+    text-align: center;
+    color: $dark-font;
+    @include flex-display(
+      $direction: column,
+      $space: space-around,
+      $align: none
+    );
+    .updateForm {
+      display: grid;
+      grid-template-columns: 80% 20%;
+
+      input {
+        height: 3rem;
+        width: 70%;
+      }
+
+      .formContent {
+        @include flex-display(
+          $direction: column,
+          $space: space-around,
+          $align: none
+        );
+
+        font-family: $primary-font;
+        font-size: 1.6rem;
+
+        height: 10rem;
+
+        input {
+          background-color: $white-font;
+          border-radius: 8px;
+          box-sizing: border-box;
+          &:focus {
+            outline: 2px solid $aqua-light;
+          }
+        }
+
+        label {
+          padding-right: 0.4rem;
+        }
+
+        .productName {
+          margin: 1rem;
+          input {
+            padding-left: 0.4rem;
+          }
+        }
+
+        .productDetails {
+          @include flex-display($space: space-around);
+
+          label {
+            padding-right: 0.4rem;
+          }
+
+          input {
+            width: 5rem;
+            padding-left: 0.4rem;
+          }
+        }
+      }
+
+      .buttons {
+        @include flex-display($direction: column, $space: space-around);
+
+        button {
+          height: 4rem;
+          width: 8rem;
+        }
+      }
+    }
+  }
+}
+
+.activated {
+  visibility: visible;
+  scale: 1;
+}

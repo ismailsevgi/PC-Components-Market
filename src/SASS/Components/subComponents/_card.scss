@@ -62,7 +62,7 @@
     font-size: 1.2rem;
     font-family: $card-title-font;
     font-weight: bold;
-    color: $dark-font;
+    color: $white-font;
     text-decoration: none;
 
     .title {
@@ -86,7 +86,7 @@
           &-oldPrice {
             padding-right: 0.4rem;
             font-size: 1.2rem;
-            color: $dark-font;
+            color: $white-font;
             text-decoration-line: line-through;
             text-decoration-color: $red-dark;
           }
@@ -99,7 +99,7 @@
     }
 
     .currentPrice {
-      color: $dark-font;
+      color: $white-font;
 
       font-size: 1.6rem;
     }

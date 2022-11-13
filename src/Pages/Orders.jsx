@@ -45,6 +45,10 @@ export default function Orders() {
         <div className='orderContainer-title'>My Orders</div>
         {data &&
           data.map(({ orderId, orderStatus, products }) => {
+            let totalOrderStatus = products.every(
+              (product) => product.status == 'confirmed'
+            );
+
             return (
               <div key={orderId} className='orderDropdowns'>
                 <div className='orderDropdowns-title'>
@@ -62,8 +66,10 @@ export default function Orders() {
                             : 'var(--redDark)',
                       }}
                     >
-                      <strong>Order Status:</strong>
-                      {`${orderStatus}`}
+                      <strong>
+                        Order Status:{' '}
+                        {totalOrderStatus ? 'Finished' : `${orderStatus}`}
+                      </strong>
                     </h5>
                   </div>
                   <MDBIcon
@@ -88,8 +94,7 @@ export default function Orders() {
                             <div
                               style={{
                                 color:
-                                  status == 'waiting' &&
-                                  orderStatus != 'canceled'
+                                  status == 'waiting' || status == 'confirmed'
                                     ? `var(--greenDark)`
                                     : `var(--redDark)`,
                               }}

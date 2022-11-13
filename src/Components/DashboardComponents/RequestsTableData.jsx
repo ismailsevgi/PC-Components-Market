@@ -48,28 +48,34 @@ export default function RequestsTableData() {
             <td>{totalPrice}</td>
             <td>{status}</td>
             <td>
-              <button
-                onClick={() =>
-                  handleProductRequests({
-                    type: 'confirm',
-                    orderId,
-                    productId: id,
-                  })
-                }
-              >
-                Confirm
-              </button>
-              <button
-                onClick={() =>
-                  handleProductRequests({
-                    type: 'reject',
-                    orderId,
-                    productId: id,
-                  })
-                }
-              >
-                Reject
-              </button>
+              {status == 'confirmed' || status == 'rejected' ? (
+                <MDBIcon icon='check' />
+              ) : (
+                <div>
+                  <button
+                    onClick={() =>
+                      handleProductRequests({
+                        type: 'confirm',
+                        orderId,
+                        productId: id,
+                      })
+                    }
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleProductRequests({
+                        type: 'reject',
+                        orderId,
+                        productId: id,
+                      })
+                    }
+                  >
+                    Reject
+                  </button>
+                </div>
+              )}
             </td>
           </tr>
         );
