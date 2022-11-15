@@ -5,8 +5,6 @@ import BasketButton from '../SubComponents/BasketButton';
 import CheckButton from '../SubComponents/CheckButton';
 
 const BasketList = ({ itemsInBasket, userStatus }) => {
-  console.log('Basket list rendered...', itemsInBasket);
-
   return (
     <div className='basketList'>
       {itemsInBasket &&

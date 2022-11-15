@@ -3,23 +3,38 @@ import { MDBIcon } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
 import {
   useAddFavoritesMutation,
+  useGetBasketQuery,
   useGetFavoritesQuery,
 } from '../../Features/firebaseApi';
 
 //Basket Item Counter
 function BasketBadge() {
+  const [productAmount, setProductAmount] = useState(0);
+  const { data, error, isFetching } = useGetBasketQuery();
+
   //Gets recent amount of basket items
   const itemsInBasket = useSelector((state) => {
     return state.basket.basketItems;
   });
 
+  useEffect(() => {
+    if (data !== 'error' && data !== undefined) {
+      console.log('Data var ONline brrr', data);
+
+      setProductAmount(data.length);
+    } else {
+      console.log('Data yok OFFline brrr');
+      setProductAmount(itemsInBasket.length);
+    }
+  }, [isFetching, itemsInBasket]);
+
   //Underline problem with yusuf
   return (
     <span className='badge'>
-      <p>{itemsInBasket.length}</p>
+      <p>{productAmount}</p>
     </span>
   );
 }

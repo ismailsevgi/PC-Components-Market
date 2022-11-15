@@ -6,11 +6,6 @@ import {
   useSetBasketMutation,
 } from '../../Features/firebaseApi';
 
-//Şuanda ürünü elde etmeyi query'ye bağlamak şart
-//dökümanın Id sine göre fetch ediyor
-//içindeki id ye göre fetch etmesi lazım
-//useGetQuery'ye bir where query si lazım
-
 const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
   let basketList = useSelector((state) => {
     return state.basket.basketItems;
@@ -34,7 +29,7 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
     if (checkFind) {
       //type increase
       //Compare the quantity of product with the product in the basket
-
+      console.log('ürün zaten var');
       if (checkFind.quantity < data.stock) {
         setBasket({
           type: 'increase',
@@ -53,13 +48,14 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
         );
       } else {
         //if it exceeds stock, throw alert!
-        console.log('Selam', data);
+
         alert('You can not add more: stock exceed!');
       }
     } else {
       console.log('Selam ürün ilk kez ekleniyor', data);
       //type add
-      if (userId) {
+      if (userId != 'null') {
+        console.log('Selam 1', data);
         setBasket({
           id: userId,
           type: 'add',
@@ -71,13 +67,16 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
         });
       }
 
-      dispatch(
-        ADD_TO_BASKET({
-          ...data,
-          quantity: 1,
-          check: true,
-        })
-      );
+      if (userId == 'null') {
+        console.log('Selam 2', data);
+        dispatch(
+          ADD_TO_BASKET({
+            ...data,
+            quantity: 1,
+            check: true,
+          })
+        );
+      }
     }
   };
 

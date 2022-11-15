@@ -14,7 +14,7 @@ export default function CreatedOrders({ product }) {
       </div>
       <div className='productDetails'>
         <div className='title'>
-          <h3>{product.title}</h3>
+          <h3>{product.title.slice(0, 50)}</h3>
           <h5>Status: Waiting</h5>
         </div>
         <br></br>

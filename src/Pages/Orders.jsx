@@ -1,4 +1,3 @@
-import { faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import { MDBIcon } from 'mdb-react-ui-kit';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -45,7 +44,13 @@ export default function Orders() {
         <div className='orderContainer-title'>My Orders</div>
         {data &&
           data.map(({ orderId, orderStatus, products }) => {
+            //If every product is confirmed; product's status is "finished"
             let totalOrderStatus = products.every(
+              (product) => product.status == 'confirmed'
+            );
+
+            //don't render if any product's status is "confirmed"
+            let someOrderStatus = products.some(
               (product) => product.status == 'confirmed'
             );
 
@@ -80,14 +85,14 @@ export default function Orders() {
                 </div>
                 <div id={orderId} className='orderDropdowns-content'>
                   {products.map(
-                    ({ productImageUrl, seller, status }, index) => {
+                    ({ productImageUrl, seller, status, title }, index) => {
                       return (
                         <div key={orderId + index} className='product'>
                           <div className='img-container'>
                             <img src={productImageUrl} alt='Product Image' />
                           </div>
                           <div className='details'>
-                            <div>{'Product Title'}</div>
+                            <div>Product Name:{title.slice(0, 50)}</div>
                             <div>
                               <strong>Seller:</strong> {seller}
                             </div>
@@ -119,14 +124,15 @@ export default function Orders() {
                       }, 0)}
                       $
                     </strong>
-
-                    <button
-                      className='btn btn-danger'
-                      onClick={() => CancelOrderFun(orderId)}
-                      disabled={orderStatus == 'canceled' ? true : false}
-                    >
-                      CANCEL ORDER
-                    </button>
+                    {!someOrderStatus && (
+                      <button
+                        className='btn btn-danger'
+                        onClick={() => CancelOrderFun(orderId)}
+                        disabled={orderStatus == 'canceled' ? true : false}
+                      >
+                        CANCEL ORDER
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

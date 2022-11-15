@@ -10,16 +10,10 @@ import {
 } from '../Features/firebaseApi';
 
 import { useParams } from 'react-router-dom';
-//Sub Components
-// import BasketButton from '../Components/SubComponents/BasketButton';
-// import CheckButton from '../Components/SubComponents/CheckButton';
-
-//Shipment cost rate will be determined by seller
-//Gift Checkbox and Animation
 
 const initialBasketState = { price: 0, shipment: 0 };
 
-const Basket = React.memo(() => {
+const Basket = () => {
   console.log('Basket Rendered...: ');
   const params = useParams();
 
@@ -27,13 +21,11 @@ const Basket = React.memo(() => {
     return state.basket.basketItems;
   });
 
-  const dispatch = useDispatch();
-
   const { isFetching, data, error, isError } = useGetBasketQuery();
-
+  console.log('Basket.jsx Data: ', data);
   useEffect(() => {
     //data geldiği anda basketSlice'a dispatch etmem gerek
-    if (data?.length > 0) {
+    if (data !== 'error' && data !== undefined) {
       const output = data.reduce(
         (prev, cur) => {
           if (cur.check) {
@@ -122,6 +114,6 @@ const Basket = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default Basket;

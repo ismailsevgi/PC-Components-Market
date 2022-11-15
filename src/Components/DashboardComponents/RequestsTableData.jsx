@@ -53,6 +53,7 @@ export default function RequestsTableData() {
               ) : (
                 <div>
                   <button
+                    className='btn btn-info'
                     onClick={() =>
                       handleProductRequests({
                         type: 'confirm',
@@ -64,6 +65,7 @@ export default function RequestsTableData() {
                     Confirm
                   </button>
                   <button
+                    className='btn btn-danger'
                     onClick={() =>
                       handleProductRequests({
                         type: 'reject',

@@ -17,19 +17,21 @@ const BasketButton = React.memo(({ icon, handle, id }) => {
     if (handle === 'handleSub') {
       //If there is an user active in website, firebase functions will be executed
       //otherwise offline basket will be used.
-      userId
+
+      userId != 'null'
         ? setBasket({ type: 'decrease', productId: id })
         : dispatch(DECREASE_AMOUNT(id));
     }
     if (handle === 'handleDelete') {
       console.log('dellll');
-      userId
+      console.log(userId != 'null');
+      userId != 'null'
         ? setBasket({ type: 'delete', productId: id })
         : dispatch(REMOVE_FROM_BASKET(id));
     }
     if (handle === 'handleAdd') {
       console.log('addd');
-      userId
+      userId != 'null'
         ? setBasket({ type: 'increase', productId: id })
         : dispatch(INCREASE_AMOUNT(id));
     }

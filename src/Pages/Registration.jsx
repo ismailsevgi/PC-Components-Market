@@ -173,11 +173,10 @@ function Registration() {
             );
           }
         }
-
-        //getDoc işler eğer userDoc zaten varsa
       })
       .catch((err) => {
         toast.error('Something went wrong: ', err, err.massege);
+        console.log('Something went wrong: ', err, err.massege);
       });
   }
 
@@ -205,6 +204,7 @@ function Registration() {
           <div className='form-group emailBox'>
             <label htmlFor='password'>Password</label>
             <input
+              type='password'
               className='form-control'
               name='password'
               placeholder='Enter your email...'
@@ -274,6 +274,7 @@ function Registration() {
           <div className='form-group passwordBox'>
             <label htmlFor='password'>Password</label>
             <input
+              type='password'
               className='form-control'
               name='password'
               placeholder='Enter your password...'
@@ -284,7 +285,7 @@ function Registration() {
             <label htmlFor='passwordConfirm'>Confirm Password</label>
             <input
               className='form-control'
-              type='passwordConfirm'
+              type='password'
               name='passwordConfirm'
               placeholder='Confirm your password...'
             />

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { CHANGE_CHECK } from '../../Features/basketSlice';
 import { useSetBasketMutation } from '../../Features/firebaseApi';
 
-const userId = localStorage.getItem('userId');
+const userId = localStorage.getItem('userDocId');
 
 function CheckButton({ id, value = true }) {
   const dispatch = useDispatch();
@@ -14,11 +14,9 @@ function CheckButton({ id, value = true }) {
       type='checkbox'
       className='onoffswitch-checkbox'
       onClick={() => {
-        if (userId) {
-          //online basket change if there is an user
+        if (userId != 'null') {
           setBasket({ type: 'check', productId: id });
         } else {
-          //offline basket change if there is no user
           dispatch(CHANGE_CHECK({ id, value }));
         }
       }}

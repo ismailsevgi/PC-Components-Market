@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CardButton from '../SubComponents/CardButton';
 import { FavoriteBadge } from '../SubComponents/Badges';
 import { Link } from 'react-router-dom';
