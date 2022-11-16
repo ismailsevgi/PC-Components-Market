@@ -23,8 +23,9 @@ import Dashboard from './Pages/Dashboard';
 import CreateProductForm from './Components/DashboardComponents/CreateProductForm';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { usersRef } from './DataBASE/firebase';
-import { getDocs, query, where } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import OrderAccept from './Pages/OrderAccept';
+import { usersRef as usersCollection } from './DataBASE/firebase.js';
 
 function App() {
   const auth = getAuth();
@@ -43,19 +44,16 @@ function App() {
         localStorage.setItem('userId', userCred.uid);
         localStorage.setItem('userDocId', userCred.displayName);
         localStorage.setItem('userEmail', userCred.email);
-        let userQuery = query(usersRef, where('userId', '==', userCred.uid));
-        let data = {};
-        getDocs(userQuery).then((dc) => {
-          dc.forEach((e) => {
-            data = { ...e.data() };
-          });
+        let userRef = doc(usersCollection, userCred.displayName);
+
+        getDoc(userRef).then((dc) => {
           setUser({
-            displayName: userCred.displayName,
-            email: userCred.email,
+            displayName: dc.data().userName,
+            email: dc.data().email,
             photoURL: userCred.photoURL,
             uid: userCred.uid,
-            userFavorites: data.userFavorites,
-            userBasket: data.userBasket,
+            userFavorites: dc.data().userFavorites,
+            userBasket: dc.data().userBasket,
             userStatus: true,
           });
         });

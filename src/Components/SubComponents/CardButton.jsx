@@ -21,54 +21,33 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
 
   const handleClick = () => {
     //Find the item inside the basket
-    const checkFind = basketList.find((obj) => {
-      return obj.id === id;
-    });
 
-    //If basket has the item
-    if (checkFind) {
-      //type increase
-      //Compare the quantity of product with the product in the basket
-      console.log('ürün zaten var');
-      if (checkFind.quantity < data.stock) {
-        setBasket({
-          type: 'increase',
-          product: {
-            ...data,
-            quantity: 1,
-            check: true,
-          },
-        });
-        dispatch(
-          ADD_TO_BASKET({
-            ...data,
-            quantity: 1,
-            check: true,
-          })
-        );
+    //If there is no user: Use Redux Local State
+    if (userId == 'null') {
+      const checkFind = basketList.find((obj) => {
+        return obj.id === id;
+      });
+      if (checkFind) {
+        //type increase
+        //Compare the quantity of product with the product in the basket
+        console.log('ürün zaten var');
+        if (checkFind.quantity < data.stock) {
+          dispatch(
+            ADD_TO_BASKET({
+              ...data,
+              quantity: 1,
+              check: true,
+            })
+          );
+        } else {
+          //if it exceeds stock, throw alert!
+
+          alert('You can not add more: stock exceed!');
+        }
       } else {
-        //if it exceeds stock, throw alert!
+        console.log('Selam ürün ilk kez ekleniyor', data);
+        //type add
 
-        alert('You can not add more: stock exceed!');
-      }
-    } else {
-      console.log('Selam ürün ilk kez ekleniyor', data);
-      //type add
-      if (userId != 'null') {
-        console.log('Selam 1', data);
-        setBasket({
-          id: userId,
-          type: 'add',
-          product: {
-            ...data,
-            quantity: 1,
-            check: true,
-          },
-        });
-      }
-
-      if (userId == 'null') {
-        console.log('Selam 2', data);
         dispatch(
           ADD_TO_BASKET({
             ...data,
@@ -77,6 +56,21 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
           })
         );
       }
+    }
+
+    //If there is a user: Use RTK Query
+    if (userId != 'null') {
+      console.log('GÖNDERİLECEK PRODUCT ID: ', id);
+
+      setBasket({
+        type: 'add',
+        product: {
+          ...data,
+          quantity: 1,
+          check: true,
+        },
+        productId: id,
+      });
     }
   };
 

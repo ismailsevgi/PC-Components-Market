@@ -9,10 +9,10 @@ import { useGetProductQuery } from '../Features/firebaseApi';
 import { toast } from 'react-toastify';
 import Spinner from '../Components/SubComponents/Spinner';
 import CardButton from '../Components/SubComponents/CardButton';
-import { FavoriteBadge } from '../Components/SubComponents/Badges';
+import { FavoriteBadge, StarsBadge } from '../Components/SubComponents/Badges';
 
 //favBadge takes solid prop as true if user has added it into his fav product!
-
+const userDocId = localStorage.getItem('userDocId');
 function ProductDetailsPage() {
   const params = useParams();
 
@@ -88,15 +88,18 @@ function ProductDetailsPage() {
                 <h1>{data.price}</h1>
               )}
               <div className='titleDiv-price-buttons'>
-                <FavoriteBadge fontSize='2.4rem' id={params.id} />
+                {userDocId !== 'null' && (
+                  <FavoriteBadge fontSize='2.4rem' id={params.id} />
+                )}
 
                 <CardButton id={params.id} />
               </div>
             </div>
             <hr></hr>
             <div className='titleDiv-reviews'>
-              <span>Stars 5</span>
-              <span>203 ratings</span>
+              <span>
+                Condition: <StarsBadge amount={3} />{' '}
+              </span>
             </div>
           </div>
           <hr></hr>

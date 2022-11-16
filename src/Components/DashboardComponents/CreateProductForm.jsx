@@ -1,18 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
-
+import React, { useState } from 'react';
 import HintMark from '../SubComponents/HintMark';
 import ProductTempleteTypes from './ProductTempleteTypes';
 import { useFormik } from 'formik';
 import Select from 'react-select';
 import UploadImg from './UploadImg';
-
 import { useAddProductMutation } from '../../Features/firebaseApi';
-
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
+import HandleCountry from './HandleCountry';
 
 function CreateProductForm() {
   const [productType, setProductType] = useState('cpu');
+  const [country, setCountry] = useState({
+    value: 'Afghanistan',
+    label: 'Afghanistan',
+  });
+  const [city, setCity] = useState('');
+
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
   const [addProduct] = useAddProductMutation();
@@ -23,7 +27,9 @@ function CreateProductForm() {
     initialValues: {
       title: '',
       brand: '',
-
+      condition: 1,
+      country: '',
+      city: '',
       images: [],
       name: '',
       price: 0,
@@ -37,12 +43,20 @@ function CreateProductForm() {
     },
     onSubmit: async (values) => {
       //RESİMLER YÜKLENENE KADAR BUTTON DISABLE OLMALI
-      await addProduct({ values, productType });
+      await addProduct({ values, productType, country, city });
       navigate('/dashboard');
     },
   });
 
   createProductForm.values.productOwner = localStorage.getItem('userId');
+
+  const conditionOptions = [
+    { value: 1, label: 'very bad' },
+    { value: 2, label: 'bad' },
+    { value: 3, label: 'good' },
+    { value: 4, label: 'very good' },
+    { value: 5, label: 'perfect' },
+  ];
 
   const tagOptions = [
     { value: 'cpu', label: 'CPU' },
@@ -55,13 +69,13 @@ function CreateProductForm() {
     { value: 'hdd', label: 'HDD' },
   ];
 
-  console.log(createProductForm.values);
   function handleProductType({ value }) {
-    console.log('Seçilen Value', value);
-
-    //gönderilen objede productOwnerId ve kendi id si olmalı
-
     setProductType(value);
+    console.log(createProductForm.values);
+  }
+
+  function handleCondition({ value }) {
+    createProductForm.values.condition = value;
   }
 
   return (
@@ -163,6 +177,20 @@ function CreateProductForm() {
               type='number'
               className='form-control'
               placeholder="Enter product's sale rate"
+            />
+            <div className='labelBox'>
+              <label htmlFor='exampleFormControlSelect1'>
+                Current Condition
+              </label>
+            </div>
+            <Select
+              onChange={(e) => handleCondition(e)}
+              options={conditionOptions}
+            />
+            <HandleCountry
+              setCity={setCity}
+              setCountry={setCountry}
+              country={country}
             />
           </div>
         </div>

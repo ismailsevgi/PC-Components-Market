@@ -20,16 +20,17 @@ function BasketBadge() {
     return state.basket.basketItems;
   });
 
-  useEffect(() => {
-    if (data !== 'error' && data !== undefined) {
-      console.log('Data var ONline brrr', data);
+  console.log('basketbadge: itemsInBasket, ', isFetching),
+    useEffect(() => {
+      if (data !== 'error' && data !== undefined) {
+        console.log('Data var ONline brrr', data);
 
-      setProductAmount(data.length);
-    } else {
-      console.log('Data yok OFFline brrr');
-      setProductAmount(itemsInBasket.length);
-    }
-  }, [isFetching, itemsInBasket]);
+        setProductAmount(data.length);
+      } else {
+        console.log('Data yok OFFline brrr');
+        setProductAmount(itemsInBasket.length);
+      }
+    }, [isFetching]);
 
   //Underline problem with yusuf
   return (
@@ -81,4 +82,17 @@ function FavoriteBadge({ fontSize = '1rem', id }) {
   );
 }
 
-export { BasketBadge, FavoriteBadge };
+function StarsBadge({ amount }) {
+  let myArray = new Array(3).fill(0);
+
+  return (
+    <div className='starsContainer'>
+      {new Array(amount).fill(0).map((n) => {
+        console.log('mapped');
+        return <MDBIcon key={n} icon='star' />;
+      })}
+    </div>
+  );
+}
+
+export { BasketBadge, FavoriteBadge, StarsBadge };

@@ -5,6 +5,8 @@ import BasketButton from '../SubComponents/BasketButton';
 import CheckButton from '../SubComponents/CheckButton';
 
 const BasketList = ({ itemsInBasket, userStatus }) => {
+  console.log("BasketList'e gelen liste: ", itemsInBasket);
+
   return (
     <div className='basketList'>
       {itemsInBasket &&
@@ -60,6 +62,7 @@ const BasketList = ({ itemsInBasket, userStatus }) => {
                         handle={'handleAdd'}
                         icon={'Add'}
                         id={item.id}
+                        stock={item.stock}
                       >
                         <i className='fa-solid fa-plus'></i>
                       </BasketButton>

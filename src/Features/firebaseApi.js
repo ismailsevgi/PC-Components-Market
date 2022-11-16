@@ -26,7 +26,7 @@ import {
 export const firebaseApi = createApi({
   reducerPath: 'firebaseApi',
   baseQuery: fakeBaseQuery(),
-  tagTypes: ['products', 'users', 'favorites', 'order'],
+  tagTypes: ['products', 'users', 'favorites', 'order', 'basket'],
   endpoints: (builder) => ({
     getProducts: builder.query({
       //type:"userDashboard" payload:userId
@@ -178,11 +178,14 @@ export const firebaseApi = createApi({
       invalidatesTags: ['products'],
     }),
     addProduct: builder.mutation({
-      async queryFn({ values, productType }) {
+      async queryFn({ values, productType, country, city }) {
         try {
           await addDoc(productsCollection, {
             ...values,
             tag: productType,
+
+            country: country.value,
+            city: city.value,
           }).then((docRef) => {
             const documentRef = doc(productsCollection, docRef.id);
             //await is a must: fetching has to wait for update!!!
@@ -212,7 +215,7 @@ export const firebaseApi = createApi({
           return { data: userDocument.data().userFavorites };
         } catch (error) {
           console.log('Favoriler Çekilemedi');
-          return { data: error };
+          return { data: 'error' };
         }
       },
       providesTags: ['favorites'],
@@ -281,8 +284,10 @@ export const firebaseApi = createApi({
     }),
     //basket
     setBasket: builder.mutation({
-      async queryFn({ type, product, productId }) {
-        console.log('TYPE ', type, 'PRODUCT ', product);
+      async queryFn({ type, product, productId, stock }) {
+        console.log('Gelen ProductId: ', productId);
+        console.log('Gelen type: ', type);
+        console.log('Gelen stock: ', stock);
 
         try {
           const userDocRef = doc(
@@ -290,34 +295,77 @@ export const firebaseApi = createApi({
             localStorage.getItem('userDocId')
           );
           const userDoc = await getDoc(userDocRef);
+          let check = userDoc.data().userBasket.find((product) => {
+            console.log('product.id', product.id);
+            console.log('productId', productId);
+            return product.id === productId;
+          });
 
           switch (type) {
             case 'add':
-              console.log('Product Added...');
-              updateDoc(userDocRef, {
-                ...userDoc.data(),
-                userBasket: [...userDoc.data().userBasket, product],
-              });
+              console.log('Product Checking...');
+
+              if (check) {
+                console.log(
+                  'check.quantity den gelen product: ',
+                  check.quantity
+                );
+                console.log('product.stock den gelen product: ', product.stock);
+                //stock check
+
+                if (product.stock - check.quantity <= 0) {
+                  toast.error("You can't add more!;exceeding stocksize");
+                } else {
+                  console.log('There is a product, so increase it');
+                  updateDoc(userDocRef, {
+                    ...userDoc.data(),
+                    userBasket: [
+                      ...userDoc.data().userBasket.map((product) => {
+                        if (product.id === productId) {
+                          return {
+                            ...product,
+                            quantity: (product.quantity += 1),
+                          };
+                        } else {
+                          return product;
+                        }
+                      }),
+                    ],
+                  });
+                }
+              }
+
+              if (!check) {
+                console.log('There is no product, so adding it');
+                updateDoc(userDocRef, {
+                  ...userDoc.data(),
+                  userBasket: [...userDoc.data().userBasket, product],
+                });
+              }
+
               break;
 
             case 'increase':
               console.log("Product's quantity increased...");
-
-              updateDoc(userDocRef, {
-                ...userDoc.data(),
-                userBasket: [
-                  ...userDoc.data().userBasket.map((product) => {
-                    if (product.id === productId) {
-                      return {
-                        ...product,
-                        quantity: (product.quantity += 1),
-                      };
-                    } else {
-                      return product;
-                    }
-                  }),
-                ],
-              });
+              if (stock - check.quantity <= 0) {
+                toast.error("You can't add more!;exceeding stocksize");
+              } else {
+                updateDoc(userDocRef, {
+                  ...userDoc.data(),
+                  userBasket: [
+                    ...userDoc.data().userBasket.map((product) => {
+                      if (product.id === productId) {
+                        return {
+                          ...product,
+                          quantity: (product.quantity += 1),
+                        };
+                      } else {
+                        return product;
+                      }
+                    }),
+                  ],
+                });
+              }
 
               break;
 

@@ -7,7 +7,7 @@ import {
 } from '../../Features/basketSlice';
 import { useSetBasketMutation } from '../../Features/firebaseApi';
 
-const BasketButton = React.memo(({ icon, handle, id }) => {
+const BasketButton = React.memo(({ icon, handle, id, stock }) => {
   const dispatch = useDispatch();
   const [setBasket] = useSetBasketMutation();
   const userId = localStorage.getItem('userId');
@@ -32,7 +32,7 @@ const BasketButton = React.memo(({ icon, handle, id }) => {
     if (handle === 'handleAdd') {
       console.log('addd');
       userId != 'null'
-        ? setBasket({ type: 'increase', productId: id })
+        ? setBasket({ type: 'increase', productId: id, stock })
         : dispatch(INCREASE_AMOUNT(id));
     }
   };
