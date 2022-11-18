@@ -17,7 +17,6 @@ function CreateProductForm() {
   });
   const [city, setCity] = useState('');
 
-  const [images, setImages] = useState([]);
   const navigate = useNavigate();
   const [addProduct] = useAddProductMutation();
 
@@ -36,6 +35,7 @@ function CreateProductForm() {
       saleRate: 0,
       shipment: 0,
       specs: {},
+      description: '',
       tag: 'cpu',
       stock: 0,
       productOwner: localStorage.getItem('userDocId'),
@@ -48,7 +48,17 @@ function CreateProductForm() {
     },
   });
 
-  createProductForm.values.productOwner = localStorage.getItem('userId');
+  createProductForm.values.productOwner = localStorage.getItem('userDocId');
+
+  const styleSheet = {
+    option: (base, state) => ({
+      ...base,
+
+      fontSize: 13,
+      fontWeight: 900,
+      color: 'black!important',
+    }),
+  };
 
   const conditionOptions = [
     { value: 1, label: 'very bad' },
@@ -79,30 +89,28 @@ function CreateProductForm() {
   }
 
   return (
-    <div className='container'>
+    <div className='container-fluid'>
       <form
         className='createProductsForm'
         onSubmit={createProductForm.handleSubmit}
       >
         <div className='formTitle'>
-          <h2> SET A NEW PRODUCT </h2>
+          <h2>PRODUCT FORM </h2>
         </div>
 
         <div className='leftSide'>
-          <h2>General</h2>
           <div className='generalContainer'>
             <div className='labelBox'>
-              <HintMark
-                hintMassage={
-                  'Write your products specific features like brand, speed'
-                }
-              />
+              <h2>General</h2>
+            </div>
+            <div style={{ opacity: 0 }}>-</div>
+            <div className='labelBox'>
               <label htmlFor='name' className='label-title'>
                 Product Title
               </label>
             </div>
             <input
-              className='input'
+              className='input form-control'
               type='text'
               name='title'
               onChange={createProductForm.handleChange}
@@ -115,6 +123,7 @@ function CreateProductForm() {
             <Select
               onChange={(e) => handleProductType(e)}
               options={tagOptions}
+              styles={styleSheet}
             />
 
             <div className='labelBox'>
@@ -203,10 +212,16 @@ function CreateProductForm() {
               type={productType}
             />
           </div>
+          <div className='textAreaContainer'>
+            <label>Short description about your product</label>
+            <textarea
+              onChange={createProductForm.handleChange}
+              value={createProductForm.values.description}
+              className='productDescription'
+            ></textarea>
+          </div>
         </div>
         <UploadImg
-          setImages={setImages}
-          images={images}
           productName={createProductForm.values.title}
           formImages={createProductForm.values.images}
           progress={progress}

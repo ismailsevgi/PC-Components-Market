@@ -1,14 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { storage } from '../../DataBASE/firebase';
 import Spinner from '../SubComponents/Spinner';
 export default function UploadImg({
-  setImages,
-  images,
   progress,
   setProgress,
 
@@ -19,8 +17,10 @@ export default function UploadImg({
 
   //yüklemeden sonra url string ini imageHandler ile formikteki arraye kayıt edilecek
 
-  useEffect(() => {
-    const uploadImage = () => {
+  function handleChange(e) {
+    const newImagesArray = [];
+    const uploadImage = (images) => {
+      //images are files array
       if (images.length === 0) return;
 
       images.map((img) => {
@@ -29,7 +29,7 @@ export default function UploadImg({
           `${userId}/${productName}/${img.name}`
         );
         const uploadTask = uploadBytesResumable(userStorageRef, img);
-
+        //test
         uploadTask.on(
           'state_changed',
           (snapshot) => {
@@ -54,29 +54,28 @@ export default function UploadImg({
           },
           () => {
             toast.info('Image Upload Successfully!');
-            setProgress(0);
+
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURLs) => {
               formImages.push(downloadURLs);
             });
+            setProgress(0);
           }
         );
       });
     };
-    images && uploadImage();
-  }, [images]);
 
-  function handleChange(e) {
     for (let i = 0; i < e.target.files.length; i++) {
       const newImage = e.target.files[i];
       newImage['id'] = v4();
-      setImages((prev) => [...prev, newImage]);
+      newImagesArray.push(newImage);
     }
+
+    uploadImage(newImagesArray);
   }
 
-  console.log('current progress: ', images);
   return (
     <div className='uploadImageCanvas'>
-      {images.length > 0 ? (
+      {formImages.length > 0 ? (
         <div className='images'>
           {formImages?.map((url) => {
             return (

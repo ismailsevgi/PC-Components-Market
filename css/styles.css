@@ -832,29 +832,24 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas: "formTitle formTitle" "leftSide rightSide" "imageCanvas imageCanvas" "button button";
-  border: 1px solid #292c38;
+  border: 1px solid #0abde3;
   height: auto;
   width: 70vw;
   margin: 0 auto;
-  margin-top: 5rem;
-  background-color: #c8d6e5;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+  background-color: #2e86de;
   font-family: "Changa", sans-serif;
+  color: #c8d6e5;
+  box-shadow: 0 0 2px 2px #0abde3;
 }
-.createProductsForm .addSpecs table tbody tr {
-  border: 1px solid pink;
-}
-.createProductsForm .addSpecs table tbody tr td {
-  text-align: right;
-  margin-left: 0.6rem;
-  width: 8rem;
-}
-.createProductsForm .addSpecs table tbody tr td input {
-  margin-left: 1.2rem;
-  width: 5rem;
+.createProductsForm label,
+.createProductsForm h2 {
+  text-shadow: 1px 1px 1px #292c38;
 }
 .createProductsForm .formTitle {
   font-family: "Changa", sans-serif;
-  color: #292c38;
+  color: #c8d6e5;
   margin-top: 1rem;
   grid-area: formTitle;
   text-align: center;
@@ -862,15 +857,35 @@
 .createProductsForm .formTitle h2 {
   font-size: 3rem;
 }
+.createProductsForm input {
+  color: #292c38 !important;
+}
+.createProductsForm input::-moz-placeholder {
+  color: #292c38 !important;
+}
+.createProductsForm input:-ms-input-placeholder {
+  color: #292c38 !important;
+}
+.createProductsForm input::placeholder {
+  color: #292c38 !important;
+}
 .createProductsForm .leftSide .generalContainer {
   grid-area: leftSide;
-  color: #292c38;
+  color: #c8d6e5;
   font-family: "Changa", sans-serif;
-  padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 0.4rem;
   line-height: 1.4rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+.createProductsForm .leftSide .generalContainer label {
+  font-size: 1.4rem;
+  box-sizing: border-box;
+  margin: 0.4rem;
+}
+.createProductsForm .leftSide .generalContainer select {
+  display: inline-block !important;
+  width: 10rem;
 }
 .createProductsForm .leftSide .generalContainer .labelBox {
   display: flex;
@@ -878,44 +893,61 @@
   justify-content: flex-end;
   align-items: center;
 }
-.createProductsForm .leftSide .generalContainer label {
-  font-size: 1.4rem;
-}
-.createProductsForm .leftSide .generalContainer label {
-  box-sizing: content-box;
-  margin: 0.4rem;
-}
-.createProductsForm .leftSide .generalContainer select {
-  display: inline-block !important;
-  width: 10rem;
-}
-.createProductsForm .rightSide {
-  padding: 1rem;
+.createProductsForm .rightSide .addSpecs {
   width: 100%;
   grid-area: rightSide;
+  gap: 0.4rem;
 }
 .createProductsForm .rightSide .addSpecs h2 {
   padding-left: 1rem;
+  padding-bottom: 0.6rem;
 }
 .createProductsForm .rightSide .addSpecs .templeteContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
 }
 .createProductsForm .rightSide .addSpecs .templeteContainer .templeteInputBox {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  line-height: 1.2rem;
+  place-items: center start;
   padding-left: 1rem;
+}
+.createProductsForm .rightSide .addSpecs .templeteContainer .templeteInputBox label {
+  display: inline;
+  font-size: 1.2rem;
 }
 .createProductsForm .rightSide .addSpecs .templeteContainer .templeteInputBox input {
   width: 5rem;
 }
-.createProductsForm .uploadImageCanvas {
-  border: 1px solid rgb(107, 107, 107);
-  background-color: rgba(128, 128, 128, 0.37);
-  border-radius: 5px;
+.createProductsForm .rightSide .textAreaContainer {
   width: 100%;
-  padding: 0;
-  margin: 0;
+  min-height: 40%;
+  padding: 1rem;
+}
+.createProductsForm .rightSide .textAreaContainer label {
+  display: block;
+  text-indent: 5px;
+  font-size: 1.2rem;
+  color: #c8d6e5;
+}
+.createProductsForm .rightSide .textAreaContainer textarea {
+  resize: none;
+  width: 100%;
+  height: 10rem;
+  border-radius: 10px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  padding: 0.6rem;
+  font-size: 1.2rem;
+}
+.createProductsForm .uploadImageCanvas {
+  border: 1px solid rgb(214, 214, 214);
+  background-color: #54a0ff;
+  border-radius: 5px;
+  width: 50%;
+  box-shadow: 0 0 2px 2px aqua;
+  margin: auto;
   height: 14rem;
   grid-area: imageCanvas;
   display: flex;
@@ -927,16 +959,17 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 0.5rem;
+  place-items: center center;
   padding: 0.5rem;
   width: 100%;
   height: 100%;
   margin: 1rem 0;
-  border: 1px solid #292c38;
+  border: 1px solid #c8d6e5;
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
 }
 .createProductsForm .uploadImageCanvas .images .image {
-  border: 1px solid #292c38;
+  border: 1px solid #c8d6e5;
   height: 6rem;
   width: 6rem;
 }
@@ -950,44 +983,47 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  height: 8rem;
-  width: 12rem;
-  border: 1px solid rgb(124, 123, 123);
+  height: 60%;
+  width: 40%;
+  border: 1px solid rgb(214, 214, 214);
   border-radius: 15px;
 }
 .createProductsForm .uploadImageCanvas .wrapper:hover {
-  background-color: rgba(128, 128, 128, 0.1);
+  background-color: #3b92ff;
 }
 .createProductsForm .uploadImageCanvas .wrapper svg {
   font-size: 5rem;
-  top: 10%;
+  color: #341f97;
+  top: 50%;
   left: 50%;
   position: absolute;
   z-index: 0;
   cursor: pointer;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 }
 .createProductsForm .uploadImageCanvas .wrapper input {
   height: 10rem;
   width: 7rem;
   cursor: pointer;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   opacity: 0;
   z-index: 1;
 }
 .createProductsForm .uploadImageCanvas .wrapper small {
-  color: #292c38;
+  color: #c8d6e5;
+  text-shadow: 1px 1px 1px black;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 .createProductsForm .btn {
   grid-area: button;
   width: 50%;
   padding: 1rem;
+  margin-top: 2rem;
   font-family: "Changa", sans-serif;
   letter-spacing: 1px;
   font-size: 1.8rem;

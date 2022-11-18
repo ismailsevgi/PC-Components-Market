@@ -9,9 +9,9 @@ const useTempleteMaker = (templeteData, handleChange) => {
       {templeteData?.map((data) => {
         return (
           <div className='templeteInputBox'>
-            <span name={data.replace('_', '-')}>
+            <label name={data.replace('_', '-')}>
               {data.replace('*', '.').replaceAll('_', ' ')}
-            </span>
+            </label>
             <span>
               <input
                 className='form-control'

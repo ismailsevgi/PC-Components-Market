@@ -186,6 +186,8 @@ export const firebaseApi = createApi({
 
             country: country.value,
             city: city.value,
+            sellerEmail: localStorage.getItem('userEmail'),
+            sellerUsername: localStorage.getItem('userName'),
           }).then((docRef) => {
             const documentRef = doc(productsCollection, docRef.id);
             //await is a must: fetching has to wait for update!!!

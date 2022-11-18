@@ -44,9 +44,11 @@ function App() {
         localStorage.setItem('userId', userCred.uid);
         localStorage.setItem('userDocId', userCred.displayName);
         localStorage.setItem('userEmail', userCred.email);
+
         let userRef = doc(usersCollection, userCred.displayName);
 
         getDoc(userRef).then((dc) => {
+          localStorage.setItem('userName', dc.data().userName);
           setUser({
             displayName: dc.data().userName,
             email: dc.data().email,
