@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HintMark from '../SubComponents/HintMark';
 import ProductTempleteTypes from './ProductTempleteTypes';
 import { useFormik } from 'formik';
@@ -20,7 +20,11 @@ function CreateProductForm() {
   const navigate = useNavigate();
   const [addProduct] = useAddProductMutation();
 
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(false);
+
+  useEffect(() => {
+    console.log('Progress: ', progress);
+  }, [progress]);
 
   const createProductForm = useFormik({
     initialValues: {
@@ -228,7 +232,7 @@ function CreateProductForm() {
           setProgress={setProgress}
         />
         <button
-          disabled={progress === 0 || progress === 100 ? false : true}
+          disabled={!progress ? false : true}
           type='submit'
           className='btn btn-primary submit'
         >
