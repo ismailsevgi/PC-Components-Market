@@ -17,6 +17,8 @@ export default function UploadImg({
 
   //yüklemeden sonra url string ini imageHandler ile formikteki arraye kayıt edilecek
 
+  var test = 'test';
+
   function handleChange(e) {
     const newImagesArray = [];
     const uploadImage = (images) => {
