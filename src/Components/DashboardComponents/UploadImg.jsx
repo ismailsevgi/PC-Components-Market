@@ -33,15 +33,20 @@ export default function UploadImg({
         uploadTask.on(
           'state_changed',
           (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setProgress(progress);
+            console.log('CASELER: ', snapshot.state);
+            console.log('snapshot: ', snapshot);
+
             switch (snapshot.state) {
               case 'paused':
                 console.log('Upload is paused');
                 break;
               case 'running':
+                setProgress(true);
                 console.log('Upload is running');
+                break;
+              case 'complete':
+                setProgress(false);
+                console.log('Upload Completed');
                 break;
 
               default:
@@ -58,7 +63,6 @@ export default function UploadImg({
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURLs) => {
               formImages.push(downloadURLs);
             });
-            setProgress(0);
           }
         );
       });
@@ -87,7 +91,7 @@ export default function UploadImg({
         </div>
       ) : (
         <div className='wrapper'>
-          {progress !== 0 ? (
+          {progress ? (
             <Spinner />
           ) : (
             <>

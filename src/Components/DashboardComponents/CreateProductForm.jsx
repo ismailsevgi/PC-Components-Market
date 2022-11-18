@@ -20,7 +20,7 @@ function CreateProductForm() {
   const navigate = useNavigate();
   const [addProduct] = useAddProductMutation();
 
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(false);
 
   const createProductForm = useFormik({
     initialValues: {
@@ -228,7 +228,7 @@ function CreateProductForm() {
           setProgress={setProgress}
         />
         <button
-          disabled={progress === 0 || progress === 100 ? false : true}
+          disabled={!progress ? false : true}
           type='submit'
           className='btn btn-primary submit'
         >
