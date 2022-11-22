@@ -91,8 +91,13 @@ function FilterBar() {
             placeholder='Seach product'
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                console.log('Submitted!', e.target.value);
-                dispatch(SET_FILTER({ type: 'custom', label: e.target.value }));
+                if (e.target.value === '') {
+                  dispatch(SET_FILTER({ type: 'filtering', label: 'all' }));
+                } else {
+                  dispatch(
+                    SET_FILTER({ type: 'custom', label: e.target.value })
+                  );
+                }
               }
             }}
           />
