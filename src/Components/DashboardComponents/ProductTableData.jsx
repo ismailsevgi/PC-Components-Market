@@ -1,5 +1,6 @@
 import { MDBIcon } from 'mdb-react-ui-kit';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDeleteProductMutation } from '../../Features/firebaseApi';
 
 export default function ProductTableData(props) {
@@ -30,8 +31,12 @@ export default function ProductTableData(props) {
   }
 
   return (
-    <tr className='productTable-rows-row'>
-      <th scope='row'>{props.data.title.slice(0, 55)}</th>
+    <tr className='table-rows'>
+      <th scope='row'>
+        <Link to={`/productDetails/` + props.data.id}>
+          {props.data.title.slice(0, 45)}
+        </Link>
+      </th>
 
       <td>{props.data.stock}</td>
       <td>{props.data.price}</td>

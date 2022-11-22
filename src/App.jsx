@@ -1,12 +1,19 @@
 import '../css/styles.css';
+//PAGES
 import Navbar from './Pages/Navbar';
 import Products from './Pages/Products';
-import About from './Pages/About';
+
 import React, { useEffect, useState } from 'react';
 import Registration from './Pages/Registration';
 import LoadingPage from './Components/SubComponents/LoadingPage';
 import Orders from './Pages/Orders';
+import Basket from './Pages/Basket';
+import ProductDetailsPage from './Pages/ProductDetailsPage';
+import Dashboard from './Pages/Dashboard';
+import CreateProductForm from './Components/DashboardComponents/CreateProductForm';
+import OrderAccept from './Pages/OrderAccept';
 
+//Router
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,17 +21,13 @@ import {
   Link,
   Navigate,
 } from 'react-router-dom';
-import Basket from './Pages/Basket';
-import ProductDetailsPage from './Pages/ProductDetailsPage';
+
+//SkeletonLoadingProvider
 import { SkeletonTheme } from 'react-loading-skeleton';
 
-import { useDispatch } from 'react-redux';
-import Dashboard from './Pages/Dashboard';
-import CreateProductForm from './Components/DashboardComponents/CreateProductForm';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { usersRef } from './DataBASE/firebase';
+//Firebase
+import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import OrderAccept from './Pages/OrderAccept';
 import { usersRef as usersCollection } from './DataBASE/firebase.js';
 
 function App() {
@@ -44,11 +47,14 @@ function App() {
         localStorage.setItem('userId', userCred.uid);
         localStorage.setItem('userDocId', userCred.displayName);
         localStorage.setItem('userEmail', userCred.email);
+        localStorage.setItem('userPhotoURL', userCred.photoURL);
 
         let userRef = doc(usersCollection, userCred.displayName);
 
         getDoc(userRef).then((dc) => {
           localStorage.setItem('userName', dc.data().userName);
+          localStorage.setItem('userFavorites', dc.data().userFavorites);
+
           setUser({
             displayName: dc.data().userName,
             email: dc.data().email,
@@ -92,7 +98,6 @@ function App() {
             />
             <Route path='/orders' element={<Orders />} />
             <Route path='/orderAccept/:orderId' element={<OrderAccept />} />
-            <Route path='/about' element={<About />} />
 
             <Route path='/productAdd' element={<CreateProductForm />} />
           </Routes>

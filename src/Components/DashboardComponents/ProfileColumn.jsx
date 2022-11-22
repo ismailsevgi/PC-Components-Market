@@ -1,37 +1,129 @@
-import React from 'react';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, uploadBytes, ref } from 'firebase/storage';
+import { MDBIcon } from 'mdb-react-ui-kit';
+
+import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { storage } from '../../DataBASE/firebase';
+import { usersRef as usersCollection } from '../../DataBASE/firebase.js';
+
 import anonImg from '../../Images/profile.webp';
 export default function ProfileColumn({ userDetails, dataArray }) {
+  var userId = localStorage.getItem('userId');
+  const [user, setUser] = useState({
+    photoUrl: localStorage.getItem('userPhotoURL'),
+    userName: localStorage.getItem('userName'),
+    userEmail: localStorage.getItem('userEmail'),
+  });
+
+  var auth = getAuth().currentUser;
+  const updateProfileRef = useRef();
+
+  useEffect(() => {
+    console.log('User Changed: ', user);
+  }, [user]);
+
+  function openInput() {
+    if (updateProfileRef.current.classList.contains('activated')) {
+      console.log('Kapandı');
+      updateProfileRef.current.classList.remove('activated');
+      console.log(updateProfileRef.current.classList);
+    } else {
+      console.log('Acildi');
+      updateProfileRef.current.classList.add('activated');
+      console.log(updateProfileRef.current.classList);
+    }
+  }
+
+  function handleChange(e) {
+    async function uploadProfilePhoto(file) {
+      if (!file) return;
+      const userStorageRef = ref(storage, `${userId}/${file.name}`);
+      let snapshot = await uploadBytes(userStorageRef, file);
+
+      await getDownloadURL(snapshot.ref).then((url) => {
+        try {
+          updateProfile(auth, {
+            photoURL: url,
+          });
+          setTimeout(() => {
+            toast.success('Profile Photo changed successfully!');
+
+            setUser((prev) => {
+              return { ...prev, photoUrl: url };
+            });
+          }, 1000);
+        } catch (err) {
+          console.log('Went Wrong Something - yoda', err);
+        }
+      });
+    }
+
+    uploadProfilePhoto(e.target.files[0]);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const { name, surname, email } = e.target.elements;
+    console.log(name.value, surname.value, email.value);
+    updateProfile(auth, {
+      email: email.value,
+    });
+    usersCollection;
+
+    let userRef = doc(usersCollection, localStorage.getItem('userDocId'));
+
+    updateDoc(userRef, {
+      userName: `${name.value} ${surname.value}`,
+    });
+
+    getDoc(userRef).then((dc) => {
+      toast.success('Profile Informations Updated!');
+      setUser((prev) => {
+        return {
+          ...prev,
+          userName: dc.data().userName,
+        };
+      });
+    });
+  }
+
   return (
     <div className='profileCol'>
       <div className='profileCol-imageContainer'>
-        <img src={anonImg} />
+        <img src={user.photoUrl ? user.photoUrl : anonImg} />
+        <div className='wrapper'>
+          <label htmlFor='imageFile'>
+            <i className='fas fa-camera-retro'></i>
+          </label>
+
+          <input id='imageFile' type='file' onChange={(e) => handleChange(e)} />
+        </div>
       </div>
-      <h2>{'Not Ready'}</h2>
-      <div className='profileCol-userDetails'>
-        <table>
-          <thead>
+
+      <div className='profileCol-userInformations'>
+        <table className='table'>
+          <thead className='table-head'>
             <tr>
-              <td>User Informations</td>
+              <td>
+                <h3>User Informations</h3>
+              </td>
+              <td style={{ textAlign: 'end', cursor: 'pointer' }}>
+                <MDBIcon fas icon='cog' onClick={() => openInput()} />
+              </td>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='table-rows'>
             <tr>
-              <td>User ID</td>
+              <td>Fullname</td>
               <td>{userDetails.displayName}</td>
             </tr>
-            <tr>
-              <td>Birth Date</td>
-              <td>Not Specified</td>
-            </tr>
-
             <tr>
               <td>Email</td>
               <td>{userDetails ? userDetails.email : 'Not known'}</td>
             </tr>
-            <tr>
-              <td>Ongoing Purchases</td>
-              <td>3.2</td>
-            </tr>
+
             <tr>
               <td>Products</td>
               <td>{dataArray && dataArray.length}</td>
@@ -42,6 +134,34 @@ export default function ProfileColumn({ userDetails, dataArray }) {
             </tr>
           </tbody>
         </table>
+        <div ref={updateProfileRef} className='updateProfile activated'>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <label htmlFor='name'>Name</label>
+            <input
+              name='name'
+              className='form-control'
+              id='name'
+              placeholder='Your name'
+            />
+            <label htmlFor='surname'>Surname</label>
+            <input
+              name='surname'
+              className='form-control'
+              id='surname'
+              placeholder='Your surname'
+              required
+            />
+            <label htmlFor='email'>Email</label>
+            <input
+              name='email'
+              className='form-control'
+              id='email'
+              placeholder='Your email'
+              required
+            />
+            <button>SUBMIT</button>
+          </form>
+        </div>
       </div>
     </div>
   );

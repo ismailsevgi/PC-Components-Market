@@ -1,14 +1,16 @@
 .filterBar {
   position: relative;
-
   border-top: 1px solid $yellow;
   border-bottom: 1px solid $yellow;
-  height: 5rem;
+  height: auto;
   width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   margin-left: auto;
   background-color: $navbar-background;
   color: $white-font;
-  @include flex-display($space: flex-start);
+  box-sizing: border-box;
+
   .radios {
     background-color: transparent;
     position: absolute;
@@ -23,8 +25,10 @@
   }
 
   .labels {
-    @include flex-display($space: space-between);
-    font-size: 1.8rem;
+    border: 1px solid red;
+    @include flex-display($direction: column, $align: flex-start);
+
+    font-size: 1.6rem;
     font-weight: 500;
     border-radius: 8px;
     padding: 1rem;
@@ -32,15 +36,23 @@
     letter-spacing: 1px;
     font-family: $primary-font;
     background-color: transparent;
-
+    padding: 2rem;
     h3 {
       background-color: inherit;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
+    }
+
+    select {
+      width: 80%;
+      margin: 0.6rem;
+      font-size: 1.2rem;
+      padding-left: 0.8rem;
     }
 
     .label {
       background-color: inherit;
       cursor: pointer;
+      margin: 0.6rem;
       height: 100%;
       position: relative;
       @include flex-display($direction: row, $space: space-between);
@@ -92,6 +104,32 @@
           left: 0;
           transition: all 0.5s ease;
         }
+      }
+    }
+
+    .inputField {
+      position: relative;
+      background-color: inherit;
+      margin: 0.6rem;
+      width: 80%;
+      .searchInput {
+        height: 2.4rem;
+        padding-left: 0.8rem;
+
+        &::placeholder {
+          color: $dark-font;
+          font-family: $secondary-font;
+
+          font-weight: 500;
+        }
+      }
+
+      svg {
+        font-size: 1.6rem;
+        position: absolute;
+        top: 15%;
+        right: 5%;
+        color: $dark-font;
       }
     }
 

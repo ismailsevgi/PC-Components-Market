@@ -10,7 +10,6 @@ import {
 import app, { usersRef as usersCollection } from '../DataBASE/firebase';
 
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';

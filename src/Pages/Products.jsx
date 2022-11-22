@@ -6,9 +6,10 @@ import FilterBar from '../Components/Filter-Product/FilterBar';
 function Products() {
   return (
     <div className='product'>
-      <div className='container'>
-        <FilterBar />
-        <div className='listingPages'>
+      <div className='container-fluid'>
+        <div className='storePageWrapper'>
+          <FilterBar />
+
           <ProductList />
         </div>
       </div>

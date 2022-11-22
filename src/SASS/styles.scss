@@ -21,6 +21,7 @@
 @import './Components/subComponents/hintMark';
 
 @import './Components/subComponents/loadingPage';
+@import './Components/DashboardComponents/CreateProductForm/skeletonImages';
 //buttons
 
 //dropdowns
@@ -39,9 +40,11 @@
 //navigation
 
 //forms
-@import './Components/DashboardComponents/createProductForm';
-@import './Components/DashboardComponents/updateProductForm';
+@import './Components/DashboardComponents/CreateProductForm/createProductForm';
 
+@import './Components/DashboardComponents/updateProductForm';
+@import './Components/DashboardComponents/productTables';
+@import './Components/DashboardComponents/profileCol';
 //sidebar
 
 //grid
@@ -53,6 +56,7 @@
 @import './Pages/basket';
 @import './Pages/orders';
 @import './Pages/orderAccept';
+@import './Pages/profile';
 //home
 //about
 //contact
@@ -65,7 +69,7 @@
 }
 
 .App {
-  background-color: $background-color;
+  background-image: linear-gradient(to right, $blue-dark, $purple);
   min-height: 150vh;
 }
 

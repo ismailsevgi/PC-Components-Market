@@ -32,6 +32,8 @@ export const firebaseApi = createApi({
       //type:"userDashboard" payload:userId
       //type:"filter" payload: label
       async queryFn({ type, label }) {
+        console.log('type, label: ', type, label);
+
         if (type === 'userProducts') {
           //if there is an userid then query fetch user's products
           if (label) {
@@ -57,7 +59,9 @@ export const firebaseApi = createApi({
         }
 
         if (type === 'filtering') {
+          console.log('Type filtering');
           if (label === 'all') {
+            console.log('Type all');
             try {
               const querySnapshot = await getDocs(productsCollection);
 
@@ -75,6 +79,7 @@ export const firebaseApi = createApi({
               return { data: error };
             }
           } else {
+            console.log('Type else');
             let filterQuery = query(
               productsCollection,
               where('tag', '==', label)
@@ -96,6 +101,29 @@ export const firebaseApi = createApi({
             } catch (error) {
               return { data: error };
             }
+          }
+        }
+
+        if (type === 'custom') {
+          console.log('type custom: ', type, label);
+          try {
+            const q = query(
+              productsCollection,
+              where('searchQueries', 'array-contains', label.toLowerCase())
+            );
+            const querySnapshot = await getDocs(q);
+            let productsData = [];
+
+            querySnapshot?.forEach((doc) => {
+              productsData.push({
+                id: doc.id,
+                ...doc.data(),
+              });
+            });
+            return { data: productsData };
+          } catch (error) {
+            console.log('Error: ', error);
+            return { data: error };
           }
         }
       },
@@ -180,9 +208,20 @@ export const firebaseApi = createApi({
     addProduct: builder.mutation({
       async queryFn({ values, productType, country, city }) {
         try {
+          console.log(
+            "...values.title.split(' ').toLowerCase():",
+            ...values.title.toLowerCase().split(' ')
+          );
           await addDoc(productsCollection, {
             ...values,
             tag: productType,
+            searchQueries: [
+              values.brand.toLowerCase(),
+              values.city.value.toLowerCase(),
+              values.country.value.toLowerCase(),
+              values.tag,
+              ...values.title.toLowerCase().split(' '),
+            ],
 
             country: country.value,
             city: city.value,
@@ -198,6 +237,7 @@ export const firebaseApi = createApi({
           });
           return { data: 'ok' };
         } catch (error) {
+          console.log('Ürün Eklenemedi: ', error);
           return { data: error };
         }
       },
@@ -264,7 +304,7 @@ export const firebaseApi = createApi({
       },
       invalidatesTags: ['favorites'],
     }),
-    //getBasketHere
+
     getBasket: builder.query({
       async queryFn() {
         //from localStorage query gets userId to find userDocument
@@ -284,7 +324,7 @@ export const firebaseApi = createApi({
       },
       providesTags: ['basket'],
     }),
-    //basket
+
     setBasket: builder.mutation({
       async queryFn({ type, product, productId, stock }) {
         console.log('Gelen ProductId: ', productId);

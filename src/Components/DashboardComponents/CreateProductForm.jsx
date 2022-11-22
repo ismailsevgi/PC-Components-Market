@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HintMark from '../SubComponents/HintMark';
 import ProductTempleteTypes from './ProductTempleteTypes';
 import { useFormik } from 'formik';
@@ -10,7 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import HandleCountry from './HandleCountry';
 
 function CreateProductForm() {
+  //Might be unnecessary
   const [productType, setProductType] = useState('cpu');
+
+  //staring values of country selection
   const [country, setCountry] = useState({
     value: 'Afghanistan',
     label: 'Afghanistan',
@@ -195,11 +198,13 @@ function CreateProductForm() {
             <Select
               onChange={(e) => handleCondition(e)}
               options={conditionOptions}
+              styles={styleSheet}
             />
             <HandleCountry
               setCity={setCity}
               setCountry={setCountry}
               country={country}
+              styleSheet={styleSheet}
             />
           </div>
         </div>

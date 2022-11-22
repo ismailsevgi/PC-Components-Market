@@ -1,0 +1,19 @@
+.formWrapper {
+  background-color: $component-background;
+  border-radius: 25px;
+  box-shadow: 2px 2px 12px 2px $dark-font;
+  width: 80%;
+  margin: 2rem auto;
+  height: 75vh;
+
+  display: flex;
+
+  h1 {
+    font-family: $primary-font;
+
+    margin: 1rem auto;
+    font-size: 3rem;
+    text-shadow: 2px 2px 2px rgba(black, 0.1);
+    color: $dark-font;
+  }
+}

@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { MDBIcon } from 'mdb-react-ui-kit';
 import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import {
   useGetProductRequestsQuery,
   useHandleProductRequestsMutation,
@@ -17,11 +18,9 @@ export default function RequestsTableData() {
 
   const [handleProductRequests] = useHandleProductRequestsMutation();
 
+  useEffect(() => {}, [isFetching]);
   useEffect(() => {
-    data && console.log('Queryden gelen data: ', data);
-  }, [isFetching]);
-  useEffect(() => {
-    isError && console.log('Query Hatası: ', error);
+    isError && toast.error('Query Hatası: ', error);
   }, [isError]);
 
   if (isFetching) {
@@ -39,7 +38,7 @@ export default function RequestsTableData() {
         id,
       }) => {
         return (
-          <tr className='productTable-rows-row'>
+          <tr className='table-rows-row'>
             <th scope='row'>{title.slice(0, 50)}</th>
 
             <td>{quantity}</td>
@@ -47,38 +46,37 @@ export default function RequestsTableData() {
             <td>{format(date.seconds * 1000, 'MMM/dd/yyyy')}</td>
             <td>{totalPrice}</td>
             <td>{status}</td>
-            <td>
-              {status == 'confirmed' || status == 'rejected' ? (
-                <MDBIcon icon='check' />
-              ) : (
-                <div>
-                  <button
-                    className='btn btn-info'
-                    onClick={() =>
-                      handleProductRequests({
-                        type: 'confirm',
-                        orderId,
-                        productId: id,
-                      })
-                    }
-                  >
-                    Confirm
-                  </button>
-                  <button
-                    className='btn btn-danger'
-                    onClick={() =>
-                      handleProductRequests({
-                        type: 'reject',
-                        orderId,
-                        productId: id,
-                      })
-                    }
-                  >
-                    Reject
-                  </button>
-                </div>
-              )}
-            </td>
+
+            {status == 'confirmed' || status == 'rejected' ? (
+              <MDBIcon icon='check' />
+            ) : (
+              <td>
+                <button
+                  className='btn btn-info'
+                  onClick={() =>
+                    handleProductRequests({
+                      type: 'confirm',
+                      orderId,
+                      productId: id,
+                    })
+                  }
+                >
+                  Confirm
+                </button>
+                <button
+                  className='btn btn-danger'
+                  onClick={() =>
+                    handleProductRequests({
+                      type: 'reject',
+                      orderId,
+                      productId: id,
+                    })
+                  }
+                >
+                  Reject
+                </button>
+              </td>
+            )}
           </tr>
         );
       }

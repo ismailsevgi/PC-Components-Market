@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 //dashboard da type: "user" olacak
 const initialState = {
+  type: 'filtering',
   label: 'all',
   placement: 'newest',
 };
@@ -16,6 +17,7 @@ const filterSlice = createSlice({
       return {
         ...state,
         label: payload.label,
+        type: payload.type,
       };
     },
     SET_PLACEMENT: (state, { type, payload }) => {

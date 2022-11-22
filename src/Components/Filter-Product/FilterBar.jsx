@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_FILTER, SET_PLACEMENT } from '../../Features/filterSlice';
@@ -84,6 +85,29 @@ function FilterBar() {
         />
       </div>
       <div className='labels'>
+        <div className='inputField'>
+          <input
+            className='form-control searchInput'
+            placeholder='Seach product'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                console.log('Submitted!', e.target.value);
+                dispatch(SET_FILTER({ type: 'custom', label: e.target.value }));
+              }
+            }}
+          />
+
+          <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' />
+        </div>
+
+        <select
+          value={placement}
+          onChange={(e) => dispatch(SET_PLACEMENT(e.target.value))}
+        >
+          <option defaultValue={'newest'}>Newest</option>
+          <option value={'LowToHigh'}>Price: Low to High</option>
+          <option value={'HighToLow'}>Price: High to Low</option>
+        </select>
         <label
           htmlFor='allProducts'
           className={label === 'allProducts' ? 'label-activated' : 'label'}
@@ -146,15 +170,6 @@ function FilterBar() {
         >
           <h3>PSU</h3>
         </label>
-
-        <select
-          value={placement}
-          onChange={(e) => dispatch(SET_PLACEMENT(e.target.value))}
-        >
-          <option defaultValue={'newest'}>Newest</option>
-          <option value={'LowToHigh'}>Price: Low to High</option>
-          <option value={'HighToLow'}>Price: High to Low</option>
-        </select>
       </div>
     </div>
   );

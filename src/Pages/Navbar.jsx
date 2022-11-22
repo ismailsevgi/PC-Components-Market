@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BasketBadge } from '../Components/SubComponents/Badges';
-import userImage from '../Images/profile.webp';
 
+import { url } from '../Images/gpuImgUrl';
 //import auth from '../DataBASE/firebase';
 import { getAuth, signOut } from 'firebase/auth';
 
@@ -17,30 +17,19 @@ function Navbar({ userDetails }) {
   //------------------------------
 
   return (
-    <div className='container'>
+    <div className='container-fluid'>
       <div className='navbar navbar-expand-lg'>
-        <div className='navigation collapse navbar-collapse'>
-          <div className='navigation-links pl-1'>
-            <div className='navigation-logo pl-2'>
-              <span>Computer</span>
-              <span>P.S.</span>
+        <div className='navigation collapse navbar-collapse pl-5 pl-5'>
+          <div className='navigation-links'>
+            <div className='navigation-logo'>
+              <img src={url} />
+              <span>COMP CELL</span>
             </div>
             <Link to='/store'>Products</Link>
-
-            <Link to='/about'>About</Link>
             {userDetails.userStatus && <Link to='/dashboard'>Dashboard</Link>}
+
             {userDetails.userStatus && <Link to='/orders'>Orders</Link>}
           </div>
-
-          {location.pathname == '/store' && (
-            <div className='searchBar'>
-              <div className='inputField'>
-                <input className='searchInput' placeholder='Seach product' />
-
-                <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' />
-              </div>
-            </div>
-          )}
 
           <div className='loggers'>
             <div className='loggers-icons'>
@@ -78,16 +67,10 @@ function Navbar({ userDetails }) {
               </div>
             ) : (
               <div className='userBox'>
-                <div
-                  className='userIMG'
-                  onClick={() => {
-                    console.log(auth.currentUser);
-                  }}
-                >
-                  <img src={userImage} />
-                </div>
-                <div className='userPanel'>
+                <label htmlFor='logout' className='userPanel'>
+                  LOGOUT
                   <button
+                    id='logout'
                     className='logoutUser'
                     onClick={() => {
                       signOut(auth)
@@ -102,7 +85,7 @@ function Navbar({ userDetails }) {
                   >
                     <FontAwesomeIcon icon='fa-solid fa-right-from-bracket' />
                   </button>
-                </div>
+                </label>
               </div>
             )}
           </div>

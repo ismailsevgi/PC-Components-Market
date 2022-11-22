@@ -20,17 +20,13 @@ function BasketBadge() {
     return state.basket.basketItems;
   });
 
-  console.log('basketbadge: itemsInBasket, ', isFetching),
-    useEffect(() => {
-      if (data !== 'error' && data !== undefined) {
-        console.log('Data var ONline brrr', data);
-
-        setProductAmount(data.length);
-      } else {
-        console.log('Data yok OFFline brrr');
-        setProductAmount(itemsInBasket.length);
-      }
-    }, [isFetching]);
+  useEffect(() => {
+    if (data !== 'error' && data !== undefined) {
+      setProductAmount(data.length);
+    } else {
+      setProductAmount(itemsInBasket.length);
+    }
+  }, [isFetching]);
 
   //Underline problem with yusuf
   return (

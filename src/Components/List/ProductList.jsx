@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 function ProductList() {
   let label = useSelector((state) => state.filter.label);
+  let type = useSelector((state) => state.filter.type);
   let placement = useSelector((state) => state.filter.placement);
   console.log('Product list rendering...');
   let {
@@ -18,7 +19,7 @@ function ProductList() {
 
     data: productList,
     error,
-  } = useGetProductsQuery({ type: 'filtering', label: label });
+  } = useGetProductsQuery({ type: type, label: label });
 
   useEffect(() => {
     isError && toast.error('Something went wrong: ', error);

@@ -6,10 +6,6 @@ $border: 1px solid red;
 $transition: all 0.5s;
 $card-border: rgb(214, 214, 214);
 
-//table
-
-$tableBorderColor: rgb(163, 138, 138);
-
 //colors
 
 $dark-font: #292c38;
@@ -44,3 +40,14 @@ $orange: #ff9f43;
 //dashBoard Variables
 //image
 $profileImageHeight: 15rem;
+
+//table
+
+$tableBorderColor: $blue-dark;
+$tableBackgroundColor: linear-gradient(
+  120deg,
+  $blue-dark,
+  darken($purple, 10%),
+  darken($purple, 20%),
+  darken($purple, 30%)
+);

@@ -1,10 +1,12 @@
 .listingPages {
   display: flex;
 
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.filter {
-  width: 20%;
-  border: $border;
+.storePageWrapper {
+  width: 90%;
+  display: grid;
+  margin: auto;
+  grid-template-columns: 1fr 4fr;
 }

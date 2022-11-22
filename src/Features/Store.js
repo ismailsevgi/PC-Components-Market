@@ -9,6 +9,7 @@ const store = configureStore({
   reducer: {
     [firebaseApi.reducerPath]: firebaseApi.reducer,
     filter: filterSliceReducer,
+
     basket: basketSliceReducer,
   },
 

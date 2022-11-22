@@ -1,8 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import {
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+  uploadBytes,
+} from 'firebase/storage';
 import React, { useState, useEffect } from 'react';
 
-import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 import { storage } from '../../DataBASE/firebase';
 import Spinner from '../SubComponents/Spinner';
@@ -13,60 +17,39 @@ export default function UploadImg({
   productName,
   formImages,
 }) {
+  //number will be determined according to amount of files...
+  const [skeletonImgs, setSkeletonImgs] = useState(0);
+
   const userId = localStorage.getItem('userId');
 
   //yüklemeden sonra url string ini imageHandler ile formikteki arraye kayıt edilecek
 
   function handleChange(e) {
     const newImagesArray = [];
-    const uploadImage = (images) => {
+    async function uploadImage(images) {
       //images are files array
       if (images.length === 0) return;
 
-      images.map((img) => {
+      let counter = 0;
+      setSkeletonImgs(images.length);
+      setProgress(true);
+
+      for (const img of images) {
+        counter++;
+        console.log('FOR...', counter);
         const userStorageRef = ref(
           storage,
           `${userId}/${productName}/${img.name}`
         );
-        const uploadTask = uploadBytesResumable(userStorageRef, img);
-        //test
-        uploadTask.on(
-          'state_changed',
-          (snapshot) => {
-            console.log('CASELER: ', snapshot.state);
-            console.log('snapshot: ', snapshot);
 
-            switch (snapshot.state) {
-              case 'paused':
-                console.log('Upload is paused');
-                break;
-              case 'running':
-                setProgress(true);
-                console.log('Upload is running');
-                break;
-              case 'complete':
-                setProgress(false);
-                console.log('Upload Completed');
-                break;
+        let snapshot = await uploadBytesResumable(userStorageRef, img);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+        formImages.push(downloadURL);
+      }
 
-              default:
-                break;
-            }
-          },
-          (error) => {
-            console.log('error: ', error);
-            toast.error('Something went wrong, please try again');
-          },
-          () => {
-            toast.info('Image Upload Successfully!');
-
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURLs) => {
-              formImages.push(downloadURLs);
-            });
-          }
-        );
-      });
-    };
+      console.log('İşlem Tamam: ', counter);
+      setProgress(false);
+    }
 
     for (let i = 0; i < e.target.files.length; i++) {
       const newImage = e.target.files[i];
@@ -89,17 +72,19 @@ export default function UploadImg({
             );
           })}
         </div>
+      ) : progress ? (
+        <div className='skeletonImages'>
+          {Array(skeletonImgs)
+            .fill(0)
+            .map((n, i) => {
+              return <Spinner />;
+            })}
+        </div>
       ) : (
         <div className='wrapper'>
-          {progress ? (
-            <Spinner />
-          ) : (
-            <>
-              <FontAwesomeIcon icon='fa-solid fa-upload'></FontAwesomeIcon>
-              <input type='file' multiple onChange={(e) => handleChange(e)} />
-              <small>Upload Images of your product</small>
-            </>
-          )}
+          <FontAwesomeIcon icon='fa-solid fa-upload'></FontAwesomeIcon>
+          <input type='file' multiple onChange={(e) => handleChange(e)} />
+          <small>Upload Images of your product</small>
         </div>
       )}
     </div>

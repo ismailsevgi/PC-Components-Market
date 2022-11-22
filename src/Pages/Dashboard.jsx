@@ -12,13 +12,10 @@ import { Link } from 'react-router-dom';
 import RequestsTableData from '../Components/DashboardComponents/RequestsTableData';
 import ProfileColumn from '../Components/DashboardComponents/ProfileColumn';
 
+const userDocId = localStorage.getItem('userDocId');
+
 function Dashboard({ userDetails }) {
-  //spinner control burada olacak
-  //true tablodaki loading bittiği anda buradaki spinner state i false
-
-  //STATES
-  const userDocId = localStorage.getItem('userDocId');
-
+  //Local STATES
   const [formState, setFormState] = useState({
     productTitle: '',
 
@@ -42,28 +39,19 @@ function Dashboard({ userDetails }) {
 
   useState(() => {
     isError && toast.error(error);
-  }, [isError, userDocId]);
-
-  // let allUsersProducts = useSelector((state) => state.user.userProducts);
-
-  useEffect(() => {
-    if (dataArray) {
-      console.log('dataArray: ', dataArray);
-      // dispatch(SET_USER_PRODUCTS(dataArray));
-    }
-  }, [dataArray, isFetching, isSuccess]);
+  }, [isError, userDocId, dataArray, isFetching, isSuccess]);
 
   return (
     <div className='dashboard'>
-      <div className='container'>
+      <div className='myContainer'>
         <ProfileColumn userDetails={userDetails} dataArray={dataArray} />
 
         <div className='dashboard-panel'>
-          <div className='dashboard-products'>
+          <div className='dashboard-table'>
             <h3>My Products</h3>
-            <div className='productsDiv'>
-              <table className='productTable'>
-                <thead className='productTable-specs'>
+            <div className='tableDiv'>
+              <table className='table'>
+                <thead className='table-head'>
                   <tr>
                     <td scope='col'>PRODUCT NAME</td>
 
@@ -76,7 +64,7 @@ function Dashboard({ userDetails }) {
                   </tr>
                 </thead>
 
-                <tbody className='productTable-rows'>
+                <tbody className='table-rows'>
                   {isLoading ? (
                     <Spinner />
                   ) : (
@@ -109,12 +97,12 @@ function Dashboard({ userDetails }) {
               </div>
             </div>
           </div>
-          <br></br>
-          <div className='dashboard-products'>
+
+          <div className='dashboard-table'>
             <h3>Product Requests</h3>
-            <div className='productsDiv'>
-              <table className='productTable'>
-                <thead className='productTable-specs'>
+            <div className='tableDiv'>
+              <table className='table'>
+                <thead className='table-head'>
                   <tr>
                     <td scope='col'>PRODUCT NAME</td>
                     <td scope='col'>QUANTITY</td>
@@ -125,7 +113,7 @@ function Dashboard({ userDetails }) {
                   </tr>
                 </thead>
 
-                <tbody className='productTable-rows'>
+                <tbody className='table-rows'>
                   <RequestsTableData />
                 </tbody>
               </table>

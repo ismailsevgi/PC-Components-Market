@@ -1,6 +1,6 @@
 .navbar {
   box-sizing: border-box;
-  height: 15vh;
+  height: 20vh;
   margin: 0;
   padding: 0 !important;
 }
@@ -11,6 +11,27 @@
   background-color: $navbar-background;
 
   @include flex-display($space: space-between);
+
+  &-logo {
+    @include flex-display($direction: column, $align: flex-start);
+    background-color: transparent;
+    color: $white-font;
+    box-sizing: border-box;
+
+    width: 15rem;
+    height: 15vh;
+    text-align: justify;
+    img {
+      height: 6rem;
+      width: 10rem;
+      object-fit: cover;
+    }
+
+    span {
+      font-family: $primary-font;
+      font-size: 2.4rem;
+    }
+  }
 
   &-links {
     width: 60%;
@@ -25,68 +46,8 @@
       color: $white-font;
 
       background-color: transparent;
-      padding-left: 1rem;
+      padding-left: 2rem;
       text-transform: uppercase;
-    }
-  }
-
-  &-logo {
-    display: flex;
-    flex-direction: column;
-    background-color: transparent;
-    color: $white-font;
-
-    span {
-      background-color: transparent;
-    }
-
-    span {
-      &:nth-child(1) {
-        text-align: left;
-      }
-      &:nth-child(2) {
-        text-align: center;
-      }
-
-      &:nth-child(3) {
-        text-align: right;
-      }
-    }
-  }
-}
-
-.searchBar {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
-
-  height: 70%;
-  padding-bottom: 0.6rem;
-  background-color: transparent;
-  .inputField {
-    position: relative;
-    background-color: inherit;
-    .searchInput {
-      width: 100%;
-
-      border-radius: 12px;
-      height: 2.4rem;
-      padding-left: 0.4rem;
-      &::placeholder {
-        color: $dark-font;
-        font-family: $secondary-font;
-
-        font-weight: 500;
-      }
-    }
-
-    svg {
-      font-size: 1.6rem;
-      position: absolute;
-      top: 20%;
-      right: 5%;
-      color: $dark-font;
     }
   }
 }
@@ -189,28 +150,36 @@
     width: 15rem;
     margin-right: 1rem;
     background-color: transparent;
-    .userIMG {
-      background-color: inherit;
-      img {
-        height: 4rem;
-        width: 4rem;
-        border-radius: 50%;
-      }
-    }
 
     .userPanel {
-      background-color: transparent;
+      @include flex-display($space: space-between);
+
+      background-color: lighten($red-dark, 5%);
+      font-family: $primary-font;
+      color: $white-font;
+      font-size: 1.2rem;
+      padding-left: 0.6rem;
+      border-radius: 8px;
+
+      cursor: pointer;
+
       button {
         background-color: lighten($red-dark, 5%);
         height: 4rem;
         width: 3rem;
         border: none;
         border-radius: 5px;
+        &:hover {
+          background-color: $red-dark;
+        }
         svg {
           font-size: 1.6rem;
           color: lighten($white-font, 20%);
-          background-color: lighten($red-dark, 5%);
         }
+      }
+
+      &:hover {
+        background-color: $red-dark;
       }
     }
   }

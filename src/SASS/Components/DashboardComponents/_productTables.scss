@@ -1,0 +1,23 @@
+.dashboard-panel {
+  background-color: transparent;
+  grid-area: dashboard-panel;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  .dashboard-table {
+    margin-top: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    h3 {
+      font-family: $primary-font;
+      text-indent: 15%;
+      color: $white-font;
+      text-shadow: 2px 2px 2px $dark-font;
+    }
+
+    @include tableStyle($width: 45vw, $min-height: 55vh, $height: 55vh);
+  }
+}
