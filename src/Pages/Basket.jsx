@@ -10,21 +10,20 @@ import {
 } from '../Features/firebaseApi';
 
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const initialBasketState = { price: 0, shipment: 0 };
 
 const Basket = () => {
-  console.log('Basket Rendered...: ');
+  //if there is an online user it will use params to get user's current basket from database
   const params = useParams();
-
   const itemsInBasket = useSelector((state) => {
     return state.basket.basketItems;
   });
 
   const { isFetching, data, error, isError } = useGetBasketQuery();
-  console.log('Basket.jsx Data: ', data);
+
   useEffect(() => {
-    //data geldiği anda basketSlice'a dispatch etmem gerek
     if (data !== 'error' && data !== undefined) {
       const output = data.reduce(
         (prev, cur) => {
@@ -54,7 +53,7 @@ const Basket = () => {
   }, [isFetching]);
 
   useEffect(() => {
-    isError && console.log('FETCH: ', error, error.message);
+    isError && toast.error("We could't fetch your basket");
   }, [isError]);
 
   const [total, setTotal] = useState(initialBasketState);
@@ -90,17 +89,19 @@ const Basket = () => {
     }
   }, [itemsInBasket]);
 
+  console.log('ItemsInBasket: ', itemsInBasket);
+
   return (
     <div className='basket'>
       <div className='basketNav'>
         <div className='basketNav-Title'>
           <h1>Shopping Basket</h1>
-          <p>Delete all items</p>
+          <button className='btn btn-danger'>Delete all items</button>
         </div>
-        <span>Price</span>
+        <div className='priceFont'>Price</div>
       </div>
 
-      <div className='container'>
+      <div className='basketContainer'>
         <BasketList
           itemsInBasket={params.userId ? data : itemsInBasket}
           userStatus={params.userId ? true : false}
@@ -108,7 +109,7 @@ const Basket = () => {
         <Payment
           price={total.price}
           shipment={total.shipment}
-          length={itemsInBasket.length}
+          length={data ? data.length : itemsInBasket.length}
           array={params.userId ? data : itemsInBasket}
         />
       </div>

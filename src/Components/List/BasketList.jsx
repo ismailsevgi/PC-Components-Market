@@ -35,44 +35,44 @@ const BasketList = ({ itemsInBasket, userStatus }) => {
                       Delivery by Saturday, September 24 at the latest
                     </span>
                   </div>
-
-                  <div className='Buttons'>
-                    <div className='Buttons-PlusMin'>
-                      <span>Quantity: </span>
-                      {item.quantity > 1 ? (
-                        <BasketButton
-                          handle={'handleSub'}
-                          icon={'Sub'}
-                          id={item.id}
-                        >
-                          <i className='fa-solid fa-minus'></i>
-                        </BasketButton>
-                      ) : (
-                        <BasketButton
-                          handle={'handleDelete'}
-                          icon={'Del'}
-                          id={item.id}
-                        >
-                          <i className='fa-solid fa-trash-can'></i>
-                        </BasketButton>
-                      )}
-
-                      <h3>{item.quantity}</h3>
-                      <BasketButton
-                        handle={'handleAdd'}
-                        icon={'Add'}
-                        id={item.id}
-                        stock={item.stock}
-                      >
-                        <i className='fa-solid fa-plus'></i>
-                      </BasketButton>
-                    </div>
-                  </div>
                 </div>
               </div>
 
               <div className='basketItem-Right'>
-                <h2>${item.price * item.quantity}</h2>
+                <div className='priceDiv'>
+                  <h2>${item.price * item.quantity}</h2>
+                </div>
+                <div className='Buttons'>
+                  <div className='Buttons-PlusMin'>
+                    <BasketButton
+                      handle={'handleAdd'}
+                      icon={'Add'}
+                      id={item.id}
+                      stock={item.stock}
+                    >
+                      <i className='fa-solid fa-plus'></i>
+                    </BasketButton>
+
+                    <h3>{item.quantity}</h3>
+                    {item.quantity > 1 ? (
+                      <BasketButton
+                        handle={'handleSub'}
+                        icon={'Sub'}
+                        id={item.id}
+                      >
+                        <i className='fa-solid fa-minus'></i>
+                      </BasketButton>
+                    ) : (
+                      <BasketButton
+                        handle={'handleDelete'}
+                        icon={'Del'}
+                        id={item.id}
+                      >
+                        <i className='fa-solid fa-trash-can'></i>
+                      </BasketButton>
+                    )}
+                  </div>
+                </div>
               </div>
             </section>
           );

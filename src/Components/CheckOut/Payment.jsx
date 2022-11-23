@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetOrderMutation } from '../../Features/firebaseApi';
 
@@ -6,6 +6,7 @@ import { useSetOrderMutation } from '../../Features/firebaseApi';
 function Payment({ length, shipment, price, array }) {
   const [setOrder] = useSetOrderMutation();
   const navigate = useNavigate();
+
   function handlePayment(arr) {
     console.log('Proceeding to order...');
     let test = setOrder(arr);
@@ -23,16 +24,12 @@ function Payment({ length, shipment, price, array }) {
         Proceed to checkout
       </button>
       <hr></hr>
-      <div className='payment-items mt-1'>
-        <span>Items{`(${length})`}</span>
-        <span>${price ? price : 0}</span>
-      </div>
-      <div className='payment-items mt-1'>
-        <span>Shipping</span>
-        <span>${shipment ? shipment : 0}</span>
-      </div>
-      <div className='payment-items mt-1'>
-        <p>
+      <div className='payment-items'>
+        <div className='row1'>Items{`(${length})`}</div>
+        <div className='row1'>${price ? price : 0}</div>
+        <div className='row2'>Shipping</div>
+        <div className='row2'>${shipment ? shipment : 0}</div>
+        <div className='shipmentDiv row3'>
           {length === 0 ? (
             <></>
           ) : length < 4 && shipment < 100 ? (
@@ -47,12 +44,9 @@ function Payment({ length, shipment, price, array }) {
               <span className='green'>Free Shipment!</span>
             </div>
           )}
-        </p>
-      </div>
-      <hr></hr>
-      <div className='payment-items mt-1'>
-        <span>Subtotal: </span>
-        <span>{price + shipment}$</span>
+        </div>
+        <div className='total'>Subtotal: </div>
+        <div className='price'>{price + shipment}$</div>
       </div>
     </div>
   );

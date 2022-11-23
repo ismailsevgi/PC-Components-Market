@@ -1,11 +1,11 @@
 .productListItem {
-  border: 1px solid $card-border;
+  border: 2px solid $blue;
   width: 100%;
   height: $card-height;
   @include flex-display($direction: column, $space: none, $align: center);
   text-align: left;
   border-radius: 15px;
-
+  background-color: $navbar-background;
   .imageContainer {
     @include flex-display();
     width: 100%;

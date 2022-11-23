@@ -51,3 +51,14 @@ $tableBackgroundColor: linear-gradient(
   darken($purple, 20%),
   darken($purple, 30%)
 );
+
+//basket
+
+$basketItemBackgroundLinear: linear-gradient(
+  355deg,
+  rgba(84, 160, 255, 1) 0%,
+  rgba(46, 134, 222, 0.5) 15%,
+  rgba(52, 31, 151, 1) 100%
+);
+$basketItemBoxShadow: 0 0 4px 1px $green-light;
+$basketItemBorderRadius: 15px;

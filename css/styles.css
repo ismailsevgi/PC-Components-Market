@@ -216,7 +216,7 @@
 }
 
 .productListItem {
-  border: 1px solid rgb(214, 214, 214);
+  border: 2px solid #2e86de;
   width: 100%;
   height: 35rem;
   display: flex;
@@ -225,6 +225,7 @@
   align-items: center;
   text-align: left;
   border-radius: 15px;
+  background-color: #292c38;
 }
 .productListItem .imageContainer {
   display: flex;
@@ -475,7 +476,7 @@
 .productList {
   display: grid;
   width: 100%;
-  background-color: #292c38;
+  background-color: transparent;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 1rem;
@@ -688,11 +689,11 @@
 
 .filterBar {
   position: relative;
-  border-top: 1px solid #feca57;
-  border-bottom: 1px solid #feca57;
-  height: auto;
+  border-radius: 15px;
+  border: 2px solid #2e86de;
+  height: 50rem;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   margin-left: auto;
   background-color: #292c38;
@@ -711,7 +712,6 @@
   z-index: -10;
 }
 .filterBar .labels {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1566,173 +1566,232 @@
   grid-template-columns: 1fr 4fr;
 }
 
+.basket {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  width: 70vw;
+  margin: auto;
+  padding: 1rem;
+  margin-top: 2rem;
+  color: #292c38;
+}
 .basket .basketNav {
-  width: 65%;
-  margin-left: 10%;
+  height: 8rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  font-family: "Changa", sans-serif;
+  color: #c8d6e5;
+  padding: 1rem;
 }
-.basket .container {
+.basket .basketNav-Title h1 {
+  letter-spacing: 1px;
+}
+.basket .basketNav-Title button {
+  font-size: 0.8rem;
+}
+.basket .basketNav .priceFont {
+  font-size: 2rem;
+  font-family: "Changa", sans-serif;
+}
+.basket .basketContainer {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
   min-height: 70vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: none;
-  gap: 2rem;
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: 75% 25%;
 }
-.basket .container .basketList {
+.basket .basketContainer .basketList {
   display: flex;
   flex-direction: column;
   justify-content: none;
   align-items: none;
-  width: 75%;
+  gap: 1.2rem;
+  padding: 0.2rem;
 }
-.basket .container .basketList section:last-child {
-  border-bottom: 1px solid #b3b3b3;
-}
-.basket .container .basketList .basketItem {
-  height: 10rem;
-  width: 100%;
-  border-top: 1px solid #b3b3b3;
-  border-right: 1px solid #b3b3b3;
+.basket .basketContainer .basketList .basketItem {
+  height: 12rem;
+  color: #c8d6e5;
+  background: linear-gradient(355deg, rgb(84, 160, 255) 0%, rgba(46, 134, 222, 0.5) 15%, rgb(52, 31, 151) 100%);
+  box-shadow: 0 0 4px 1px #1dd1a1;
+  border-radius: 15px;
   padding: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: none;
-  align-items: none;
+  justify-content: space-between;
+  align-items: center;
 }
-.basket .container .basketList .basketItem-Left {
-  width: 90%;
+.basket .basketContainer .basketList .basketItem-Left {
+  width: 80%;
   display: flex;
   flex-direction: row;
-  justify-content: none;
-  align-items: none;
+  justify-content: flex-start;
+  align-items: center;
 }
-.basket .container .basketList .basketItem-Left-Img {
+.basket .basketContainer .basketList .basketItem-Left .onoffswitch-checkbox {
+  height: 1.2rem;
+  width: 1.2rem;
+  border: 5px solid black;
+}
+.basket .basketContainer .basketList .basketItem-Left-Img {
   display: block;
-  height: 100%;
-  width: 15rem;
+  height: 8rem;
+  width: 25%;
 }
-.basket .container .basketList .basketItem-Left-Img img {
+.basket .basketContainer .basketList .basketItem-Left-Img img {
   -o-object-fit: contain;
      object-fit: contain;
   height: 100%;
-  width: 15rem;
+  width: 100%;
 }
-.basket .container .basketList .basketItem-Left-Body {
+.basket .basketContainer .basketList .basketItem-Left-Body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
-.basket .container .basketList .basketItem-Left-Body .Body-Title {
+.basket .basketContainer .basketList .basketItem-Left-Body .Body-Title {
   font-family: "Changa", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 }
-.basket .container .basketList .basketItem-Left-Body .Body-Title h2 {
-  color: #292c38;
+.basket .basketContainer .basketList .basketItem-Left-Body .Body-Title h2 {
+  color: currentColor;
   line-height: 1.4rem;
 }
-.basket .container .basketList .basketItem-Left-Body .Body-Title .stockCounter .inStock {
+.basket .basketContainer .basketList .basketItem-Left-Body .Body-Title .stockCounter .inStock {
   color: green;
 }
-.basket .container .basketList .basketItem-Left-Body .Body-Title .stockCounter .onlyLeft {
+.basket .basketContainer .basketList .basketItem-Left-Body .Body-Title .stockCounter .onlyLeft {
   color: red;
 }
-.basket .container .basketList .basketItem-Left-Body .Body-Title span {
-  color: gray;
+.basket .basketContainer .basketList .basketItem-Left-Body .Body-Title span {
+  color: currentColor;
 }
-.basket .container .basketList .basketItem-Left-Body .Buttons {
+.basket .basketContainer .basketList .basketItem-Right {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.basket .basketContainer .basketList .basketItem-Right .Buttons {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 100%;
   gap: 1rem;
 }
-.basket .container .basketList .basketItem-Left-Body .Buttons-PlusMin {
+.basket .basketContainer .basketList .basketItem-Right .Buttons-PlusMin {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   align-items: center;
+  width: 7rem;
 }
-.basket .container .basketList .basketItem-Left-Body .Buttons-PlusMin button {
+.basket .basketContainer .basketList .basketItem-Right .Buttons-PlusMin button {
+  border: 1px solid #c8d6e5;
+  background-color: #5f27cd;
+  color: currentColor;
   font-size: 1rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: 50%;
   cursor: pointer;
 }
-.basket .container .basketList .basketItem-Left-Body .Buttons-Delete button {
+.basket .basketContainer .basketList .basketItem-Right .Buttons-Delete button {
   font-size: 1.4rem;
   width: 2.6rem;
   height: 2.6rem;
   border-radius: 50%;
   cursor: pointer;
 }
-.basket .container .basketList .basketItem-Right {
-  width: 10%;
+.basket .basketContainer .basketList .basketItem-Right .priceDiv {
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
 }
-.basket .container .basketList .basketItem-Right h2 {
-  padding-right: 2rem;
+.basket .basketContainer .basketList .basketItem-Right .priceDiv h2 {
+  margin: auto;
   font-family: "Changa", sans-serif;
   font-weight: 500;
 }
-.basket .container .payment {
-  width: 20%;
-  border: 1px solid #b3b3b3;
+.basket .basketContainer .payment {
+  color: #c8d6e5;
+  padding-top: 2.4rem;
+  border-radius: 15px;
+  height: 20rem;
+  background: linear-gradient(120deg, #341f97, #4b1fa2, #371777, #230f4c);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
-.basket .container .payment-button {
+.basket .basketContainer .payment-button {
   font-family: "Changa", sans-serif;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #c8d6e5;
-  background-color: #ff8510;
+  background-color: #dc6c00;
   width: 80%;
   height: 3rem;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 2px 2px #6a7190;
 }
-.basket .container .payment-button:hover {
+.basket .basketContainer .payment-button:hover {
   color: #c8d6e5;
   background-color: #c35f00;
 }
-.basket .container .payment-items {
+.basket .basketContainer .payment-items {
   width: 80%;
   font-family: "Changa", sans-serif;
   font-weight: 400;
   text-shadow: 0 0 1px #292c38;
   height: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  font-size: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
-.basket .container .payment-items p {
-  font-size: 0.7rem;
-  color: #d32525;
-  background-color: #c8d6e5;
-  text-align: center;
+.basket .basketContainer .payment-items div:nth-child(even) {
+  text-align: right;
+}
+.basket .basketContainer .payment-items div:nth-child(odd) {
+  text-align: left;
+}
+.basket .basketContainer .payment-items .total {
+  text-align: left !important;
+}
+.basket .basketContainer .payment-items .price {
+  text-align: right !important;
+}
+.basket .basketContainer .payment-items .row3 {
+  font-size: 1rem;
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.basket .basketContainer .payment-items .shipmentDiv {
+  font-size: 1rem;
+  color: #c8d6e5;
+  height: 4rem;
+  z-index: 10;
+  text-align: justify;
   width: 100%;
 }
-.basket .container .payment-items p .shipmentDetails .green {
+.basket .basketContainer .payment-items .shipmentDiv .shipmentDetails .green {
   color: green;
 }
-.basket .container .payment-items p .shipmentDetails .red {
+.basket .basketContainer .payment-items .shipmentDiv .shipmentDetails .red {
   color: red;
 }
 
