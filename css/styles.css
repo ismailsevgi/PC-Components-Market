@@ -832,9 +832,13 @@
 }
 
 .registration-form {
-  width: 50vw;
-  border: 1px solid red;
-  margin: 0 auto;
+  width: 30vw;
+  background: linear-gradient(330deg, rgb(84, 160, 255) 0%, rgba(46, 134, 222, 0.5) 10%, rgb(52, 31, 151) 100%);
+  border-radius: 15px;
+  box-shadow: 0 0 4px 1px #1dd1a1;
+  margin: 2rem auto;
+  color: #c8d6e5;
+  font-family: "Changa", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -843,8 +847,16 @@
 }
 .registration-form h1 {
   font-size: 2.4rem;
-  font-weight: bold;
   margin-top: 1.2rem;
+  letter-spacing: 2px;
+}
+.registration-form small {
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.registration-form small:hover {
+  color: #feca57;
 }
 .registration-form input {
   width: 25rem;
@@ -1258,7 +1270,6 @@
 .profileCol {
   width: 90%;
   height: 25vh;
-  border: 1px solid #341f97 !important;
   margin: 0 auto;
   grid-area: profile-col;
   display: flex;
@@ -1618,7 +1629,7 @@
 .basket .basketContainer .basketList .basketItem {
   height: 12rem;
   color: #c8d6e5;
-  background: linear-gradient(355deg, rgb(84, 160, 255) 0%, rgba(46, 134, 222, 0.5) 15%, rgb(52, 31, 151) 100%);
+  background: linear-gradient(330deg, rgb(84, 160, 255) 0%, rgba(46, 134, 222, 0.5) 10%, rgb(52, 31, 151) 100%);
   box-shadow: 0 0 4px 1px #1dd1a1;
   border-radius: 15px;
   padding: 1rem;
@@ -1804,7 +1815,7 @@
   width: 100%;
 }
 .orderContainer-title {
-  color: #292c38;
+  color: #c8d6e5;
   font-size: 3rem;
   border-bottom: 1px solid gray;
   line-height: 5rem;
@@ -1822,7 +1833,6 @@
   padding-left: 0.8rem;
   border-radius: 15px;
   box-shadow: 5px 5px 3px #292c38;
-  border: 1px solid gray;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1855,11 +1865,12 @@
   height: 0;
   font-size: 0;
   transition: all 0.5s;
+  background-color: #292c38;
 }
 .orderContainer .orderDropdowns-content .product {
   height: inherit;
   width: 100%;
-  color: #292c38;
+  color: #c8d6e5;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -1891,7 +1902,7 @@
   text-transform: capitalize;
 }
 .orderContainer .orderDropdowns-content .product .details strong {
-  color: #292c38;
+  color: #c8d6e5;
 }
 .orderContainer .orderDropdowns-content .dropdownFooter {
   scale: 0;
@@ -1944,13 +1955,14 @@
 
 .orderPage {
   width: 100%;
-  border: 1px solid gray;
+  border: 3px solid #feca57;
+  background-image: linear-gradient(330deg, rgb(84, 160, 255) 0%, rgba(46, 134, 222, 0.5) 10%, rgb(52, 31, 151) 100%);
   border-radius: 10px;
-  min-height: 70vh;
   margin-top: 3rem;
 }
 .orderPage-details {
   width: 100%;
+  font-family: "Changa", sans-serif;
   height: 5rem;
   background-color: #c8d6e5;
   border-top-left-radius: 10px;
@@ -1958,8 +1970,9 @@
   border-bottom: 2px solid gray;
 }
 .orderPage-details h3 {
+  font-size: 1.6rem;
   color: #0c8164;
-  text-indent: 1rem;
+  text-indent: 1.6rem;
   padding-top: 0.5rem;
   background-color: transparent;
 }
@@ -1969,16 +1982,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  background-color: transparent;
-}
-.orderPage-details-detail h3 {
-  background-color: inherit;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .orderPage-details-detail span {
   display: inline-block;
   background-color: inherit;
   font-family: "Changa", sans-serif;
+  font-size: 1.2rem;
 }
 .orderPage-details-detail span strong {
   letter-spacing: 1px;
@@ -1993,22 +2002,22 @@
   color: #ff8510;
 }
 .orderPage-products {
-  height: 70vh;
+  min-height: 30vh;
   width: 100%;
   padding: 1rem;
-  border: 1px solid rgb(124, 124, 124);
 }
 .orderPage-products .productContainer {
   height: 30vh;
   width: 100%;
-  border: 1px solid rgb(158, 158, 158);
+  border: 1px solid #feca57;
   display: flex;
   margin-bottom: 1rem;
+  color: #c8d6e5;
 }
 .orderPage-products .productContainer .imageContainer {
   height: 100%;
   width: 30%;
-  border: 1px solid rgb(145, 145, 145);
+  border-right: 1px solid #feca57;
   border-radius: 5px;
 }
 .orderPage-products .productContainer .imageContainer img {
@@ -2023,7 +2032,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  color: #292c38;
+  background-color: #292c38;
   font-family: "Changa", sans-serif;
   width: 70%;
   padding: 0.6rem;
@@ -2077,4 +2086,7 @@
   --redLight: #f36a6a;
   --yellow: #feca57;
   --orange: #ff9f43;
+  --orderSuccess: linear-gradient(120deg, rgb(50, 125, 41) 0%, rgb(66, 177, 30) 70%, rgb(0, 255, 100) 100%);
+  --orderWaiting: linear-gradient(48deg, rgb(125, 125, 41) 0%, rgb(177, 177, 30) 50%, rgb(153, 163, 39) 100%);
+  --orderRejected: linear-gradient(48deg, rgb(150, 51, 51) 0%, rgb(177, 30, 30) 50%, rgb(187, 26, 26) 100%);
 }/*# sourceMappingURL=styles.css.map */

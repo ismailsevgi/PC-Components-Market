@@ -56,7 +56,17 @@ export default function Orders() {
 
             return (
               <div key={orderId} className='orderDropdowns'>
-                <div className='orderDropdowns-title'>
+                <div
+                  className='orderDropdowns-title'
+                  style={{
+                    backgroundImage:
+                      orderStatus === 'confirmed'
+                        ? 'var(--orderSuccess)'
+                        : orderStatus === 'rejected'
+                        ? 'var(--orderRejected)'
+                        : 'var(--orderWaiting)',
+                  }}
+                >
                   <div className='orderDropdowns-title-detail'>
                     <h3>
                       <strong>Order ID:</strong>

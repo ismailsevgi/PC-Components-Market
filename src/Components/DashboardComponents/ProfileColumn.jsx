@@ -66,7 +66,7 @@ export default function ProfileColumn({ userDetails, dataArray }) {
   function handleSubmit(e) {
     e.preventDefault();
     const { name, surname, email } = e.target.elements;
-    console.log(name.value, surname.value, email.value);
+
     updateProfile(auth, {
       email: email.value,
     });
@@ -98,7 +98,12 @@ export default function ProfileColumn({ userDetails, dataArray }) {
             <i className='fas fa-camera-retro'></i>
           </label>
 
-          <input id='imageFile' type='file' onChange={(e) => handleChange(e)} />
+          <input
+            id='imageFile'
+            type='file'
+            onChange={(e) => handleChange(e)}
+            alt='Your profile photo'
+          />
         </div>
       </div>
 
@@ -134,7 +139,7 @@ export default function ProfileColumn({ userDetails, dataArray }) {
             </tr>
           </tbody>
         </table>
-        <div ref={updateProfileRef} className='updateProfile activated'>
+        <div ref={updateProfileRef} className='updateProfile'>
           <form onSubmit={(e) => handleSubmit(e)}>
             <label htmlFor='name'>Name</label>
             <input

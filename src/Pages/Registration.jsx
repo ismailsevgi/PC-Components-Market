@@ -185,14 +185,7 @@ function Registration() {
         <form ref={formRef} className='registration-form' onSubmit={submitForm}>
           <h1>LOGIN</h1>
           <div className='form-group emailBox'>
-            <label htmlFor='email'>
-              <HintMark
-                hintMassage={
-                  "We'll never share your email with anyone else unless you want."
-                }
-              />
-              Email
-            </label>
+            <label htmlFor='email'>Email</label>
             <input
               aria-describedby='emailHelp'
               className='form-control'

@@ -1,7 +1,7 @@
 .profileCol {
   width: 90%;
   height: 25vh;
-  border: 1px solid $tableBorderColor !important;
+
   margin: 0 auto;
   grid-area: profile-col;
   @include flex-display($space: flex-start);

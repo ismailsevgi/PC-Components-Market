@@ -6,7 +6,7 @@
   padding: 1rem;
   width: 100%;
   &-title {
-    color: $dark-font;
+    color: $white-font;
     font-size: 3rem;
     border-bottom: 1px solid gray;
 
@@ -26,10 +26,11 @@
       padding-left: 0.8rem;
       border-radius: 15px;
       box-shadow: 5px 5px 3px $dark-font;
-      border: 1px solid gray;
+
       @include flex-display($space: space-between);
+
       &-detail {
-        color: $dark-font;
+        color: $navbar-background;
 
         h3 {
           font-size: 1.6rem;
@@ -43,7 +44,7 @@
 
         strong {
           padding-right: 0.4rem;
-          color: $dark-font;
+          color: $navbar-background;
         }
       }
 
@@ -61,11 +62,12 @@
       height: 0;
       font-size: 0;
       transition: all 0.5s;
+      background-color: $navbar-background;
 
       .product {
         height: inherit;
         width: 100%;
-        color: $dark-font;
+        color: $white-font;
         @include flex-display();
         scale: 0;
 
@@ -93,7 +95,7 @@
           text-transform: capitalize;
 
           strong {
-            color: $dark-font;
+            color: $white-font;
           }
         }
       }
