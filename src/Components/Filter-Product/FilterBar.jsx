@@ -13,6 +13,19 @@ function FilterBar() {
       <div className='radios'>
         <input
           type='radio'
+          id='favorites'
+          name='products'
+          onClick={() => {
+            dispatch(
+              SET_FILTER({
+                type: 'favorites',
+                label: localStorage.getItem('userDocId'),
+              })
+            );
+          }}
+        />
+        <input
+          type='radio'
           id='allProducts'
           name='products'
           onClick={() => {
@@ -113,6 +126,12 @@ function FilterBar() {
           <option value={'LowToHigh'}>Price: Low to High</option>
           <option value={'HighToLow'}>Price: High to Low</option>
         </select>
+        <label
+          htmlFor='favorites'
+          className={label === 'allProducts' ? 'label-activated' : 'label'}
+        >
+          <h3>Favorites</h3>
+        </label>
         <label
           htmlFor='allProducts'
           className={label === 'allProducts' ? 'label-activated' : 'label'}

@@ -126,6 +126,28 @@ export const firebaseApi = createApi({
             return { data: error };
           }
         }
+
+        if (type === 'favorites') {
+          //favorites , userDocId
+          console.log('type custom: ', type, label);
+          try {
+            const userRef = doc(usersCollection, label);
+
+            const userDoc = await getDoc(userRef);
+            const userFavs = await userDoc.data().userFavorites;
+            const promise = [];
+            for (const proId of userFavs) {
+              let productRef = doc(productsCollection, proId);
+
+              promise.push((await getDoc(productRef)).data());
+            }
+
+            return { data: promise };
+          } catch (error) {
+            console.log('Error: ', error);
+            return { data: error };
+          }
+        }
       },
       transformResponse: (res) => res.sort((a, b) => b.id - a.id),
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import HintMark from '../SubComponents/HintMark';
+
 import ProductTempleteTypes from './ProductTempleteTypes';
 import { useFormik } from 'formik';
 import Select from 'react-select';
