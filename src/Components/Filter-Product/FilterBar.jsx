@@ -7,23 +7,29 @@ function FilterBar() {
   const dispatch = useDispatch();
   let label = useSelector((state) => state.filter.label);
   let placement = useSelector((state) => state.filter.placement);
+  let userDocId = localStorage.getItem('userDocId');
+
+  console.log('Gelen label: ', label);
 
   return (
     <div className='filterBar'>
       <div className='radios'>
-        <input
-          type='radio'
-          id='favorites'
-          name='products'
-          onClick={() => {
-            dispatch(
-              SET_FILTER({
-                type: 'favorites',
-                label: localStorage.getItem('userDocId'),
-              })
-            );
-          }}
-        />
+        {userDocId != 'null' && (
+          <input
+            type='radio'
+            id='favorites'
+            name='products'
+            onClick={() => {
+              dispatch(
+                SET_FILTER({
+                  type: 'favorites',
+                  label: localStorage.getItem('userDocId'),
+                })
+              );
+            }}
+          />
+        )}
+
         <input
           type='radio'
           id='allProducts'
@@ -126,29 +132,36 @@ function FilterBar() {
           <option value={'LowToHigh'}>Price: Low to High</option>
           <option value={'HighToLow'}>Price: High to Low</option>
         </select>
-        <label
-          htmlFor='favorites'
-          className={label === 'allProducts' ? 'label-activated' : 'label'}
-        >
-          <h3>Favorites</h3>
-        </label>
+        {userDocId != 'null' && (
+          <label
+            htmlFor='favorites'
+            className={
+              label === localStorage.getItem('userDocId')
+                ? 'label-activated'
+                : 'label'
+            }
+          >
+            <h3>Favorites</h3>
+          </label>
+        )}
+
         <label
           htmlFor='allProducts'
-          className={label === 'allProducts' ? 'label-activated' : 'label'}
+          className={label === 'all' ? 'label-activated' : 'label'}
         >
           <h3>All</h3>
         </label>
 
         <label
           htmlFor='GPU'
-          className={label === 'GPUs' ? 'label-activated' : 'label'}
+          className={label === 'gpu' ? 'label-activated' : 'label'}
         >
           <h3>GPU</h3>
         </label>
 
         <label
           htmlFor='CPU'
-          className={label === 'CPUs' ? 'label-activated' : 'label'}
+          className={label === 'cpu' ? 'label-activated' : 'label'}
         >
           <h3>CPU</h3>
         </label>

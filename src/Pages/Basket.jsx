@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Payment from '../Components/CheckOut/Payment';
+
 import Spinner from '../Components/SubComponents/Spinner';
-import BasketList from '../Components/List/BasketList';
+
+// import BasketList from '../Components/List/BasketList';
+// import Payment from '../Components/CheckOut/Payment';
+
+const Payment = React.lazy(() => import('../Components/CheckOut/Payment'));
+const BasketList = React.lazy(() => import('../Components/List/BasketList'));
 
 import {
   useSetBasketMutation,
@@ -12,8 +17,6 @@ import {
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const initialBasketState = { price: 0, shipment: 0 };
-
 const Basket = () => {
   //if there is an online user it will use params to get user's current basket from database
   const params = useParams();
@@ -21,73 +24,21 @@ const Basket = () => {
     return state.basket.basketItems;
   });
 
-  const { isFetching, data, error, isError } = useGetBasketQuery();
+  console.log('Basket Rendered....');
+
+  const { isFetching, data, error, isError } = useGetBasketQuery(
+    localStorage.getItem('userDocId')
+  );
 
   useEffect(() => {
-    if (data !== 'error' && data !== undefined) {
-      const output = data.reduce(
-        (prev, cur) => {
-          if (cur.check) {
-            return {
-              price: prev.price + cur.price * cur.quantity,
-              shipment: prev.shipment >= 100 ? 0 : prev.shipment + cur.shipment,
-            };
-          } else {
-            return { price: prev.price + 0, shipment: prev.shipment + 0 };
-          }
-        },
-        { price: 0, shipment: 0 }
-      );
-
-      //Arranges shipment cost if its higher than 100
-      setTotal(() => {
-        if (output.shipment > 100) {
-          return { ...output, shipment: 0 };
-        } else {
-          return output;
-        }
-      });
-    } else {
-      setTotal(initialBasketState);
-    }
+    data && console.log('Data geldi: ', data);
   }, [isFetching]);
 
   useEffect(() => {
     isError && toast.error("We could't fetch your basket");
   }, [isError]);
 
-  const [total, setTotal] = useState(initialBasketState);
-
-  useEffect(() => {
-    //if basket has any item init. Reduce will do its job.
-    //if basket is empty then total will be set to its initialState
-    if (itemsInBasket.length > 0) {
-      const output = itemsInBasket.reduce(
-        (prev, cur) => {
-          if (cur.check) {
-            return {
-              price: prev.price + cur.price * cur.quantity,
-              shipment: prev.shipment >= 100 ? 0 : prev.shipment + cur.shipment,
-            };
-          } else {
-            return { price: prev.price + 0, shipment: prev.shipment + 0 };
-          }
-        },
-        { price: 0, shipment: 0 }
-      );
-
-      //Arranges shipment cost if its higher than 100
-      setTotal(() => {
-        if (output.shipment > 100) {
-          return { ...output, shipment: 0 };
-        } else {
-          return output;
-        }
-      });
-    } else {
-      setTotal(initialBasketState);
-    }
-  }, [itemsInBasket]);
+  useEffect(() => {}, [itemsInBasket]);
 
   console.log('ItemsInBasket: ', itemsInBasket);
 
@@ -102,16 +53,13 @@ const Basket = () => {
       </div>
 
       <div className='basketContainer'>
-        <BasketList
-          itemsInBasket={params.userId ? data : itemsInBasket}
-          userStatus={params.userId ? true : false}
-        />
-        <Payment
-          price={total.price}
-          shipment={total.shipment}
-          length={data ? data.length : itemsInBasket.length}
-          array={params.userId ? data : itemsInBasket}
-        />
+        <Suspense>
+          <BasketList
+            itemsInBasket={params.userId ? data : itemsInBasket}
+            userStatus={params.userId ? true : false}
+          />
+          <Payment array={params.userId ? data : itemsInBasket} />
+        </Suspense>
       </div>
     </div>
   );

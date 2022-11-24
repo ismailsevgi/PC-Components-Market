@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 //basket Buttons
 import BasketButton from '../SubComponents/BasketButton';
@@ -6,6 +6,10 @@ import CheckButton from '../SubComponents/CheckButton';
 
 const BasketList = ({ itemsInBasket, userStatus }) => {
   console.log("BasketList'e gelen liste: ", itemsInBasket);
+
+  useEffect(() => {
+    console.log('Basket Reloaded...');
+  }, [itemsInBasket]);
 
   return (
     <div className='basketList'>

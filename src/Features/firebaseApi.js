@@ -151,7 +151,7 @@ export const firebaseApi = createApi({
       },
       transformResponse: (res) => res.sort((a, b) => b.id - a.id),
 
-      providesTags: ['products', 'users', 'basket'],
+      providesTags: ['products', 'users', 'basket', 'favorites'],
     }),
     getUser: builder.query({
       //singleFetch
@@ -263,7 +263,7 @@ export const firebaseApi = createApi({
           return { data: error };
         }
       },
-      invalidatesTags: ['products'],
+      invalidatesTags: ['products', 'basket'],
     }),
 
     getFavorites: builder.query({
@@ -328,13 +328,10 @@ export const firebaseApi = createApi({
     }),
 
     getBasket: builder.query({
-      async queryFn() {
+      async queryFn(id) {
         //from localStorage query gets userId to find userDocument
 
-        const userDocRef = doc(
-          usersCollection,
-          localStorage.getItem('userDocId')
-        );
+        const userDocRef = doc(usersCollection, id);
         let userDoc = await getDoc(userDocRef);
 
         try {

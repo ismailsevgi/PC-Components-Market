@@ -22,11 +22,13 @@ function BasketBadge() {
 
   useEffect(() => {
     if (data !== 'error' && data !== undefined) {
+      console.log('TEST 1');
       setProductAmount(data.length);
     } else {
+      console.log('TEST 2');
       setProductAmount(itemsInBasket.length);
     }
-  }, [isFetching]);
+  }, [isFetching, itemsInBasket]);
 
   //Underline problem with yusuf
   return (
