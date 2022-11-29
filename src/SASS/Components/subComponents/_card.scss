@@ -56,6 +56,10 @@
       $align: flex-start
     );
 
+    a {
+      color: currentColor;
+    }
+
     padding: 1rem;
     min-height: 35%;
     width: 100%;

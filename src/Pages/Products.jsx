@@ -2,6 +2,7 @@ import React from 'react';
 
 import ProductList from '../Components/List/ProductList';
 import FilterBar from '../Components/Filter-Product/FilterBar';
+import SideMiniFilterBar from '../Components/Filter-Product/SideMiniFilterBar';
 
 function Products() {
   return (
@@ -9,7 +10,7 @@ function Products() {
       <div className='container-fluid'>
         <div className='storePageWrapper'>
           <FilterBar />
-
+          <SideMiniFilterBar />
           <ProductList />
         </div>
       </div>

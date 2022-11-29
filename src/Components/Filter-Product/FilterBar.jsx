@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_FILTER, SET_PLACEMENT } from '../../Features/filterSlice';
 

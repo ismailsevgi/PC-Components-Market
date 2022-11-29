@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
-import CommentsCreator from '../Components/ProductDetailsComponents/CommentsCreator';
+
 import ProductDetailsCreator from '../Components/ProductDetailsComponents/ProductDetailsCreator';
 import ImageListCreator from '../Components/ProductDetailsComponents/ImageListCreator';
 
@@ -10,15 +10,22 @@ import { toast } from 'react-toastify';
 import Spinner from '../Components/SubComponents/Spinner';
 import CardButton from '../Components/SubComponents/CardButton';
 import { FavoriteBadge, StarsBadge } from '../Components/SubComponents/Badges';
+import { useSelector } from 'react-redux';
 
 //favBadge takes solid prop as true if user has added it into his fav product!
-const userDocId = localStorage.getItem('userDocId');
+
 function ProductDetailsPage() {
   const params = useParams();
 
   const { isFetching, isError, isSuccess, data, error } = useGetProductQuery(
     params.id
   );
+
+  const userStatus = useSelector((state) => {
+    return state.user.userStatus;
+  });
+
+  console.log('Use Selector userStatus ', userStatus);
 
   //useState ile resim değiştirilecek
   const [changeImg, setChangeImg] = useState('1');
@@ -34,6 +41,7 @@ function ProductDetailsPage() {
     if (data) {
       setImages([...data.images]);
       setChangeImg(data.images[0]);
+      console.log('Gelen data:', data);
     }
   }, [data, isFetching]);
 
@@ -46,7 +54,7 @@ function ProductDetailsPage() {
 
   return !isFetching ? (
     <div className='ProductDetailsPage'>
-      <div className='container'>
+      <div className='mySinglePageContainer'>
         <div className='leftCol'>
           <div className='allProductImagesContainer'>
             <div className='imageContainer'>
@@ -85,10 +93,12 @@ function ProductDetailsPage() {
                   <h1>{data.price - (data.price / 100) * data.saleRate}$</h1>
                 </div>
               ) : (
-                <h1>{data.price}</h1>
+                <div className='oldPrice'>
+                  <h1>{data.price}</h1>
+                </div>
               )}
               <div className='titleDiv-price-buttons'>
-                {userDocId !== 'null' && (
+                {userStatus && (
                   <FavoriteBadge fontSize='2.4rem' id={params.id} />
                 )}
 
@@ -97,9 +107,13 @@ function ProductDetailsPage() {
             </div>
             <hr></hr>
             <div className='titleDiv-reviews'>
-              <span>
-                Condition: <StarsBadge amount={3} />{' '}
-              </span>
+              <StarsBadge amount={3} />
+              <div className='locations'>
+                <div>Country: </div>
+                <div>{data?.country ? data.country : 'Unknown'}</div>
+                <div>City: </div>
+                <div>{data?.city ? data.city : 'Unknown'}</div>
+              </div>
             </div>
           </div>
           <hr></hr>
@@ -108,7 +122,6 @@ function ProductDetailsPage() {
           </div>
           <hr></hr>
         </div>
-        {data && <CommentsCreator />}
       </div>
     </div>
   ) : (

@@ -1,22 +1,33 @@
 .ProductDetailsPage {
-  .container {
+  width: 80vw;
+
+  margin: 1rem auto;
+
+  .mySinglePageContainer {
+    width: 100%;
+
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 55% 45%;
     font-family: $primary-font;
     gap: 1rem;
 
     .leftCol {
-      min-height: 80vh;
+      height: 100vh;
       width: 100%;
 
       .allProductImagesContainer {
         height: 100%;
         width: 100%;
+        border: 1px solid darken($orange, 20%);
+        border-style: groove;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        box-shadow: 0px 0px 5px 1px $orange;
+        background-image: $singleProductImageBackground;
 
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        @include flex-display($direction: column, $align: flex-start);
+        position: relative;
 
         .imageContainer {
           width: 100%;
@@ -27,7 +38,7 @@
           img {
             width: 95%;
             height: 95%;
-            object-fit: fill;
+            object-fit: cover;
             margin: 1rem auto;
           }
         }
@@ -69,7 +80,8 @@
 
             .activated {
               opacity: 1;
-              border: 5px solid $orange;
+
+              box-shadow: 0 0 6px 2px $orange;
             }
           }
         }
@@ -78,6 +90,11 @@
     .rightCol {
       min-height: 80vh;
       padding: 1rem;
+      background-color: $navbar-background;
+      color: $white-font;
+      box-shadow: 0 0 2px 2px $white-font;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
       .titleDiv {
         line-height: 2rem;
 
@@ -91,10 +108,12 @@
 
         &-price {
           @include flex-display($space: space-between);
-          line-height: 2rem;
+
           height: 5rem;
+
           .oldPrice {
             font-family: $secondary-font;
+            flex: 1;
             .topFont {
               .sale {
                 .dolarSign {
@@ -122,10 +141,61 @@
             }
           }
           &-buttons {
-            width: 50%;
-            height: 100%;
-            border: 1px solid black;
+            flex: 1;
+            height: 70%;
+
             @include flex-display($space: space-evenly);
+
+            .favoriteContainer {
+              display: block;
+              width: 4rem;
+              height: 90%;
+              background-color: lighten($orange, 20%);
+              color: $white-font;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: none;
+              border-radius: 15px;
+            }
+          }
+        }
+
+        &-reviews {
+          @include flex-display($space: space-between);
+
+          .starsContainer {
+            width: 100%;
+            @include flex-display();
+
+            .condition {
+              font-size: 1.2rem;
+
+              margin-right: 0.4rem;
+            }
+            i {
+              font-size: 1.2rem;
+              padding-right: 0.4rem;
+            }
+
+            .stars {
+              @include flex-display();
+              .light {
+                color: $yellow;
+              }
+              .dark {
+                color: $white-font;
+              }
+            }
+          }
+          .locations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            padding: 1rem;
+            width: 100%;
+
+            font-size: 1.2rem;
           }
         }
       }
@@ -134,13 +204,8 @@
         width: 100%;
         &-table {
           width: 100%;
-          h3 {
-            color: blue;
-          }
 
-          .header {
-            box-shadow: 0 1px $component-background;
-          }
+          font-size: 1.4rem;
 
           width: 100%;
 
@@ -148,6 +213,362 @@
             td {
               width: 50%;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+//Media Queries
+@media (max-width: 1400px) {
+  .ProductDetailsPage {
+    .mySinglePageContainer {
+      .leftCol {
+        .allProductImagesContainer {
+          .imagesMasonary {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      }
+
+      .rightCol {
+        .titleDiv {
+          &-reviews {
+            .starsContainer {
+              @include flex-display($direction: column);
+              .condition {
+                font-size: 1.2rem;
+              }
+
+              i {
+                font-size: 1rem;
+                padding-right: 0.4rem;
+              }
+            }
+
+            .locations {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+
+              padding: 1rem;
+              width: 100%;
+
+              font-size: 1.2rem;
+            }
+          }
+        }
+
+        .productDetails {
+          table {
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .ProductDetailsPage {
+    width: 100vw;
+    .mySinglePageContainer {
+      width: 100%;
+      .leftCol {
+        .allProductImagesContainer {
+          .imageContainer {
+            width: 100%;
+            height: 50%;
+
+            display: flex;
+
+            img {
+              width: 95%;
+              height: 95%;
+              object-fit: cover;
+              margin: 1rem auto;
+            }
+          }
+
+          .imagesMasonary {
+            display: grid;
+            padding: 1rem;
+            width: 100%;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.1rem;
+
+            .imageBox {
+              width: 100%;
+              height: 100%;
+              position: relative;
+
+              .selectProduct {
+                scale: 0;
+                visibility: hidden;
+              }
+
+              .background-image {
+                z-index: 10;
+                width: 8rem;
+                height: 8rem;
+                position: absolute;
+                background-color: transparent;
+                top: 0;
+                left: 0;
+              }
+
+              .product-image {
+                object-fit: fill;
+                width: 10rem;
+                height: 10rem;
+                border: 1px solid gray;
+                opacity: 0.7;
+              }
+
+              .activated {
+                opacity: 1;
+
+                box-shadow: 0 0 6px 2px $orange;
+              }
+            }
+          }
+        }
+      }
+
+      .rightCol {
+        .titleDiv {
+          &-price {
+            &-buttons {
+              button {
+                width: 7.5rem !important;
+              }
+            }
+          }
+
+          &-reviews {
+            .starsContainer {
+              @include flex-display($direction: column);
+              .condition {
+                font-size: 1.2rem;
+              }
+
+              i {
+                font-size: 1rem;
+                padding-right: 0.4rem;
+              }
+            }
+          }
+        }
+
+        .productDetails {
+          table {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .ProductDetailsPage {
+    .mySinglePageContainer {
+      display: grid;
+      grid-template-columns: 1fr;
+
+      .leftCol {
+        .allProductImagesContainer {
+          border-radius: 15px;
+        }
+      }
+
+      .rightCol {
+        border-radius: 15px;
+        .titleDiv {
+          &-price {
+            &-buttons {
+              button {
+                width: 15rem !important;
+              }
+            }
+          }
+
+          &-reviews {
+            .starsContainer {
+              @include flex-display($direction: row, $space: space-between);
+              .condition {
+                font-size: 1.6rem;
+              }
+
+              i {
+                font-size: 1.4rem;
+                padding-right: 0.4rem;
+              }
+            }
+            .locations {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+
+              padding: 1rem;
+              width: 100%;
+
+              font-size: 1.6rem;
+            }
+          }
+        }
+        .productDetails {
+          table {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .ProductDetailsPage {
+    .mySinglePageContainer {
+      .leftCol {
+        .allProductImagesContainer {
+        }
+      }
+
+      .rightCol {
+        .titleDiv {
+          &-price {
+            &-buttons {
+              button {
+                width: 10rem !important;
+              }
+            }
+          }
+
+          &-reviews {
+            .starsContainer {
+              @include flex-display($direction: column, $space: space-between);
+              .condition {
+                font-size: 1.4rem;
+              }
+
+              i {
+                font-size: 1.4rem;
+                padding-right: 0.4rem;
+              }
+            }
+            .locations {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+
+              padding: 1rem;
+              width: 100%;
+
+              font-size: 1.6rem;
+            }
+          }
+        }
+        .productDetails {
+          table {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 574px) {
+  .ProductDetailsPage {
+    width: 100vw;
+    .mySinglePageContainer {
+      grid-template-columns: 100%;
+      .leftCol {
+        .allProductImagesContainer {
+          .imagesMasonary {
+            display: grid;
+            padding: 1rem;
+            width: 100%;
+            grid-template-columns: 70px 70px 70px;
+            gap: 1rem;
+
+            .imageBox {
+              width: 100%;
+              height: 100%;
+              position: relative;
+
+              .selectProduct {
+                scale: 0;
+                visibility: hidden;
+              }
+
+              .background-image {
+                z-index: 10;
+                width: 8rem;
+                height: 8rem;
+                position: absolute;
+                background-color: transparent;
+                top: 0;
+                left: 0;
+              }
+
+              .product-image {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                border: 1px solid gray;
+                opacity: 0.7;
+              }
+
+              .activated {
+                opacity: 1;
+
+                box-shadow: 0 0 6px 2px $orange;
+              }
+            }
+          }
+        }
+      }
+
+      .rightCol {
+        .titleDiv {
+          &-title {
+            font-size: 1.6rem;
+          }
+
+          &-price {
+            &-buttons {
+              button {
+                width: 10rem !important;
+              }
+            }
+          }
+
+          &-reviews {
+            .starsContainer {
+              @include flex-display($direction: column, $space: space-between);
+              .condition {
+                font-size: 1rem;
+              }
+
+              i {
+                font-size: 1rem;
+                padding-right: 0.4rem;
+              }
+            }
+            .locations {
+              display: grid;
+              grid-template-columns: 50px 50px;
+              column-gap: 2rem;
+              padding: 1rem;
+              width: 100%;
+
+              font-size: 1.2rem;
+            }
+          }
+        }
+        .productDetails {
+          table {
+            font-size: 1rem;
           }
         }
       }

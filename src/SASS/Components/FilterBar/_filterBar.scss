@@ -2,7 +2,7 @@
   position: relative;
   border-radius: 15px;
   border: 2px solid $blue;
-  height: 55rem;
+  height: auto;
   width: 100%;
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -25,41 +25,52 @@
   }
 
   .labels {
-    @include flex-display($direction: column, $align: flex-start);
+    @include flex-display(
+      $direction: column,
+      $align: flex-start,
+      $space: space-between
+    );
 
-    font-size: 1.6rem;
-    font-weight: 500;
+    font-size: 2rem;
     border-radius: 8px;
-    padding: 1rem;
+    box-sizing: border-box;
+    label:nth-child(3) {
+      margin-top: 2rem;
+    }
+
     width: 100%;
     letter-spacing: 1px;
-    font-family: $primary-font;
+    font-family: $secondary-font;
     background-color: transparent;
     padding: 2rem;
     h3 {
       background-color: inherit;
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
 
     select {
       width: 80%;
       margin: 0.6rem;
-      font-size: 1.2rem;
+      font-size: 2rem;
       padding-left: 0.8rem;
     }
 
     .label {
       background-color: inherit;
       cursor: pointer;
-      margin: 0.6rem;
-      height: 100%;
+      margin: 1rem;
+      height: 3.4rem;
+      width: fit-content;
+
       position: relative;
       @include flex-display($direction: row, $space: space-between);
+      border-radius: 15px;
+      transition: transform 0.3s ease;
 
-      border-radius: 8px;
+      box-sizing: border-box;
+
       &:hover {
-        height: 100%;
-
+        transform: translate(10px, 0);
         &:after {
           width: 100%;
           background-color: $red-dark;
@@ -68,25 +79,28 @@
 
       &:after {
         background-color: inherit;
+        border-radius: 15px;
         content: '';
         display: block;
         width: 1.4rem;
-        height: 0.2rem;
+        height: 0.4rem;
         background-color: $orange;
         position: absolute;
         left: 0;
-        bottom: 0.4rem;
+        bottom: 0.2rem;
         transition: all 0.5s ease;
       }
 
       &-activated {
         background-color: inherit;
-        color: darken($orange, 20%);
+        color: darken($orange, 10%);
         @include flex-display($direction: row);
 
         position: relative;
-
+        transition: transform 0.5s ease;
+        transform: translate(20px, 0);
         &:hover {
+          transform: translate(30px, 0);
           &:after {
             width: 100%;
             background-color: $red-dark;
@@ -98,7 +112,7 @@
           position: absolute;
           background-color: $red-dark;
           width: 1.4rem;
-          height: 0.2rem;
+          height: 0.4rem;
           bottom: 0.4rem;
           left: 0;
           transition: all 0.5s ease;
@@ -113,7 +127,8 @@
       width: 80%;
       .searchInput {
         height: 2.4rem;
-        padding-left: 0.8rem;
+        font-size: 1.2rem;
+        padding-left: 1.2rem;
 
         &::placeholder {
           color: $dark-font;
@@ -134,6 +149,18 @@
 
     span {
       background-color: inherit;
+    }
+  }
+}
+
+@media (max-width: 1224px) {
+  .filterBar {
+    width: 5rem;
+    position: fixed;
+    left: 0;
+    display: none;
+
+    .labels {
     }
   }
 }

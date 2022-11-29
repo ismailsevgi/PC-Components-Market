@@ -4,23 +4,21 @@ const ProductDetailsCreator = React.memo(({ details }) => {
   const productSpecs = Object.entries(details);
 
   return (
-    <div>
-      <table className='productDetails-table'>
-        <tbody>
-          <tr>
-            <td className='header'>Product Details</td>
-          </tr>
-          {productSpecs.map((arr, index) => {
-            return (
-              <tr key={index}>
-                <td className='keys'>{arr[0]}</td>
-                <td className='values'>{arr[1]}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <table className='productDetails-table'>
+      <tbody>
+        <tr>
+          <td className='header'>Product Details</td>
+        </tr>
+        {productSpecs.map((arr, index) => {
+          return (
+            <tr key={index}>
+              <td className='keys'>{arr[0]}</td>
+              <td className='values'>{arr[1]}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 });
 

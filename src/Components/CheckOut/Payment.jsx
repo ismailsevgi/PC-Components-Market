@@ -15,8 +15,6 @@ function Payment({ array }) {
   const userDocId = localStorage.getItem('userDocId');
 
   function handlePayment(arr) {
-    console.log('Proceeding to order...', localStorage.getItem('userDocId'));
-
     if (userDocId == 'null') {
       toast.error('You have to login first');
     } else {

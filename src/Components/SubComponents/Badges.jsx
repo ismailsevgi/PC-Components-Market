@@ -58,7 +58,7 @@ function FavoriteBadge({ fontSize = '1rem', id }) {
   //favori butonu buraya çek
   //fetch true ise disable et
   return (
-    <button className='favoriteContainer' disabled={!isFetching}>
+    <div className='favoriteContainer' disabled={!isFetching}>
       {solid ? (
         <MDBIcon
           fas
@@ -76,7 +76,7 @@ function FavoriteBadge({ fontSize = '1rem', id }) {
           }}
         />
       )}
-    </button>
+    </div>
   );
 }
 
@@ -85,10 +85,22 @@ function StarsBadge({ amount }) {
 
   return (
     <div className='starsContainer'>
-      {new Array(amount).fill(0).map((n) => {
-        console.log('mapped');
-        return <MDBIcon key={n} icon='star' />;
-      })}
+      <div className='condition'>Condition:</div>
+      <div className='stars'>
+        <div className='light'>
+          {new Array(amount).fill(0).map((n) => {
+            console.log('mapped');
+            return <MDBIcon key={n} icon='star' />;
+          })}
+        </div>
+        <div className='dark'>
+          {new Array(5 - amount).fill(0).map((n) => {
+            console.log('mapped');
+            return <MDBIcon key={n} icon='star' />;
+          })}
+        </div>
+      </div>
+      <p></p>
     </div>
   );
 }

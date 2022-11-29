@@ -1,4 +1,4 @@
-import '../css/styles.css';
+import './css/styles.css';
 //PAGES
 import Navbar from './Pages/Navbar';
 import Products from './Pages/Products';
@@ -29,10 +29,13 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { usersRef as usersCollection } from './DataBASE/firebase.js';
+import { useDispatch } from 'react-redux';
+import { SET_USER } from './Features/userSlice';
 
 function App() {
   const auth = getAuth();
 
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     displayName: '',
     email: '',
@@ -49,11 +52,25 @@ function App() {
         localStorage.setItem('userEmail', userCred.email);
         localStorage.setItem('userPhotoURL', userCred.photoURL);
 
+        console.log('Test1');
         let userRef = doc(usersCollection, userCred.displayName);
-
+        console.log('Test2');
         getDoc(userRef).then((dc) => {
           localStorage.setItem('userName', dc.data().userName);
           localStorage.setItem('userFavorites', dc.data().userFavorites);
+
+          dispatch(
+            SET_USER({
+              displayName: dc.data().userName,
+              email: dc.data().email,
+              photoURL: userCred.photoURL,
+              uid: userCred.uid,
+              userFavorites: dc.data().userFavorites,
+              userBasket: dc.data().userBasket,
+              userStatus: true,
+              userName: dc.data().userName,
+            })
+          );
 
           setUser({
             displayName: dc.data().userName,
@@ -84,7 +101,7 @@ function App() {
           <Routes>
             <Route path='/loading' element={<LoadingPage />} />
             <Route path='/' element={<Navigate to='/store' />} />
-            <Route path='/store' element={<Products userDetails={user} />} />
+            <Route path='/store' element={<Products />} />
             <Route path='/basket' element={<Basket />} />
             <Route path='/basket/:userId' element={<Basket />} />
             <Route path='/regist' element={<Registration />} />
@@ -94,7 +111,11 @@ function App() {
             />
             <Route
               path='/productDetails/:id'
-              element={<ProductDetailsPage />}
+              element={
+                <ProductDetailsPage
+                  userDocId={localStorage.getItem('userDocId')}
+                />
+              }
             />
             <Route path='/orders' element={<Orders />} />
             <Route path='/orderAccept/:orderId' element={<OrderAccept />} />

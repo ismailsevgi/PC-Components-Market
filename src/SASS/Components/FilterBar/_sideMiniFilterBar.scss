@@ -1,0 +1,238 @@
+.mini-filterBar {
+  display: none;
+
+  position: sticky;
+  top: 0rem;
+  left: 0rem;
+  z-index: 10;
+
+  .mini-radios {
+    display: none;
+
+    [type='radio']:first-child {
+      &:checked {
+      }
+    }
+  }
+
+  .labelsWrapper {
+    position: relative;
+    @include flex-display($direction: column);
+
+    .searchField {
+      position: absolute;
+
+      top: 3.4rem;
+      left: 3.4rem;
+      font-family: $primary-font;
+
+      .inputField {
+        position: relative;
+
+        color: $white-font;
+        input {
+          height: 3rem;
+          background-color: $purple;
+          border-top-right-radius: 15px;
+          outline-color: $orange;
+          outline-style: solid;
+          outline-width: 1px;
+          color: $white-font;
+
+          &::placeholder {
+            color: $white-font;
+          }
+        }
+
+        svg {
+          position: absolute;
+          top: 50%;
+          right: 5px;
+          transform: translateY(-50%);
+          font-size: 1.4rem;
+        }
+      }
+
+      select {
+        height: 3rem;
+        padding-left: 0.4rem;
+        background-color: $purple;
+        border-bottom-right-radius: 15px;
+        border: none;
+        font-size: 1rem;
+        outline-color: $orange;
+        outline-style: solid;
+        outline-width: 1px;
+        color: $white-font;
+      }
+    }
+
+    .menu-opened {
+      display: flex;
+
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid orange;
+      background-color: $dark-font;
+      i {
+        font-size: 2rem;
+        margin: auto;
+        color: $blue-light;
+      }
+    }
+
+    .menu-closed {
+      display: flex;
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid orange;
+      background-color: $dark-font;
+      i {
+        font-size: 2rem;
+        margin: auto;
+        color: orange;
+      }
+    }
+    .mini-labels {
+      @include flex-display($direction: column);
+
+      .label {
+        display: flex;
+        width: 4rem;
+        height: 4rem;
+        border: 1px solid orange;
+        background-color: $dark-font;
+        transform-origin: top;
+        animation-timing-function: ease-out;
+
+        img {
+          margin: auto;
+          width: 75%;
+          height: 75%;
+          object-fit: contain;
+        }
+
+        i {
+          font-size: 2rem;
+          margin: auto;
+          color: orange;
+        }
+      }
+
+      .label-activated {
+        display: flex;
+        width: 4.3rem;
+        height: 4.3rem;
+        border: 1px solid orange;
+        background-color: $blue-dark;
+
+        img {
+          margin: auto;
+          width: 75%;
+          height: 75%;
+          object-fit: contain;
+        }
+
+        i {
+          font-size: 2rem;
+          margin: auto;
+          color: white;
+        }
+      }
+
+      @keyframes wave {
+        from {
+          transform: rotateX(90deg);
+          visibility: hidden;
+        }
+        to {
+          transform: rotateX(0deg);
+          visibility: visible;
+        }
+      }
+      @keyframes waveReverse {
+        from {
+          transform: rotateX(0deg);
+        }
+        to {
+          transform: rotateX(90deg);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1225px) {
+  .mini-filterBar {
+    @include flex-display($direction: column);
+
+    height: fit-content;
+    margin-top: 2rem;
+
+    .labelsWrapper {
+      .menu-opened {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      .menu-closed {
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+
+    .mini-labels {
+      .label {
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+  }
+}
+
+// @media (max-width: 1040px) {
+//   .mini-filterBar {
+//     .labelsWrapper {
+//       .menu-opened {
+//         width: 4rem;
+//         height: 4rem;
+//       }
+
+//       .menu-closed {
+//         width: 4rem;
+//         height: 4rem;
+//       }
+
+//       .mini-labels {
+//         .label {
+//           width: 4rem;
+//           height: 4rem;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 864px) {
+//   .mini-filterBar {
+//     .labelsWrapper {
+//       .menu-opened {
+//         width: 4rem;
+//         height: 4rem;
+//       }
+
+//       .menu-closed {
+//         width: 4rem;
+//         height: 4rem;
+//       }
+
+//       .mini-labels {
+//         flex-wrap: wrap;
+//         .label {
+//           width: 4rem;
+//           height: 4rem;
+//         }
+//       }
+//     }
+//   }
+// }

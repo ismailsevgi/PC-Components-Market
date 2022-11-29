@@ -32,7 +32,8 @@
 //-----------Layout
 //header
 @import './Components/navbar';
-@import './Components/filterBar';
+@import './Components/FilterBar/filterBar';
+@import './Components/FilterBar/sideMiniFilterBar';
 @import './Pages/registrationPage';
 
 //footer
@@ -65,14 +66,18 @@
 //product
 //-------------Themes
 //dark - light
-* {
+
+body {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .App {
-  background-image: linear-gradient(to right, $blue-dark, $purple);
-  min-height: 150vh;
+  background: linear-gradient(to right, $blue-dark, $purple);
 }
 
 .container {
