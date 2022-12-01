@@ -63,10 +63,9 @@ function Registration() {
               //adds a user's private doc inside "users" collection
               addDoc(usersCollection, {
                 userName: `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value}`,
-                birth: '',
-                gender: '',
+                orders: [],
                 createdAt: serverTimestamp(),
-
+                productRequests: [],
                 userBasket: [],
                 userFavorites: [],
               })
@@ -79,8 +78,7 @@ function Registration() {
 
                   updateDoc(documentRef, {
                     email: cred.user.email,
-                    ordersBasket: [],
-                    productRequests: [],
+
                     userId: cred.user.uid,
                     id: userRef.id,
                   }).then(() => {
@@ -140,14 +138,12 @@ function Registration() {
             addDoc(usersCollection, {
               userId: userCred.user.uid,
               userName: userCred.user.displayName,
-              birth: '',
-              gender: '',
               createdAt: serverTimestamp(),
               email: userCred.user.email,
               userBasket: [],
               userFavorites: [],
               productRequests: [],
-              basketOrders: [],
+              orders: [],
             })
               .then((userRef) => {
                 updateProfile(userCred.user, {

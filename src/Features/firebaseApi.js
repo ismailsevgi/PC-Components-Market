@@ -230,23 +230,16 @@ export const firebaseApi = createApi({
     addProduct: builder.mutation({
       async queryFn({ values, productType, country, city }) {
         try {
-          console.log(
-            "...values.title.split(' ').toLowerCase():",
-            ...values.title.toLowerCase().split(' ')
-          );
           await addDoc(productsCollection, {
             ...values,
             tag: productType,
             searchQueries: [
-              values.brand.toLowerCase(),
-              values.city.value.toLowerCase(),
-              values.country.value.toLowerCase(),
+              values.city.toLowerCase(),
+              values.country.toLowerCase(),
               values.tag,
               ...values.title.toLowerCase().split(' '),
             ],
 
-            country: country.value,
-            city: city.value,
             sellerEmail: localStorage.getItem('userEmail'),
             sellerUsername: localStorage.getItem('userName'),
           }).then((docRef) => {
@@ -623,7 +616,7 @@ export const firebaseApi = createApi({
             console.log('userDocument.data():', userDocument.data());
             let orderRef = doc(ordersCollection, orderId);
             let orderDoc = await getDoc(orderRef);
-            console.log('orderDoc', orderDoc);
+            console.log('orderDoc', orderDoc.data());
             for (const order of orderDoc.data().products) {
               console.log('order', order);
               if (order.owner == id) {
@@ -640,7 +633,8 @@ export const firebaseApi = createApi({
             data: filteredOrders,
           };
         } catch (error) {
-          return { data: error };
+          toast.error('Test Error');
+          return { data: [] };
         }
       },
       providesTags: ['order'],

@@ -5,26 +5,22 @@ import Select from 'react-select';
 
 export default function HandleCountry({
   styleSheet,
-  setCity,
-  setCountry,
-  country,
-}) {
-  //ülke şehir seçme yapıldı yarın contition la birlikte single product page de test et
 
-  const [cities, setCities] = useState(countries[country.value]);
+  handleLocation,
+  location,
+}) {
+  const [cities, setCities] = useState(countries['Afghanistan']);
 
   useEffect(() => {
-    console.log('Seçilen Ülke: ', countries[country.value]);
-    console.log('Current Cities: ', cities);
     setCities(
-      countries[country.value].map((city) => {
+      countries[location.country].map((city) => {
         return {
-          value: city,
           label: city,
+          value: city,
         };
       })
     );
-  }, [country]);
+  }, [location.country]);
 
   return (
     <>
@@ -32,7 +28,9 @@ export default function HandleCountry({
         <label htmlFor='exampleFormControlSelect1'>Select Country</label>
       </div>
       <Select
-        onChange={({ value }) => setCountry({ value })}
+        onChange={(selectedOption) => {
+          handleLocation('country', selectedOption.value);
+        }}
         options={countriesReady}
         styles={styleSheet}
       />
@@ -41,7 +39,9 @@ export default function HandleCountry({
       </div>
       <Select
         styles={styleSheet}
-        onChange={(e) => setCity(e)}
+        onChange={(selectedOption) => {
+          handleLocation('city', selectedOption.value);
+        }}
         options={cities}
       />
     </>

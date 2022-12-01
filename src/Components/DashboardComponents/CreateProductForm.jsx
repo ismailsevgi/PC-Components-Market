@@ -12,13 +12,12 @@ import HandleCountry from './HandleCountry';
 function CreateProductForm() {
   //Might be unnecessary
   const [productType, setProductType] = useState('cpu');
+  const [location, setLocation] = useState({
+    country: 'Afghanistan',
+    city: '',
+  });
 
   //staring values of country selection
-  const [country, setCountry] = useState({
-    value: 'Afghanistan',
-    label: 'Afghanistan',
-  });
-  const [city, setCity] = useState('');
 
   const navigate = useNavigate();
   const [addProduct] = useAddProductMutation();
@@ -46,7 +45,7 @@ function CreateProductForm() {
     },
     onSubmit: async (values) => {
       //RESİMLER YÜKLENENE KADAR BUTTON DISABLE OLMALI
-      await addProduct({ values, productType, country, city });
+      await addProduct({ values, productType });
       navigate('/dashboard');
     },
   });
@@ -88,8 +87,36 @@ function CreateProductForm() {
   }
 
   function handleCondition({ value }) {
+    console.log('handleCondition: ', value);
     createProductForm.values.condition = value;
   }
+
+  const handleLocation = (type, value) => {
+    console.log('HandleLocation: ', type, value);
+    switch (type) {
+      case 'country':
+        setLocation((prev) => {
+          return {
+            ...prev,
+            country: value,
+          };
+        });
+        createProductForm.values.country = value;
+      case 'city':
+        setLocation((prev) => {
+          return {
+            ...prev,
+            city: value,
+          };
+        });
+        createProductForm.values.city = value;
+
+      default:
+        break;
+    }
+
+    console.log('Form AFTER CHANGE: ', createProductForm.values);
+  };
 
   return (
     <div className='container-fluid'>
@@ -143,6 +170,7 @@ function CreateProductForm() {
               <label>BRAND</label>
             </div>
             <input
+              type='text'
               name='brand'
               onChange={createProductForm.handleChange}
               value={createProductForm.values.brand}
@@ -201,9 +229,8 @@ function CreateProductForm() {
               styles={styleSheet}
             />
             <HandleCountry
-              setCity={setCity}
-              setCountry={setCountry}
-              country={country}
+              location={location}
+              handleLocation={handleLocation}
               styleSheet={styleSheet}
             />
           </div>
@@ -218,11 +245,18 @@ function CreateProductForm() {
             />
           </div>
           <div className='textAreaContainer'>
-            <label>Short description about your product</label>
+            <label htmlFor='description'>
+              Short description about your product
+            </label>
             <textarea
+              name='description'
+              id='description'
+              minLength='100'
+              maxLength='300'
               onChange={createProductForm.handleChange}
               value={createProductForm.values.description}
               className='productDescription'
+              required
             ></textarea>
           </div>
         </div>
