@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   REMOVE_FROM_BASKET,
   DECREASE_AMOUNT,
@@ -11,7 +11,6 @@ const BasketButton = React.memo(({ icon, handle, id, stock }) => {
   const dispatch = useDispatch();
   const [setBasket] = useSetBasketMutation();
   const userId = localStorage.getItem('userId');
-  console.log('Basket Button rendered ');
 
   const myFunc = (handle) => {
     if (handle === 'handleSub') {

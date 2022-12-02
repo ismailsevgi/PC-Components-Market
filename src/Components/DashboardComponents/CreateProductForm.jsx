@@ -165,6 +165,7 @@ function CreateProductForm() {
               value={createProductForm.values.price}
               className='form-control'
               placeholder='Enter price'
+              type='number'
             />
             <div className='labelBox'>
               <label>BRAND</label>
@@ -196,6 +197,7 @@ function CreateProductForm() {
               value={createProductForm.values.stock}
               className='form-control'
               placeholder='Enter stock size'
+              type='number'
             />
             <div className='labelBox'>
               <label>SALE RATE</label>
@@ -206,6 +208,7 @@ function CreateProductForm() {
               value={createProductForm.values.saleRate}
               className='form-control'
               placeholder="Enter product's sale rate"
+              type='number'
             />
             <div className='labelBox'>
               <label>Shipment Cost</label>

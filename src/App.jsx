@@ -27,10 +27,11 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 
 //Firebase
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { usersRef as usersCollection } from './DataBASE/firebase.js';
 import { useDispatch } from 'react-redux';
 import { SET_USER } from './Features/userSlice';
+import { SET_OFFLINE_BASKET } from './Features/basketSlice';
 
 function App() {
   const auth = getAuth();
@@ -52,9 +53,8 @@ function App() {
         localStorage.setItem('userEmail', userCred.email);
         localStorage.setItem('userPhotoURL', userCred.photoURL);
 
-        console.log('Test1');
         let userRef = doc(usersCollection, userCred.displayName);
-        console.log('Test2');
+
         getDoc(userRef).then((dc) => {
           localStorage.setItem('userName', dc.data().userName);
           localStorage.setItem('userFavorites', dc.data().userFavorites);
@@ -72,6 +72,16 @@ function App() {
             })
           );
 
+          const userBasket = localStorage.getItem('userBasket');
+
+          if (userBasket) {
+            console.log('Userbasket Güncellendi...');
+            const basketItems = JSON.parse(userBasket).basketItems;
+            updateDoc(userRef, {
+              userBasket: [...dc.data().userBasket, ...basketItems],
+            });
+          }
+
           setUser({
             displayName: dc.data().userName,
             email: dc.data().email,
@@ -88,6 +98,7 @@ function App() {
 
         localStorage.setItem('userDocId', null);
         localStorage.setItem('userEmail', null);
+        dispatch(SET_OFFLINE_BASKET(localStorage.getItem('userBasket')));
       }
     });
     unsub();

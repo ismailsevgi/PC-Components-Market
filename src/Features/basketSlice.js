@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { json } from 'react-router-dom';
 
 const initialState = {
   basketItems: [],
@@ -16,28 +17,34 @@ const basketSlice = createSlice({
       );
 
       if (findObj) {
-        return {
+        let newBasket = {
           basketItems: [
             ...state.basketItems.filter((obj) => obj.id !== findObj.id), //deletes the og obj.
             { ...findObj, quantity: findObj.quantity + 1 }, //puts a new obj with new quantity
           ],
         };
+        localStorage.setItem('userBasket', newBasket);
+        return newBasket;
       } else {
-        return {
+        let newBasket = {
           ...state,
           basketItems: [...state.basketItems, action.payload],
         };
+        localStorage.setItem('userBasket', JSON.stringify(newBasket));
+        return newBasket;
       }
     },
     REMOVE_FROM_BASKET: (state, action) => {
-      return {
+      let newBasket = {
         basketItems: state.basketItems.filter(
           (product) => product.id !== action.payload
         ),
       };
+      localStorage.setItem('userBasket', JSON.stringify(newBasket));
+      return newBasket;
     },
     INCREASE_AMOUNT: (state, action) => {
-      return {
+      let newBasket = {
         basketItems: state.basketItems.map((product) => {
           if (product.id === action.payload) {
             if (product.quantity === product.stock) {
@@ -49,9 +56,11 @@ const basketSlice = createSlice({
           return product;
         }),
       };
+      localStorage.setItem('userBasket', JSON.stringify(newBasket));
+      return newBasket;
     },
     DECREASE_AMOUNT: (state, action) => {
-      return {
+      let newBasket = {
         basketItems: state.basketItems.map((product) => {
           if (product.id === action.payload) {
             return { ...product, quantity: product.quantity - 1 };
@@ -59,9 +68,11 @@ const basketSlice = createSlice({
           return product;
         }),
       };
+      localStorage.setItem('userBasket', JSON.stringify(newBasket));
+      return newBasket;
     },
     CHANGE_CHECK: (state, action) => {
-      return {
+      let changedBasket = {
         basketItems: state.basketItems.map((product) => {
           if (product.id === action.payload.id) {
             return { ...product, check: !product.check };
@@ -70,6 +81,12 @@ const basketSlice = createSlice({
           }
         }),
       };
+      localStorage.setItem('userBasket', JSON.stringify(changedBasket));
+      return changedBasket;
+    },
+    SET_OFFLINE_BASKET: (state, { type, payload }) => {
+      console.log('Offline gelen payload: ', JSON.parse(payload).basketItems);
+      return JSON.parse(payload);
     },
   },
   extraReducers: (builder) => {
@@ -87,4 +104,5 @@ export const {
   INCREASE_AMOUNT,
   DECREASE_AMOUNT,
   CHANGE_CHECK,
+  SET_OFFLINE_BASKET,
 } = basketSlice.actions;

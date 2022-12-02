@@ -13,12 +13,16 @@ import {
 //Basket Item Counter
 function BasketBadge() {
   const [productAmount, setProductAmount] = useState(0);
-  const { data, error, isFetching } = useGetBasketQuery();
 
   //Gets recent amount of basket items
   const itemsInBasket = useSelector((state) => {
     return state.basket.basketItems;
   });
+
+  const { data, error, isFetching } = useGetBasketQuery(
+    localStorage.getItem('userDocId') !== 'null' &&
+      localStorage.getItem('userDocId')
+  );
 
   useEffect(() => {
     if (data !== 'error' && data !== undefined) {

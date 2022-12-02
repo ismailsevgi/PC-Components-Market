@@ -324,6 +324,8 @@ export const firebaseApi = createApi({
       async queryFn(id) {
         //from localStorage query gets userId to find userDocument
 
+        console.log('Get Basket Query Çalısti...');
+
         const userDocRef = doc(usersCollection, id);
         let userDoc = await getDoc(userDocRef);
 
