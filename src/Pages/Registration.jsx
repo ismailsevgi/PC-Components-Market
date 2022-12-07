@@ -57,8 +57,6 @@ function Registration() {
           formRefRegist.current.password.value
         )
           .then((cred) => {
-            toast.success('Kayıt Başarılı');
-
             try {
               //adds a user's private doc inside "users" collection
               addDoc(usersCollection, {
@@ -71,7 +69,7 @@ function Registration() {
               })
                 .then((userRef) => {
                   updateProfile(cred.user, {
-                    displayName: userRef.id,
+                    uid: userRef.id,
                   });
 
                   const documentRef = doc(usersCollection, userRef.id);

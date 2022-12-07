@@ -69,7 +69,7 @@
 
 body {
   width: 100%;
-  height: 100%;
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -78,6 +78,7 @@ body {
 
 .App {
   background: linear-gradient(to right, $blue-dark, $purple);
+  min-height: 100vh;
 }
 
 .container {

@@ -359,8 +359,6 @@ export const firebaseApi = createApi({
 
           switch (type) {
             case 'add':
-              console.log('Product Checking...');
-
               if (check) {
                 console.log(
                   'check.quantity den gelen product: ',
@@ -402,7 +400,6 @@ export const firebaseApi = createApi({
               break;
 
             case 'increase':
-              console.log("Product's quantity increased...");
               if (stock - check.quantity <= 0) {
                 toast.error("You can't add more!;exceeding stocksize");
               } else {
@@ -426,8 +423,6 @@ export const firebaseApi = createApi({
               break;
 
             case 'decrease':
-              console.log("Product's quantity decreased...");
-
               updateDoc(userDocRef, {
                 ...userDoc.data(),
                 userBasket: [
@@ -446,7 +441,6 @@ export const firebaseApi = createApi({
               break;
 
             case 'delete':
-              console.log('Product is deleted...');
               updateDoc(userDocRef, {
                 ...userDoc.data(),
                 userBasket: [
@@ -458,8 +452,6 @@ export const firebaseApi = createApi({
               break;
 
             case 'check':
-              console.log('Product is checked...');
-
               updateDoc(userDocRef, {
                 ...userDoc.data(),
                 userBasket: [
@@ -476,11 +468,20 @@ export const firebaseApi = createApi({
                 ],
               });
               break;
+            case 'removeBasket':
+              localStorage.setItem('userBasket', []);
+              updateDoc(userDocRef, {
+                userBasket: [],
+              });
+              break;
+            default:
+              return;
+              break;
           }
           return { data: 'ok' };
         } catch (error) {
           toast.error('Something went wrong: setBasket');
-          console.log(error, error.message);
+
           return { data: error };
         }
       },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BasketBadge } from '../Components/SubComponents/Badges';
 
@@ -21,6 +21,9 @@ function Navbar({ userDetails }) {
   const auth = getAuth();
   const location = useLocation();
 
+  const miniLinksRef = useRef();
+  const loggersRef = useRef();
+
   //------------------------------
 
   return (
@@ -29,7 +32,10 @@ function Navbar({ userDetails }) {
         <img src={transHardDrive} />
         <img src={transMobo} />
         <img src={transGpu} />
-        <span>SELL IT</span>
+        <Link to={'./store'}>
+          <span>SELL IT</span>
+        </Link>
+
         <img src={transCpu} />
         <img src={transRam} />
         <img src={transCase} />
@@ -43,11 +49,29 @@ function Navbar({ userDetails }) {
             {userDetails.userStatus && <Link to='/orders'>Orders</Link>}
           </div>
 
-          <div class='mini-links'>
-            <i class='fas fa-bars'></i>
+          <div
+            ref={miniLinksRef}
+            className='mini-links '
+            onClick={() => {
+              if (miniLinksRef.current.classList.contains('activated')) {
+                miniLinksRef.current.classList.remove('activated');
+                loggersRef.current.classList.remove('hide');
+              } else {
+                miniLinksRef.current.classList.add('activated');
+                loggersRef.current.classList.add('hide');
+              }
+            }}
+          >
+            <i className='fas fa-bars'></i>
+            <div className='links'>
+              <Link to='/store'>Products</Link>
+              {userDetails.userStatus && <Link to='/dashboard'>Dashboard</Link>}
+
+              {userDetails.userStatus && <Link to='/orders'>Orders</Link>}
+            </div>
           </div>
 
-          <div className='loggers'>
+          <div ref={loggersRef} className='loggers'>
             <div className='loggers-icons'>
               <div className='basketDiv'>
                 <div className='logoWrapper'>

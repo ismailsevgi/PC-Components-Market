@@ -15,12 +15,13 @@ export default function CreatedOrders({ product }) {
       <div className='productDetails'>
         <div className='title'>
           <h3>{product.title.slice(0, 50)}</h3>
-          <h5>Status: Waiting</h5>
         </div>
         <br></br>
         <h5>Seller: {product.seller}</h5>
         <h5>
-          Estimated delivery time: From {dateTwoDays} to {dateSevenDays}
+          <span>Estimated delivery time:</span>
+          <span> From {dateTwoDays}</span>
+          <span> to {dateSevenDays}</span>
         </h5>
       </div>
     </div>

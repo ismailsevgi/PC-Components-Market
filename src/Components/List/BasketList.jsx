@@ -4,12 +4,14 @@ import React, { useEffect } from 'react';
 import BasketButton from '../SubComponents/BasketButton';
 import CheckButton from '../SubComponents/CheckButton';
 
+import emptyCart from '../../Images/empty-cart.png';
+
 const BasketList = ({ itemsInBasket, userStatus }) => {
   useEffect(() => {}, [itemsInBasket]);
 
   return (
     <div className='basketList'>
-      {itemsInBasket &&
+      {itemsInBasket.length ? (
         itemsInBasket.map((item) => {
           return (
             <section key={item.id} className='basketItem'>
@@ -30,11 +32,49 @@ const BasketList = ({ itemsInBasket, userStatus }) => {
                         <span className='onlyLeft'>Only left {item.stock}</span>
                       )}
                     </span>
-                    <span>Seller: {'Guruhasan A.S.'}</span>
-                    <span>
-                      Delivery by Saturday, September 24 at the latest
-                    </span>
+                    <span>Seller: {item.sellerUsername}</span>
                   </div>
+                </div>
+              </div>
+
+              <div className='basketItemCardVersion'>
+                <div className='imageWrapper'>
+                  <img src={item.images[0]} />
+                </div>
+                <h2>{item.title.slice(0, 30)}</h2>
+                <p>Seller: {item.sellerUsername}</p>
+                <p>Location: {`${item.country} ${item.city}`}</p>
+                <h2>Price: ${item.price * item.quantity}</h2>
+
+                <hr></hr>
+                <div className='Buttons-PlusMin'>
+                  {item.quantity > 1 ? (
+                    <BasketButton
+                      handle={'handleSub'}
+                      icon={'Sub'}
+                      id={item.id}
+                    >
+                      <i className='fa-solid fa-minus'></i>
+                    </BasketButton>
+                  ) : (
+                    <BasketButton
+                      handle={'handleDelete'}
+                      icon={'Del'}
+                      id={item.id}
+                    >
+                      <i className='fa-solid fa-trash-can'></i>
+                    </BasketButton>
+                  )}
+
+                  <p>{item.quantity}</p>
+                  <BasketButton
+                    handle={'handleAdd'}
+                    icon={'Add'}
+                    id={item.id}
+                    stock={item.stock}
+                  >
+                    <i className='fa-solid fa-plus'></i>
+                  </BasketButton>
                 </div>
               </div>
 
@@ -76,7 +116,13 @@ const BasketList = ({ itemsInBasket, userStatus }) => {
               </div>
             </section>
           );
-        })}
+        })
+      ) : (
+        <div className='imageWrapper'>
+          <img src={emptyCart} />
+          <p>Opps. Your cart is empty!</p>
+        </div>
+      )}
     </div>
   );
 };

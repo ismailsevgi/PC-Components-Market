@@ -21,15 +21,13 @@ const Basket = () => {
     return state.basket.basketItems;
   });
 
-  console.log('Basket Rendered....');
+  const [setBasket] = useSetBasketMutation();
 
   const { isFetching, data, error, isError } = useGetBasketQuery(
     localStorage.getItem('userDocId')
   );
 
-  useEffect(() => {
-    data && console.log('Data geldi: ', data);
-  }, [isFetching]);
+  useEffect(() => {}, [isFetching]);
 
   useEffect(() => {
     isError && toast.error("We could't fetch your basket");
@@ -37,23 +35,31 @@ const Basket = () => {
 
   useEffect(() => {}, [itemsInBasket]);
 
-  console.log('ItemsInBasket: ', itemsInBasket);
-
   return (
     <div className='basket'>
       <div className='basketNav'>
         <div className='basketNav-Title'>
           <h1>Shopping Basket</h1>
-          <button className='btn btn-danger'>Delete all items</button>
+          <button
+            onClick={() => setBasket({ type: 'removeBasket' })}
+            className='btn btn-danger'
+          >
+            Delete all items
+          </button>
         </div>
         <div className='priceFont'>Price</div>
       </div>
 
       <div className='basketContainer'>
-        <BasketList
-          itemsInBasket={params.userId ? data : itemsInBasket}
-          userStatus={params.userId ? true : false}
-        />
+        {isFetching ? (
+          <Spinner />
+        ) : (
+          <BasketList
+            itemsInBasket={params.userId ? data : itemsInBasket}
+            userStatus={params.userId ? true : false}
+          />
+        )}
+
         <Payment array={params.userId ? data : itemsInBasket} />
       </div>
     </div>

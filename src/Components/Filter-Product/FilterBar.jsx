@@ -10,8 +10,6 @@ function FilterBar() {
   let placement = useSelector((state) => state.filter.placement);
   let userDocId = localStorage.getItem('userDocId');
 
-  console.log('Gelen label: ', label);
-
   return (
     <div className='filterBar'>
       <div className='radios'>

@@ -3,7 +3,6 @@
   height: 30vh;
 
   padding: 0 !important;
-  box-sizing: border-box;
 
   margin-bottom: 2rem;
 
@@ -47,7 +46,7 @@
 
   .navContainer {
     width: 100%;
-    height: 10vh;
+    min-height: 4rem;
 
     background-color: darken($blue-dark, 10%);
 
@@ -81,8 +80,6 @@
 
           text-transform: uppercase;
 
-          padding-left: 0.8rem;
-          padding-right: 0.8rem;
           border-radius: 15px;
           transition: all 0.5s ease;
           &:hover {
@@ -123,9 +120,6 @@
                 font-size: 1.4rem;
                 background-color: inherit;
 
-                &:hover {
-                }
-
                 i {
                   font-size: 2.6rem;
                   color: $white-font;
@@ -159,8 +153,6 @@
           width: 20rem;
           height: 5rem;
 
-          .loginButton {
-          }
           .logoutButton {
             margin: auto;
             width: 100%;
@@ -223,14 +215,10 @@
       @include flex-display();
 
       font-size: 6rem !important;
-      border: 1px solid yellow;
     }
   }
   .navigation-links {
     display: none !important;
-    a {
-      display: none;
-    }
   }
 
   .mini-links {
@@ -243,6 +231,135 @@
       margin: auto;
       font-size: 3rem;
     }
+
+    .links {
+      display: none;
+    }
+  }
+  .activated {
+    color: $orange !important;
+    height: 100% !important;
+    width: 100% !important;
+
+    visibility: hidden;
+    animation-name: openLinks;
+    animation-duration: 1s;
+    display: flex;
+
+    i {
+      color: aqua;
+      margin: 0 !important;
+      width: 5rem;
+      font-size: 3rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .links {
+      width: auto;
+
+      height: 100%;
+      background-color: transparent;
+      font-size: $link-size;
+      font-family: $logo-font;
+      letter-spacing: 1px;
+      text-decoration: none;
+      @include flex-display($space: flex-start, $align: center);
+      gap: 1rem;
+
+      a {
+        color: $white-font;
+
+        background-color: transparent;
+
+        text-transform: uppercase;
+
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+        border-radius: 15px;
+        transition: all 0.5s ease;
+        &:hover {
+          background-color: $orange;
+          color: $dark-font;
+          font-size: calc($link-size + 0.2rem);
+        }
+      }
+    }
+
+    @media (max-width: 702px) {
+      i {
+        color: aqua;
+        margin: 0 !important;
+        width: 4rem;
+        font-size: 2.2rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .links {
+        width: auto;
+
+        height: 100%;
+        background-color: transparent;
+        font-size: 1.6rem;
+
+        gap: 1rem;
+      }
+    }
+    @media (max-width: 572px) {
+      .links {
+        width: auto;
+
+        height: 100%;
+        background-color: transparent;
+        font-size: 1.5rem;
+
+        gap: 0.1rem;
+      }
+    }
+
+    @media (max-width: 503px) {
+      i {
+        width: 2rem;
+        font-size: 2rem;
+      }
+      .links {
+        width: auto;
+
+        height: 100%;
+        background-color: transparent;
+        font-size: 1.4rem;
+      }
+    }
+    @media (max-width: 476px) {
+      i {
+        width: 2rem;
+        font-size: 1.8rem;
+      }
+      .links {
+        width: auto;
+
+        height: 100%;
+        background-color: transparent;
+        font-size: 1.2rem;
+      }
+    }
+    @media (max-width: 425px) {
+      i {
+        width: 2rem;
+        font-size: 1.6rem;
+      }
+      .links {
+        width: auto;
+
+        height: 100%;
+        background-color: transparent;
+        font-size: 1rem;
+      }
+    }
   }
 
   .loggers {
@@ -250,13 +367,17 @@
       width: 5rem !important;
     }
   }
+
+  .hide {
+    display: none !important;
+  }
 }
 
 @media (max-width: 694px) {
   .navigation-logo {
     span {
-      width: 35% !important;
-      font-size: 4rem !important;
+      width: 45% !important;
+      font-size: 5rem !important;
     }
   }
 }
@@ -264,8 +385,8 @@
 @media (max-width: 586px) {
   .navigation-logo {
     img {
-      height: 8rem !important;
-      width: 8rem !important;
+      height: 5rem !important;
+      width: 5rem !important;
       object-fit: cover;
 
       margin-top: 1rem;
@@ -278,8 +399,8 @@
       display: none !important;
     }
     span {
-      width: 40% !important;
-      font-size: 3.8rem !important;
+      width: 60% !important;
+      font-size: 5rem !important;
     }
   }
 }
@@ -296,7 +417,32 @@
 
     span {
       width: 50% !important;
-      font-size: 3.6rem !important;
+      font-size: 4rem !important;
     }
+  }
+}
+@media (max-width: 402px) {
+  .navigation-logo {
+    img {
+      height: 4rem !important;
+      width: 4rem !important;
+      object-fit: cover;
+
+      margin-top: 1rem;
+    }
+
+    span {
+      width: 60% !important;
+      font-size: 4rem !important;
+    }
+  }
+}
+
+@keyframes openLinks {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

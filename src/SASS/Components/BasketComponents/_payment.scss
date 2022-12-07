@@ -83,3 +83,18 @@
     }
   }
 }
+
+@media (max-width: 1392px) {
+  .payment {
+    &-button {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 948px) {
+  .payment {
+    width: 100%;
+    margin: auto;
+  }
+}

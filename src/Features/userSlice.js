@@ -10,6 +10,7 @@ const initialState = {
   userBasket: [],
   userStatus: false,
   userDocId: '',
+  userName: '',
 };
 
 const userSlice = createSlice({
@@ -17,8 +18,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     SET_USER: (state, { type, payload }) => {
-      console.log('Gelen type: ', type, ' payload: ', payload);
-
       return {
         ...payload,
       };

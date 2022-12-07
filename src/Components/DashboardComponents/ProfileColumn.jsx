@@ -4,11 +4,11 @@ import { getDownloadURL, uploadBytes, ref } from 'firebase/storage';
 import { MDBIcon } from 'mdb-react-ui-kit';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { storage } from '../../DataBASE/firebase';
 import { usersRef as usersCollection } from '../../DataBASE/firebase.js';
 
-import anonImg from '../../Images/profile.webp';
 export default function ProfileColumn({ userDetails, dataArray }) {
   var userId = localStorage.getItem('userId');
   const [user, setUser] = useState({
@@ -16,6 +16,9 @@ export default function ProfileColumn({ userDetails, dataArray }) {
     userName: localStorage.getItem('userName'),
     userEmail: localStorage.getItem('userEmail'),
   });
+
+  const myUserData = useSelector((state) => state.user);
+  console.log('myUserData:', myUserData);
 
   var auth = getAuth().currentUser;
   const updateProfileRef = useRef();
@@ -92,7 +95,7 @@ export default function ProfileColumn({ userDetails, dataArray }) {
   return (
     <div className='profileCol'>
       <div className='profileCol-imageContainer'>
-        <img src={user.photoUrl ? user.photoUrl : anonImg} />
+        <img src={myUserData.photoURL} referrerpolicy='no-referrer' />
         <div className='wrapper'>
           <label htmlFor='imageFile'>
             <i className='fas fa-camera-retro'></i>
@@ -122,7 +125,7 @@ export default function ProfileColumn({ userDetails, dataArray }) {
           <tbody className='table-rows'>
             <tr>
               <td>Fullname</td>
-              <td>{userDetails.displayName}</td>
+              <td>{myUserData.displayName}</td>
             </tr>
             <tr>
               <td>Email</td>

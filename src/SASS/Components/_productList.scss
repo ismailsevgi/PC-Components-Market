@@ -21,6 +21,7 @@
     gap: 1rem;
   }
 }
+
 @media (max-width: 864px) {
   .productList {
     grid-template-columns: repeat(2, 1fr);

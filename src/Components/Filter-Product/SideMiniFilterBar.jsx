@@ -28,7 +28,7 @@ const closed = (animDelay) => {
 function SideMiniFilterBar() {
   const dispatch = useDispatch();
 
-  const [menuStatus, setMenuState] = useState(false);
+  const [menuStatus, setMenuState] = useState(true);
   const [searchStatus, setSearchState] = useState(false);
 
   let label = useSelector((state) => state.filter.label);
@@ -42,7 +42,10 @@ function SideMiniFilterBar() {
           type='checkbox'
           name='menu-opener'
           id='menu-opener'
-          onClick={() => setMenuState((prev) => !prev)}
+          onClick={() => {
+            setMenuState((prev) => !prev);
+            setSearchState(false);
+          }}
         />
 
         {userDocId != 'null' && (

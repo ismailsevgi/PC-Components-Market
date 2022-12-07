@@ -75,7 +75,6 @@ function App() {
           const userBasket = localStorage.getItem('userBasket');
 
           if (userBasket) {
-            console.log('Userbasket Güncellendi...');
             const basketItems = JSON.parse(userBasket).basketItems;
             updateDoc(userRef, {
               userBasket: [...dc.data().userBasket, ...basketItems],

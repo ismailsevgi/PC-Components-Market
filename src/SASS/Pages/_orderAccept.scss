@@ -1,22 +1,26 @@
 .orderPage {
   width: 100%;
+  height: 100%;
   border: 3px solid $yellow;
   background-image: $basketItemBackgroundLinear;
   border-radius: 10px;
 
   margin-top: 3rem;
+
+  //Header
   &-details {
     width: 100%;
     font-family: $primary-font;
-    height: 5rem;
+    height: auto;
     background-color: $component-background;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: 2px solid gray;
+
     h3 {
       font-size: 1.6rem;
       color: $green-dark;
-      text-indent: 1.6rem;
+      padding-left: 2rem;
       padding-top: 0.5rem;
       background-color: transparent;
     }
@@ -48,6 +52,7 @@
     }
   }
 
+  //body
   &-products {
     min-height: 30vh;
     width: 100%;
@@ -57,7 +62,8 @@
       height: 30vh;
       width: 100%;
       border: 1px solid $yellow;
-      display: flex;
+      @include flex-display($align: none);
+
       margin-bottom: 1rem;
       color: $white-font;
 
@@ -66,6 +72,7 @@
         width: 30%;
         border-right: 1px solid $yellow;
         border-radius: 5px;
+        padding: 0.5rem;
         img {
           border-radius: inherit;
           width: 100%;
@@ -81,7 +88,7 @@
           $align: flex-start
         );
         background-color: $navbar-background;
-
+        gap: 0.4rem;
         font-family: $primary-font;
         width: 70%;
         padding: 0.6rem;
@@ -89,8 +96,100 @@
           height: 6vh;
 
           width: 100%;
-          @include flex-display($space: space-between, $align: flex-start);
+
+          gap: 0.4rem;
+
+          p {
+            font-size: 1.2rem;
+          }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .orderPage {
+    &-details {
+      &-detail {
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+    }
+    &-products {
+      .productContainer {
+        .productDetails {
+          h5:last-child {
+            @include flex-display(
+              $direction: column,
+              $space: flex-start,
+              $align: flex-start
+            );
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 563px) {
+  .orderPage {
+    &-products {
+      .productContainer {
+        height: 30rem;
+        width: 100%;
+        @include flex-display($direction: column);
+        border: 5px solid red;
+
+        .imageContainer {
+          height: 50%;
+          width: 100%;
+          border-right: 1px solid $yellow;
+          border-radius: 5px;
+          padding: 0.5rem;
+          img {
+            border-radius: inherit;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+
+        .productDetails {
+          @include flex-display(
+            $direction: column,
+            $space: flex-start,
+            $align: flex-start
+          );
+          background-color: $navbar-background;
+          gap: 0.4rem;
+          font-family: $primary-font;
+          width: 100%;
+          padding: 0.6rem;
+          .title {
+            height: 6vh;
+
+            width: 100%;
+
+            gap: 0.4rem;
+
+            p {
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 467px) {
+  .orderPage {
+    &-details {
+      h3 {
+        font-size: 1.2rem;
       }
     }
   }

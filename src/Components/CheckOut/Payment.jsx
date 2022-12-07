@@ -9,7 +9,6 @@ const initialBasketState = { price: 0, shipment: 0 };
 function Payment({ array }) {
   const [setOrder] = useSetOrderMutation();
   const navigate = useNavigate();
-  console.log("Payment'a gelen array: ", array);
 
   const [total, setTotal] = useState(initialBasketState);
   const userDocId = localStorage.getItem('userDocId');

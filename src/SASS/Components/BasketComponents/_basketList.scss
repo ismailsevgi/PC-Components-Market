@@ -2,6 +2,7 @@
   @include flex-display($direction: column, $space: none, $align: none);
   gap: 1.2rem;
   padding: 0.2rem;
+  flex-wrap: wrap;
 
   .basketItem {
     height: 12rem;
@@ -21,24 +22,24 @@
 
     &-Left {
       width: 80%;
-
+      height: 100%;
       @include flex-display(
         $direction: row,
-        $space: flex-start,
+        $space: space-between,
         $align: center
       );
 
       .onoffswitch-checkbox {
         height: 1.2rem;
-        width: 1.2rem;
+
         border: 5px solid black;
+        flex: 1;
       }
 
       &-Img {
         display: block;
-        height: 8rem;
-        width: 25%;
-
+        height: 100%;
+        flex: 4;
         img {
           object-fit: contain;
           height: 100%;
@@ -48,7 +49,7 @@
 
       &-Body {
         @include flex-display($direction: column, $space: space-between);
-
+        flex: 9;
         .Body-Title {
           font-family: $primary-font;
           @include flex-display($direction: column, $align: flex-start);
@@ -64,11 +65,12 @@
               color: red;
             }
           }
-          span {
-            color: currentColor;
-          }
         }
       }
+    }
+
+    .basketItemCardVersion {
+      display: none;
     }
 
     &-Right {
@@ -119,6 +121,200 @@
 
           font-family: $primary-font;
           font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .imageWrapper {
+    width: 100%;
+    height: 20rem;
+
+    position: relative;
+    img {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+      width: 50%;
+      height: 50%;
+      object-fit: contain;
+    }
+
+    p {
+      font-weight: $primary-font;
+      opacity: 0.5;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      color: darken($orange, 15%);
+      font-size: 1.4rem;
+    }
+  }
+}
+
+@media (max-width: 1292px) {
+  .basketItem-Left {
+    border: 1px solid red;
+
+    &-Img {
+      width: 10rem;
+      border: 1px solid black;
+    }
+
+    &-Body {
+      padding-left: 0.4rem;
+      h2 {
+        line-height: 1.2;
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 948px) {
+  .basketList {
+    @include flex-display($direction: row, $space: none, $align: none);
+    flex-wrap: wrap !important;
+    .basketItem {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      height: auto !important;
+      border: 3px solid black;
+      flex: 1;
+      .basketItem-Left {
+        display: none;
+      }
+
+      .basketItem-Right {
+        display: none;
+      }
+
+      .basketItemCardVersion {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 1rem;
+        width: 15rem;
+        height: auto;
+
+        h2 {
+          text-align: center;
+        }
+
+        .imageWrapper {
+          height: 10rem;
+          width: 100%;
+
+          margin-bottom: 1rem;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+
+        .Buttons-PlusMin {
+          @include flex-display();
+
+          width: 100%;
+          height: 5rem;
+
+          button {
+            background-color: $purple;
+            border: none;
+            border-radius: 15px;
+            padding: 0.5rem;
+            cursor: pointer;
+            i {
+              color: $white-font;
+              font-size: 2rem;
+            }
+          }
+
+          p {
+            font-size: 2rem;
+            padding: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 696px) {
+  .basketList {
+    @include flex-display($direction: row, $space: none, $align: none);
+    flex-wrap: wrap !important;
+    .basketItem {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      height: auto !important;
+      border: 3px solid black;
+      width: 100% !important;
+      .basketItem-Left {
+        display: none;
+      }
+
+      .basketItem-Right {
+        display: none;
+      }
+
+      .basketItemCardVersion {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 1rem;
+        width: 100%;
+        min-width: min-content;
+        height: auto;
+
+        h2 {
+          text-align: center;
+        }
+
+        .imageWrapper {
+          height: 15rem;
+          width: 100%;
+          @include flex-display();
+          margin-bottom: 1rem;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+
+        .Buttons-PlusMin {
+          @include flex-display();
+
+          width: 100%;
+          height: 5rem;
+
+          button {
+            background-color: $purple;
+            border: none;
+            border-radius: 15px;
+            padding: 0.5rem;
+            cursor: pointer;
+            i {
+              color: $white-font;
+              font-size: 2rem;
+            }
+          }
+
+          p {
+            font-size: 2rem;
+            padding: 1rem;
+          }
         }
       }
     }

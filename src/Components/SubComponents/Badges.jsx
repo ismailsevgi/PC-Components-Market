@@ -26,10 +26,8 @@ function BasketBadge() {
 
   useEffect(() => {
     if (data !== 'error' && data !== undefined) {
-      console.log('TEST 1');
       setProductAmount(data.length);
     } else {
-      console.log('TEST 2');
       setProductAmount(itemsInBasket.length);
     }
   }, [isFetching, itemsInBasket]);
@@ -93,13 +91,11 @@ function StarsBadge({ amount }) {
       <div className='stars'>
         <div className='light'>
           {new Array(amount).fill(0).map((n) => {
-            console.log('mapped');
             return <MDBIcon key={n} icon='star' />;
           })}
         </div>
         <div className='dark'>
           {new Array(5 - amount).fill(0).map((n) => {
-            console.log('mapped');
             return <MDBIcon key={n} icon='star' />;
           })}
         </div>

@@ -1,8 +1,8 @@
 .basket {
   display: grid;
-  grid-template-columns: 75% 25%;
+  grid-template-columns: 80% 30%;
 
-  width: 70vw;
+  width: 80vw;
   margin: auto;
   padding: 1rem;
   margin-top: 2rem;
@@ -44,5 +44,23 @@
 
     display: grid;
     grid-template-columns: 75% 25%;
+
+    .spinner-border {
+      border: 0.25rem solid $red-dark;
+      border-right-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+}
+
+@media (max-width: 948px) {
+  .basketNav {
+    .priceFont {
+      display: none;
+    }
+  }
+
+  .basketContainer {
+    grid-template-columns: 1fr !important;
   }
 }
