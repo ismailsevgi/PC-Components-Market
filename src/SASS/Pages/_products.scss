@@ -1,3 +1,7 @@
+.product {
+  padding-bottom: 2rem;
+}
+
 .listingPages {
   display: flex;
 
@@ -9,6 +13,7 @@
   display: grid;
   margin: auto;
   grid-template-columns: 1fr 4fr;
+  margin-bottom: 4rem;
 }
 
 .sideFilter {

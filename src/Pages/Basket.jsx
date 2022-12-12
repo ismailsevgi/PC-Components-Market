@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Spinner from '../Components/SubComponents/Spinner';
 
-import BasketList from '../Components/List/BasketList';
-import Payment from '../Components/CheckOut/Payment';
+const BasketList = React.lazy(() => import('../Components/List/BasketList'));
+const Payment = React.lazy(() => import('../Components/CheckOut/Payment'));
+
+// import BasketList from '../Components/List/BasketList';
+// import Payment from '../Components/CheckOut/Payment';
 
 import {
   useSetBasketMutation,
@@ -23,17 +26,11 @@ const Basket = () => {
 
   const [setBasket] = useSetBasketMutation();
 
-  const { isFetching, data, error, isError } = useGetBasketQuery(
-    localStorage.getItem('userDocId')
-  );
-
-  useEffect(() => {}, [isFetching]);
+  const { data, isError } = useGetBasketQuery();
 
   useEffect(() => {
     isError && toast.error("We could't fetch your basket");
   }, [isError]);
-
-  useEffect(() => {}, [itemsInBasket]);
 
   return (
     <div className='basket'>
@@ -51,16 +48,14 @@ const Basket = () => {
       </div>
 
       <div className='basketContainer'>
-        {isFetching ? (
-          <Spinner />
-        ) : (
+        <Suspense fallback={<Spinner />}>
           <BasketList
             itemsInBasket={params.userId ? data : itemsInBasket}
             userStatus={params.userId ? true : false}
           />
-        )}
 
-        <Payment array={params.userId ? data : itemsInBasket} />
+          <Payment array={params.userId ? data : itemsInBasket} />
+        </Suspense>
       </div>
     </div>
   );

@@ -18,7 +18,6 @@
 
 @import './Components/subComponents/cardSkeleton';
 @import './Components/subComponents/card';
-@import './Components/subComponents/hintMark';
 
 @import './Components/subComponents/loadingPage';
 @import './Components/DashboardComponents/CreateProductForm/skeletonImages';
@@ -102,4 +101,19 @@ body {
   --orderSuccess: #{$orderSuccess};
   --orderWaiting: #{$orderWaiting};
   --orderRejected: #{$orderReject};
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f9f;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: lighten($purple, 5%);
+    border-radius: 15px;
+  }
 }

@@ -51,6 +51,7 @@ export const firebaseApi = createApi({
                   ...doc.data(),
                 });
               });
+              console.log('productsData: ', productsData);
               return { data: productsData };
             } catch (error) {
               return { data: error };
@@ -228,7 +229,7 @@ export const firebaseApi = createApi({
       invalidatesTags: ['products'],
     }),
     addProduct: builder.mutation({
-      async queryFn({ values, productType, country, city }) {
+      async queryFn({ values, productType }) {
         try {
           await addDoc(productsCollection, {
             ...values,
@@ -281,7 +282,7 @@ export const firebaseApi = createApi({
     addFavorites: builder.mutation({
       async queryFn({ id, url }) {
         try {
-          const q = query(usersCollection, where('userId', '==', id));
+          const q = query(usersCollection, where('uid', '==', id));
           let user = await getDocs(q);
 
           user?.forEach((document) => {
@@ -321,30 +322,30 @@ export const firebaseApi = createApi({
     }),
 
     getBasket: builder.query({
-      async queryFn(id) {
+      async queryFn() {
         //from localStorage query gets userId to find userDocument
 
         console.log('Get Basket Query Çalısti...');
 
-        const userDocRef = doc(usersCollection, id);
-        let userDoc = await getDoc(userDocRef);
-
         try {
+          const userDocRef = doc(
+            usersCollection,
+            localStorage.getItem('userDocId')
+          );
+
+          const userDoc = await getDoc(userDocRef);
           return { data: userDoc.data().userBasket };
         } catch (error) {
-          console.log('Error', error.message);
-          return { data: 'error' };
+          console.log('Data fetch edilemedi!!!', error.message);
+          return { data: null };
         }
       },
       providesTags: ['basket'],
     }),
 
     setBasket: builder.mutation({
-      async queryFn({ type, product, productId, stock }) {
-        console.log('Gelen ProductId: ', productId);
-        console.log('Gelen type: ', type);
-        console.log('Gelen stock: ', stock);
-
+      async queryFn({ type, product, productId, stock, basketItems }) {
+        console.log('Set Basket Type:', type);
         try {
           const userDocRef = doc(
             usersCollection,
@@ -469,9 +470,38 @@ export const firebaseApi = createApi({
               });
               break;
             case 'removeBasket':
-              localStorage.setItem('userBasket', []);
+              localStorage.setItem('userBasket', { basketItems: [] });
               updateDoc(userDocRef, {
                 userBasket: [],
+              });
+            case 'merge':
+              const userBasket = userDoc.data().userBasket;
+
+              let mergedBasketList = [];
+              if (userBasket.length > 0) {
+                basketItems.forEach((element) => {
+                  userBasket.forEach((prevEl) => {
+                    if (prevEl.id === element.id) {
+                      console.log('Eşleşme var, birleştirildi...');
+                      mergedBasketList.push({
+                        ...prevEl,
+                        quantity: prevEl.quantity + element.quantity,
+                      });
+                    } else {
+                      console.log('Eşleşme yok, es geçildi');
+                      mergedBasketList.push(prevEl);
+                      mergedBasketList.push(element);
+                    }
+                  });
+                });
+              } else {
+                mergedBasketList = [...basketItems];
+              }
+
+              updateDoc(userDocRef, {
+                userBasket: [...mergedBasketList],
+              }).then(() => {
+                localStorage.setItem('userBasket', []);
               });
               break;
             default:
@@ -616,12 +646,10 @@ export const firebaseApi = createApi({
           let filteredOrders = [];
 
           for (const orderId of userDocument.data().productRequests) {
-            console.log('userDocument.data():', userDocument.data());
             let orderRef = doc(ordersCollection, orderId);
             let orderDoc = await getDoc(orderRef);
-            console.log('orderDoc', orderDoc.data());
+
             for (const order of orderDoc.data().products) {
-              console.log('order', order);
               if (order.owner == id) {
                 filteredOrders.push({
                   ...order,

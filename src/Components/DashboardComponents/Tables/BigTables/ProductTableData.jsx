@@ -1,7 +1,7 @@
 import { MDBIcon } from 'mdb-react-ui-kit';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDeleteProductMutation } from '../../Features/firebaseApi';
+import { useDeleteProductMutation } from '../../../../Features/firebaseApi';
 
 export default function ProductTableData(props) {
   const [deleteProduct] = useDeleteProductMutation();

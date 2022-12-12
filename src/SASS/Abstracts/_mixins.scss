@@ -48,8 +48,8 @@
     background-image: $tableBackgroundColor;
     font-family: $primary-font;
     min-height: $min-height;
-    height: $height;
-    width: $width;
+    height: auto;
+    width: 65rem;
     border: 1px solid $tableBorderColor;
     box-sizing: border-box;
     margin: auto;
@@ -57,11 +57,12 @@
     margin: 0 auto;
 
     .table {
-      width: $width;
-      max-height: $min-height;
-
+      width: 65rem;
+      height: 500px;
+      display: block;
+      overflow-y: scroll;
       text-align: center;
-
+      position: relative;
       border-collapse: collapse;
       background-color: transparent;
 
@@ -69,7 +70,9 @@
         padding-left: 1rem;
         background-image: $tableBackgroundColor;
         color: $white-font;
-        font-size: 1.2rem;
+        font-size: 1rem;
+        position: sticky;
+        top: 0;
         tr {
           background-color: transparent;
           box-shadow: 0 1px 2px 0 $dark-font;
@@ -79,11 +82,9 @@
 
           td:first-child {
             background-color: transparent;
-            width: 20rem;
           }
           td:last-child {
             background-color: transparent;
-            width: 10rem;
           }
         }
       }
@@ -94,8 +95,6 @@
         width: 100%;
 
         tr {
-          height: 4rem;
-
           color: $white-font;
           font-size: 1.2rem;
 

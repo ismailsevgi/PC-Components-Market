@@ -11,7 +11,7 @@ const CardButton = React.memo(({ id, width = 200, height = 50 }) => {
     return state.basket.basketItems;
   });
 
-  let userId = localStorage.getItem('userId');
+  let userId = localStorage.getItem('userDocId');
 
   const dispatch = useDispatch();
 

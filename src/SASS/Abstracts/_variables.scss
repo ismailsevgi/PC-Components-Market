@@ -46,10 +46,9 @@ $profileImageHeight: 15rem;
 $tableBorderColor: $blue-dark;
 $tableBackgroundColor: linear-gradient(
   120deg,
-  $blue-dark,
-  darken($purple, 10%),
-  darken($purple, 20%),
-  darken($purple, 30%)
+  darken($blue-dark, 20%),
+  darken($blue-dark, 10%),
+  darken($blue-dark, 10%)
 );
 
 //basket

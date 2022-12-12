@@ -15,11 +15,14 @@ import { getAuth, signOut } from 'firebase/auth';
 
 //ICONs
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-function Navbar({ userDetails }) {
+function Navbar() {
   const navigate = useNavigate();
   const auth = getAuth();
-  const location = useLocation();
+
+  const userDetails = useSelector((state) => state.user);
 
   const miniLinksRef = useRef();
   const loggersRef = useRef();
@@ -44,9 +47,29 @@ function Navbar({ userDetails }) {
         <div className='navigation'>
           <div className='navigation-links'>
             <Link to='/store'>Products</Link>
-            {userDetails.userStatus && <Link to='/dashboard'>Dashboard</Link>}
+            {userDetails.userStatus ? (
+              <Link to='/dashboard'>Dashboard</Link>
+            ) : (
+              <a
+                href='#'
+                onClick={() => toast.error('You have to login first')}
+                style={{ opacity: '.5' }}
+              >
+                Dashboard
+              </a>
+            )}
 
-            {userDetails.userStatus && <Link to='/orders'>Orders</Link>}
+            {userDetails.userStatus ? (
+              <Link to='/orders'>Orders</Link>
+            ) : (
+              <a
+                href='#'
+                onClick={() => toast.error('You have to login first')}
+                style={{ opacity: '.5' }}
+              >
+                Orders
+              </a>
+            )}
           </div>
 
           <div
@@ -97,15 +120,8 @@ function Navbar({ userDetails }) {
                     type='submit'
                     onClick={() => navigate('/regist')}
                   >
-                    LOGIN
-                  </button>
-
-                  <button
-                    className='btn btn-dark loggers-buttons-sign'
-                    onClick={() => navigate('/regist')}
-                    type='submit'
-                  >
-                    Sign In
+                    <span>LOGIN</span>
+                    <FontAwesomeIcon icon='fa-solid fa-right-from-bracket' />
                   </button>
                 </div>
               ) : (

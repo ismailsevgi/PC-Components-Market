@@ -7,12 +7,14 @@ import CheckButton from '../SubComponents/CheckButton';
 import emptyCart from '../../Images/empty-cart.png';
 
 const BasketList = ({ itemsInBasket, userStatus }) => {
-  useEffect(() => {}, [itemsInBasket]);
+  useEffect(() => {
+    console.log('basketList: ', itemsInBasket);
+  }, [itemsInBasket]);
 
   return (
     <div className='basketList'>
-      {itemsInBasket.length ? (
-        itemsInBasket.map((item) => {
+      {itemsInBasket && itemsInBasket.length > 0 ? (
+        itemsInBasket?.map((item) => {
           return (
             <section key={item.id} className='basketItem'>
               <div className='basketItem-Left'>

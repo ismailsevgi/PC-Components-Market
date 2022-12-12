@@ -13,7 +13,7 @@ import React, { useState, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
-import HintMark from '../Components/SubComponents/HintMark';
+
 import { toast } from 'react-toastify';
 import {
   addDoc,
@@ -21,6 +21,7 @@ import {
   updateDoc,
   doc,
   getDoc,
+  setDoc,
 } from 'firebase/firestore';
 
 function Registration() {
@@ -57,46 +58,27 @@ function Registration() {
           formRefRegist.current.password.value
         )
           .then((cred) => {
-            try {
-              //adds a user's private doc inside "users" collection
-              addDoc(usersCollection, {
+            if (cred && cred.user) {
+              const userRef = doc(usersCollection, cred.user.uid);
+              setDoc(userRef, {
                 userName: `${formRefRegist.current.firstName.value} ${formRefRegist.current.lastName.value}`,
-                orders: [],
                 createdAt: serverTimestamp(),
-                productRequests: [],
+                email: cred.user.email,
                 userBasket: [],
                 userFavorites: [],
-              })
-                .then((userRef) => {
-                  updateProfile(cred.user, {
-                    uid: userRef.id,
-                  });
-
-                  const documentRef = doc(usersCollection, userRef.id);
-
-                  updateDoc(documentRef, {
-                    email: cred.user.email,
-
-                    userId: cred.user.uid,
-                    id: userRef.id,
-                  }).then(() => {
-                    toast.success('Profile has created');
-                    navigate('/loading');
-                  });
-                })
-                .catch((error) => {
-                  toast.error(
-                    'Profile Dosyası oluşturulamadı: ',
-                    error.massege
-                  );
-                });
-            } catch (err) {
-              toast.error('Something went wrong: ', err);
+                productRequests: [],
+                orders: [],
+                uid: cred.user.uid,
+              }).then(() => {
+                toast.success('Profile has created');
+                navigate('/loading');
+              });
             }
           })
-          .catch((err) =>
-            toast.error('Something went wrong while registering', err.message)
-          );
+          .catch((err) => {
+            console.log('Something went wrong while registering', err.message);
+            toast.error('Something went wrong while registering', err.message);
+          });
 
         // navigate('/store');
       } else {
@@ -123,42 +105,30 @@ function Registration() {
 
   function googleLog() {
     signInWithPopup(auth, googleAuthProvider)
-      .then(async (userCred) => {
-        console.log('Google log..:', userCred);
-        let userDoc = doc(usersCollection, userCred.user.displayName);
-        let userObj = await getDoc(userDoc);
+      .then(async (cred) => {
+        console.log('Google log..:', cred);
+
+        let userObj = await getDoc(doc(usersCollection, cred.user.uid));
         if (userObj.data()) {
           toast.success('Logged In Successfully');
           navigate('/loading');
         } else {
           console.log('There is no userObj, created a new one...');
           try {
-            addDoc(usersCollection, {
-              userId: userCred.user.uid,
-              userName: userCred.user.displayName,
+            const userRef = doc(usersCollection, cred.user.uid);
+            setDoc(userRef, {
+              userName: `${cred.user.displayName}`,
               createdAt: serverTimestamp(),
-              email: userCred.user.email,
+              email: cred.user.email,
               userBasket: [],
               userFavorites: [],
               productRequests: [],
               orders: [],
-            })
-              .then((userRef) => {
-                updateProfile(userCred.user, {
-                  displayName: userRef.id,
-                });
-
-                const documentRef = doc(usersCollection, userRef.id);
-                updateDoc(documentRef, {
-                  id: userRef.id,
-                }).then(() => {
-                  toast.success('Profile has created');
-                  navigate('/loading');
-                });
-              })
-              .catch((error) => {
-                toast.error('Profile Dosyası oluşturulamadı: ', error.massege);
-              });
+              uid: cred.user.uid,
+            }).then(() => {
+              toast.success('Profile has created');
+              navigate('/loading');
+            });
           } catch (error) {
             toast.error(
               "User document couldn't have been created: ",
@@ -267,7 +237,7 @@ function Registration() {
             />
           </div>
 
-          <div className='passwordConfirmBox'>
+          <div className='form-group passwordConfirmBox'>
             <label htmlFor='passwordConfirm'>Confirm Password</label>
             <input
               className='form-control'

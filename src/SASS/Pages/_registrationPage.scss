@@ -3,7 +3,7 @@
 }
 
 .registration-form {
-  width: 30vw;
+  width: 30rem;
   background: $basketItemBackgroundLinear;
   border-radius: $basketItemBorderRadius;
   box-shadow: $basketItemBoxShadow;
@@ -16,6 +16,19 @@
 
     margin-top: 1.2rem;
     letter-spacing: 2px;
+  }
+
+  .form-group {
+    width: 100%;
+
+    label {
+      padding-left: 2rem;
+    }
+
+    input {
+      margin: auto;
+      width: 90%;
+    }
   }
 
   small {

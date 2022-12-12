@@ -12,30 +12,19 @@ import {
 
 //Basket Item Counter
 function BasketBadge() {
-  const [productAmount, setProductAmount] = useState(0);
-
   //Gets recent amount of basket items
   const itemsInBasket = useSelector((state) => {
     return state.basket.basketItems;
   });
+  const userDetails = useSelector((state) => state.user);
 
-  const { data, error, isFetching } = useGetBasketQuery(
-    localStorage.getItem('userDocId') !== 'null' &&
-      localStorage.getItem('userDocId')
-  );
+  const { data, error, isFetching } = useGetBasketQuery();
 
-  useEffect(() => {
-    if (data !== 'error' && data !== undefined) {
-      setProductAmount(data.length);
-    } else {
-      setProductAmount(itemsInBasket.length);
-    }
-  }, [isFetching, itemsInBasket]);
+  useEffect(() => {}, [isFetching, itemsInBasket]);
 
-  //Underline problem with yusuf
   return (
     <span className='badge'>
-      <p>{productAmount}</p>
+      <p>{userDetails.status ? data.length : itemsInBasket.length}</p>
     </span>
   );
 }

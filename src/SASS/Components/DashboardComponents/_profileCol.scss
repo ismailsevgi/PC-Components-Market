@@ -1,18 +1,19 @@
 .profileCol {
-  width: 90%;
-  height: 25vh;
-
+  width: 50vw;
+  height: 30vh;
+  position: relative;
   margin: 0 auto;
-  grid-area: profile-col;
+
   @include flex-display($space: flex-start);
   background-color: transparent;
 
   border: $tableBorderColor;
   &-imageContainer {
     height: 100%;
+    width: 50%;
     background-color: transparent;
     @include flex-display();
-    width: 20%;
+    flex-shrink: 0;
     position: relative;
 
     &:hover {
@@ -34,7 +35,7 @@
       background-color: rgba($dark-font, 0.4);
       width: 100%;
       height: 100%;
-      border: 1px solid $green-dark;
+
       opacity: 0;
       transition: all 0.5s ease;
       @include flex-display();
@@ -73,48 +74,45 @@
   }
 
   &-userInformations {
+    position: relative;
     height: 100%;
-    z-index: 1;
+    width: 100%;
+
     .table {
       background: $tableBackgroundColor;
       color: $white-font;
       font-family: $primary-font;
       margin-left: 1rem;
-      height: 100%;
 
-      &-head {
-        box-shadow: 0 3px 3px $dark-font;
+      height: auto;
 
-        h3 {
-          font-size: 1.4rem;
-          line-height: 0.4rem;
-        }
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 1.2rem;
+      p {
+        font-size: 1.2rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid white;
 
-        i {
-          font-size: 1.4rem;
-        }
-      }
-      &-rows {
-        tr {
-          border-bottom: 1px solid $white-font;
-          td {
-            font-size: 1.2rem;
-            line-height: 0.4rem;
-          }
+        &:nth-child(2) {
+          @include flex-display($space: flex-end);
+          cursor: pointer;
+          padding-bottom: 0.4rem;
+          font-size: 2rem;
         }
       }
     }
-    position: relative;
+
     .updateProfile {
       position: absolute;
       background-image: $tableBackgroundColor;
       top: 0;
-      right: 0rem;
+      right: 4rem;
       width: 12rem;
       height: 100%;
-
+      z-index: 0;
       border-left: 2px solid $purple;
-      z-index: -1;
+
       opacity: 0;
       transition: all 0.5s ease-in-out;
 
@@ -161,8 +159,47 @@
     }
 
     .activated {
-      transform: translateX(110%);
+      transform: translateX(140%);
       opacity: 1;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .profileCol {
+    &-imageContainer {
+    }
+
+    &-userInformations {
+      .table {
+        p {
+          &:nth-child(2) {
+            visibility: hidden;
+          }
+        }
+      }
+
+      .updateProfile {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 780px) {
+  .profileCol {
+    width: 90%;
+    flex-direction: column;
+    margin-left: 0rem;
+    &-imageContainer {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .profileCol {
+    &-imageContainer {
     }
   }
 }

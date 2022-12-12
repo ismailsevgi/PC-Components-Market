@@ -11,6 +11,7 @@ const initialState = {
   userStatus: false,
   userDocId: '',
   userName: '',
+  userStatus: false,
 };
 
 const userSlice = createSlice({

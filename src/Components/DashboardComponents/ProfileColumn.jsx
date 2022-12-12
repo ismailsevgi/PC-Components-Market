@@ -9,13 +9,8 @@ import { toast } from 'react-toastify';
 import { storage } from '../../DataBASE/firebase';
 import { usersRef as usersCollection } from '../../DataBASE/firebase.js';
 
-export default function ProfileColumn({ userDetails, dataArray }) {
+export default function ProfileColumn({ dataArray }) {
   var userId = localStorage.getItem('userId');
-  const [user, setUser] = useState({
-    photoUrl: localStorage.getItem('userPhotoURL'),
-    userName: localStorage.getItem('userName'),
-    userEmail: localStorage.getItem('userEmail'),
-  });
 
   const myUserData = useSelector((state) => state.user);
   console.log('myUserData:', myUserData);
@@ -24,10 +19,11 @@ export default function ProfileColumn({ userDetails, dataArray }) {
   const updateProfileRef = useRef();
 
   useEffect(() => {
-    console.log('User Changed: ', user);
-  }, [user]);
+    console.log('User Changed: ');
+  }, []);
 
   function openInput() {
+    console.log('OPENED');
     if (updateProfileRef.current.classList.contains('activated')) {
       console.log('Kapandı');
       updateProfileRef.current.classList.remove('activated');
@@ -111,37 +107,24 @@ export default function ProfileColumn({ userDetails, dataArray }) {
       </div>
 
       <div className='profileCol-userInformations'>
-        <table className='table'>
-          <thead className='table-head'>
-            <tr>
-              <td>
-                <h3>User Informations</h3>
-              </td>
-              <td style={{ textAlign: 'end', cursor: 'pointer' }}>
-                <MDBIcon fas icon='cog' onClick={() => openInput()} />
-              </td>
-            </tr>
-          </thead>
-          <tbody className='table-rows'>
-            <tr>
-              <td>Fullname</td>
-              <td>{myUserData.displayName}</td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td>{userDetails ? userDetails.email : 'Not known'}</td>
-            </tr>
+        <div className='table'>
+          <p>User Informations</p>
+          <p>
+            <MDBIcon fas icon='cog' onClick={() => openInput()} />
+          </p>
 
-            <tr>
-              <td>Products</td>
-              <td>{dataArray && dataArray.length}</td>
-            </tr>
-            <tr>
-              <td>Sold</td>
-              <td>5</td>
-            </tr>
-          </tbody>
-        </table>
+          <p>Fullname</p>
+          <p>{myUserData.displayName}</p>
+
+          <p>Email</p>
+          <p>{myUserData ? myUserData.email : 'Not known'}</p>
+
+          <p>Products</p>
+          <p>{dataArray && dataArray.length}</p>
+
+          <p>Sold</p>
+          <p>5</p>
+        </div>
         <div ref={updateProfileRef} className='updateProfile'>
           <form onSubmit={(e) => handleSubmit(e)}>
             <label htmlFor='name'>Name</label>

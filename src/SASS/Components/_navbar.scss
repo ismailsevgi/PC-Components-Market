@@ -151,7 +151,40 @@
         &-panel {
           display: flex;
           width: 20rem;
-          height: 5rem;
+          height: 3.8rem;
+          border-radius: 30px;
+          overflow: hidden;
+
+          .loginButton {
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: $white-font;
+
+            transition: all 0.5s ease;
+            display: flex;
+            &:hover {
+              background-color: darken($white-font, 10%);
+            }
+
+            button {
+              border: none;
+              @include flex-display();
+              gap: 0.4rem;
+              background-color: transparent;
+              color: $dark-font;
+              font-size: 1.4rem;
+
+              width: 100%;
+              height: 100%;
+              margin: auto;
+            }
+
+            svg {
+              font-size: 1.4rem;
+            }
+          }
 
           .logoutButton {
             margin: auto;
@@ -376,8 +409,8 @@
 @media (max-width: 694px) {
   .navigation-logo {
     span {
-      width: 45% !important;
-      font-size: 5rem !important;
+      width: 100% !important;
+      font-size: 4.4rem !important;
     }
   }
 }
@@ -399,8 +432,8 @@
       display: none !important;
     }
     span {
-      width: 60% !important;
-      font-size: 5rem !important;
+      width: 100% !important;
+      font-size: 4rem !important;
     }
   }
 }
@@ -416,8 +449,8 @@
     }
 
     span {
-      width: 50% !important;
-      font-size: 4rem !important;
+      width: 100% !important;
+      font-size: 3.6rem !important;
     }
   }
 }
@@ -432,8 +465,8 @@
     }
 
     span {
-      width: 60% !important;
-      font-size: 4rem !important;
+      width: 100% !important;
+      font-size: 3.2rem !important;
     }
   }
 }

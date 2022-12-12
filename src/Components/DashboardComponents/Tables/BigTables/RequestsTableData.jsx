@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 import {
   useGetProductRequestsQuery,
   useHandleProductRequestsMutation,
-} from '../../Features/firebaseApi';
-import Spinner from '../SubComponents/Spinner';
+} from '../../../../Features/firebaseApi';
+import Spinner from '../../../SubComponents/Spinner';
 
 //this page is for incoming product requests
 //user can accept or reject the requests they are given.
@@ -38,17 +38,18 @@ export default function RequestsTableData() {
         id,
       }) => {
         return (
-          <tr className='table-rows-row'>
+          <tr className='table-rows'>
             <th scope='row'>{title.slice(0, 50)}</th>
 
             <td>{quantity}</td>
             <td>{customerMail}</td>
             <td>{format(date.seconds * 1000, 'MMM/dd/yyyy')}</td>
             <td>{totalPrice}</td>
-            <td>{status}</td>
 
             {status == 'confirmed' || status == 'rejected' ? (
-              <MDBIcon icon='check' />
+              <td>
+                <MDBIcon icon='check' />
+              </td>
             ) : (
               <td>
                 <button

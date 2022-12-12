@@ -32,6 +32,7 @@ import { usersRef as usersCollection } from './DataBASE/firebase.js';
 import { useDispatch } from 'react-redux';
 import { SET_USER } from './Features/userSlice';
 import { SET_OFFLINE_BASKET } from './Features/basketSlice';
+import { useSetBasketMutation } from './Features/firebaseApi';
 
 function App() {
   const auth = getAuth();
@@ -45,15 +46,17 @@ function App() {
     userStatus: false,
   });
 
+  const [setBasket] = useSetBasketMutation();
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (userCred) => {
       if (userCred) {
-        localStorage.setItem('userId', userCred.uid);
-        localStorage.setItem('userDocId', userCred.displayName);
+        console.log('userCred: ', userCred);
+        localStorage.setItem('userDocId', userCred.uid);
         localStorage.setItem('userEmail', userCred.email);
         localStorage.setItem('userPhotoURL', userCred.photoURL);
 
-        let userRef = doc(usersCollection, userCred.displayName);
+        let userRef = doc(usersCollection, userCred.uid);
 
         getDoc(userRef).then((dc) => {
           localStorage.setItem('userName', dc.data().userName);
@@ -72,13 +75,12 @@ function App() {
             })
           );
 
-          const userBasket = localStorage.getItem('userBasket');
+          const { basketItems } = JSON.parse(
+            localStorage.getItem('userBasket')
+          );
 
-          if (userBasket) {
-            const basketItems = JSON.parse(userBasket).basketItems;
-            updateDoc(userRef, {
-              userBasket: [...dc.data().userBasket, ...basketItems],
-            });
+          if (basketItems.length > 0) {
+            setBasket({ type: 'merge', basketItems });
           }
 
           setUser({
@@ -98,6 +100,18 @@ function App() {
         localStorage.setItem('userDocId', null);
         localStorage.setItem('userEmail', null);
         dispatch(SET_OFFLINE_BASKET(localStorage.getItem('userBasket')));
+        dispatch(
+          SET_USER({
+            displayName: '',
+            email: '',
+            photoURL: '',
+            uid: '',
+            userFavorites: '',
+            userBasket: '',
+            userStatus: false,
+            userName: '',
+          })
+        );
       }
     });
     unsub();
@@ -107,7 +121,7 @@ function App() {
     <SkeletonTheme baseColor='#999999' highlightColor='#888888'>
       <Router>
         <div className='App'>
-          <Navbar userDetails={user} />
+          <Navbar />
           <Routes>
             <Route path='/loading' element={<LoadingPage />} />
             <Route path='/' element={<Navigate to='/store' />} />
@@ -115,17 +129,10 @@ function App() {
             <Route path='/basket' element={<Basket />} />
             <Route path='/basket/:userId' element={<Basket />} />
             <Route path='/regist' element={<Registration />} />
-            <Route
-              path='/dashboard'
-              element={<Dashboard userDetails={user} />}
-            />
+            <Route path='/dashboard' element={<Dashboard />} />
             <Route
               path='/productDetails/:id'
-              element={
-                <ProductDetailsPage
-                  userDocId={localStorage.getItem('userDocId')}
-                />
-              }
+              element={<ProductDetailsPage />}
             />
             <Route path='/orders' element={<Orders />} />
             <Route path='/orderAccept/:orderId' element={<OrderAccept />} />
