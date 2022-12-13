@@ -1,5 +1,5 @@
 # PC-Components-Market #
-<span style="color: red">This website hasn't totally finished yet</span>
+
 
 Live Link: <a href="https://pc-components-market.vercel.app/store">LIVE</a>
 
