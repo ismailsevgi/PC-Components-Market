@@ -21,6 +21,7 @@
 
 @import './Components/subComponents/loadingPage';
 @import './Components/DashboardComponents/CreateProductForm/skeletonImages';
+@import './Components/footer';
 //buttons
 
 //dropdowns
@@ -103,7 +104,7 @@ body {
   --orderRejected: #{$orderReject};
 
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 20px;
   }
 
   /* Track */
@@ -115,5 +116,6 @@ body {
   ::-webkit-scrollbar-thumb {
     background: lighten($purple, 5%);
     border-radius: 15px;
+    border: 1px solid $white-font;
   }
 }

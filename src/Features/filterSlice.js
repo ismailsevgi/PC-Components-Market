@@ -12,7 +12,7 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     SET_FILTER: (state, { type, payload }) => {
-      console.log('Gelen type: ', type, ' payload: ', payload);
+      
 
       return {
         ...state,

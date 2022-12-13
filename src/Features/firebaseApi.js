@@ -32,8 +32,6 @@ export const firebaseApi = createApi({
       //type:"userDashboard" payload:userId
       //type:"filter" payload: label
       async queryFn({ type, label }) {
-        console.log('type, label: ', type, label);
-
         if (type === 'userProducts') {
           //if there is an userid then query fetch user's products
           if (label) {
@@ -51,7 +49,7 @@ export const firebaseApi = createApi({
                   ...doc.data(),
                 });
               });
-              console.log('productsData: ', productsData);
+
               return { data: productsData };
             } catch (error) {
               return { data: error };
@@ -60,9 +58,7 @@ export const firebaseApi = createApi({
         }
 
         if (type === 'filtering') {
-          console.log('Type filtering');
           if (label === 'all') {
-            console.log('Type all');
             try {
               const querySnapshot = await getDocs(productsCollection);
 
@@ -80,7 +76,6 @@ export const firebaseApi = createApi({
               return { data: error };
             }
           } else {
-            console.log('Type else');
             let filterQuery = query(
               productsCollection,
               where('tag', '==', label)
@@ -106,7 +101,6 @@ export const firebaseApi = createApi({
         }
 
         if (type === 'custom') {
-          console.log('type custom: ', type, label);
           try {
             const q = query(
               productsCollection,
@@ -123,14 +117,13 @@ export const firebaseApi = createApi({
             });
             return { data: productsData };
           } catch (error) {
-            console.log('Error: ', error);
             return { data: error };
           }
         }
 
         if (type === 'favorites') {
           //favorites , userDocId
-          console.log('type custom: ', type, label);
+
           try {
             const userRef = doc(usersCollection, label);
 
@@ -145,7 +138,6 @@ export const firebaseApi = createApi({
 
             return { data: promise };
           } catch (error) {
-            console.log('Error: ', error);
             return { data: error };
           }
         }
@@ -173,7 +165,6 @@ export const firebaseApi = createApi({
           //after all is done, data is sended
           return { data: queryData };
         } catch (error) {
-          console.log('Bilgi Alınamadı');
           return { data: error };
         }
       },
@@ -253,7 +244,6 @@ export const firebaseApi = createApi({
           });
           return { data: 'ok' };
         } catch (error) {
-          console.log('Ürün Eklenemedi: ', error);
           return { data: error };
         }
       },
@@ -272,7 +262,6 @@ export const firebaseApi = createApi({
 
           return { data: userDocument.data().userFavorites };
         } catch (error) {
-          console.log('Favoriler Çekilemedi');
           return { data: 'error' };
         }
       },
@@ -325,8 +314,6 @@ export const firebaseApi = createApi({
       async queryFn() {
         //from localStorage query gets userId to find userDocument
 
-        console.log('Get Basket Query Çalısti...');
-
         try {
           const userDocRef = doc(
             usersCollection,
@@ -336,7 +323,6 @@ export const firebaseApi = createApi({
           const userDoc = await getDoc(userDocRef);
           return { data: userDoc.data().userBasket };
         } catch (error) {
-          console.log('Data fetch edilemedi!!!', error.message);
           return { data: null };
         }
       },
@@ -345,7 +331,6 @@ export const firebaseApi = createApi({
 
     setBasket: builder.mutation({
       async queryFn({ type, product, productId, stock, basketItems }) {
-        console.log('Set Basket Type:', type);
         try {
           const userDocRef = doc(
             usersCollection,
@@ -353,25 +338,17 @@ export const firebaseApi = createApi({
           );
           const userDoc = await getDoc(userDocRef);
           let check = userDoc.data().userBasket.find((product) => {
-            console.log('product.id', product.id);
-            console.log('productId', productId);
             return product.id === productId;
           });
 
           switch (type) {
             case 'add':
               if (check) {
-                console.log(
-                  'check.quantity den gelen product: ',
-                  check.quantity
-                );
-                console.log('product.stock den gelen product: ', product.stock);
                 //stock check
 
                 if (product.stock - check.quantity <= 0) {
                   toast.error("You can't add more!;exceeding stocksize");
                 } else {
-                  console.log('There is a product, so increase it');
                   updateDoc(userDocRef, {
                     ...userDoc.data(),
                     userBasket: [
@@ -391,7 +368,6 @@ export const firebaseApi = createApi({
               }
 
               if (!check) {
-                console.log('There is no product, so adding it');
                 updateDoc(userDocRef, {
                   ...userDoc.data(),
                   userBasket: [...userDoc.data().userBasket, product],
@@ -482,13 +458,11 @@ export const firebaseApi = createApi({
                 basketItems.forEach((element) => {
                   userBasket.forEach((prevEl) => {
                     if (prevEl.id === element.id) {
-                      console.log('Eşleşme var, birleştirildi...');
                       mergedBasketList.push({
                         ...prevEl,
                         quantity: prevEl.quantity + element.quantity,
                       });
                     } else {
-                      console.log('Eşleşme yok, es geçildi');
                       mergedBasketList.push(prevEl);
                       mergedBasketList.push(element);
                     }
@@ -565,7 +539,6 @@ export const firebaseApi = createApi({
                 //reaching the seller's doc one by one with forEach method to add orderDoc inside their requestedProducts array.
 
                 await data.productOwners.forEach((sellerDocId) => {
-                  console.log('Seller Request Aldı');
                   let sellerRef = doc(usersCollection, sellerDocId);
                   updateDoc(sellerRef, {
                     productRequests: [data.orderId],
@@ -574,13 +547,10 @@ export const firebaseApi = createApi({
                 //------------------------------------
               });
             })
-            .catch((err) =>
-              console.log('Dosya etkenirken hata.., ', err.message)
-            );
+            .catch((err) => toast.danger('Something went wrong: Ordering'));
 
           return { data: orderId };
         } catch (error) {
-          console.log('Something went wrong abicim...', error, error?.message);
           return { data: error };
         }
       },
@@ -623,7 +593,6 @@ export const firebaseApi = createApi({
     }),
     updateOrder: builder.mutation({
       async queryFn({ type, orderId }) {
-        console.log('Gelen Type:', type, ' Gelen orderıd: ', orderId);
         try {
           const orderRef = doc(ordersCollection, orderId);
 
@@ -672,7 +641,6 @@ export const firebaseApi = createApi({
     }),
     handleProductRequests: builder.mutation({
       async queryFn({ type, orderId, productId }) {
-        console.log('işlenen: ', type, orderId, productId);
         try {
           let orderDocRef = doc(ordersCollection, orderId);
           let productDocRef = doc(productsCollection, productId);
@@ -680,7 +648,6 @@ export const firebaseApi = createApi({
 
           for (const product of orderDoc.data().products) {
             if (product.id === productId) {
-              console.log('Product Bulundu: ', product);
               if (type === 'reject') {
                 updateDoc(orderDocRef, {
                   products: [
@@ -707,13 +674,6 @@ export const firebaseApi = createApi({
                     }),
                   ],
                 });
-
-                // let oldProductDocument = await getDoc(orderDocRef);
-                // console.log(oldProductDocument.data().stock, product.quantity);
-                // updateDoc(productDocRef, {
-                //   ...oldProductDocument.data(),
-                //   stock: oldProductDocument.data().stock - product.quantity,
-                // });
               }
             }
           }

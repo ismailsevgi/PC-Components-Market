@@ -13,25 +13,15 @@ export default function ProfileColumn({ dataArray }) {
   var userId = localStorage.getItem('userId');
 
   const myUserData = useSelector((state) => state.user);
-  console.log('myUserData:', myUserData);
 
   var auth = getAuth().currentUser;
   const updateProfileRef = useRef();
 
-  useEffect(() => {
-    console.log('User Changed: ');
-  }, []);
-
   function openInput() {
-    console.log('OPENED');
     if (updateProfileRef.current.classList.contains('activated')) {
-      console.log('Kapandı');
       updateProfileRef.current.classList.remove('activated');
-      console.log(updateProfileRef.current.classList);
     } else {
-      console.log('Acildi');
       updateProfileRef.current.classList.add('activated');
-      console.log(updateProfileRef.current.classList);
     }
   }
 
@@ -54,7 +44,7 @@ export default function ProfileColumn({ dataArray }) {
             });
           }, 1000);
         } catch (err) {
-          console.log('Went Wrong Something - yoda', err);
+          toast.error('Went Wrong Something - Yoda');
         }
       });
     }

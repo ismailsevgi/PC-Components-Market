@@ -83,16 +83,13 @@ function CreateProductForm() {
 
   function handleProductType({ value }) {
     setProductType(value);
-    console.log(createProductForm.values);
   }
 
   function handleCondition({ value }) {
-    console.log('handleCondition: ', value);
     createProductForm.values.condition = value;
   }
 
   const handleLocation = (type, value) => {
-    console.log('HandleLocation: ', type, value);
     switch (type) {
       case 'country':
         setLocation((prev) => {
@@ -114,8 +111,6 @@ function CreateProductForm() {
       default:
         break;
     }
-
-    console.log('Form AFTER CHANGE: ', createProductForm.values);
   };
 
   return (

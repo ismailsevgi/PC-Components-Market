@@ -10,7 +10,7 @@ const basketSlice = createSlice({
   reducers: {
     ADD_TO_BASKET: (state, action) => {
       //checks if there is an obj has the same id.
-      console.log('action: ', action);
+
       const findObj = state.basketItems.find(
         (obj) => obj.id === action.payload.id
       );
@@ -84,7 +84,6 @@ const basketSlice = createSlice({
       return changedBasket;
     },
     SET_OFFLINE_BASKET: (state, { type, payload }) => {
-      console.log('Offline gelen payload: ', JSON.parse(payload).basketItems);
       return JSON.parse(payload);
     },
   },

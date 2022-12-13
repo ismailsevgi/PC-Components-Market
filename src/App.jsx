@@ -33,6 +33,7 @@ import { useDispatch } from 'react-redux';
 import { SET_USER } from './Features/userSlice';
 import { SET_OFFLINE_BASKET } from './Features/basketSlice';
 import { useSetBasketMutation } from './Features/firebaseApi';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   const auth = getAuth();
@@ -51,7 +52,6 @@ function App() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (userCred) => {
       if (userCred) {
-        console.log('userCred: ', userCred);
         localStorage.setItem('userDocId', userCred.uid);
         localStorage.setItem('userEmail', userCred.email);
         localStorage.setItem('userPhotoURL', userCred.photoURL);
@@ -140,6 +140,7 @@ function App() {
             <Route path='/productAdd' element={<CreateProductForm />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
     </SkeletonTheme>
   );

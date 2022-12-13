@@ -76,7 +76,6 @@ function Registration() {
             }
           })
           .catch((err) => {
-            console.log('Something went wrong while registering', err.message);
             toast.error('Something went wrong while registering', err.message);
           });
 
@@ -93,13 +92,18 @@ function Registration() {
         formRef.current.password.value
       )
         .then((cred) => {
-          console.log('Giriş Başarılı ', cred.user);
+          toast.success('Logged In!');
+
           navigate('/loading');
         })
 
-        .catch((err) =>
-          toast.error('Giriş sırasında bir hata oldu: ', err.message)
-        );
+        .catch((err) => {
+          const regex = /\(([^)]+)\)/g;
+          let error = err.message.match(regex);
+          console.log(typeof error[0]);
+
+          toast.error(`Error: ${error[0]}`);
+        });
     }
   };
 
@@ -129,17 +133,17 @@ function Registration() {
               toast.success('Profile has created');
               navigate('/loading');
             });
-          } catch (error) {
-            toast.error(
-              "User document couldn't have been created: ",
-              error.massege
-            );
+          } catch (err) {
+            const regex = /\(([^)]+)\)/g;
+            let error = err.message.match(regex);
+            console.log(typeof error[0]);
+
+            toast.error(`Error: ${error[0]}`);
           }
         }
       })
       .catch((err) => {
-        toast.error('Something went wrong: ', err, err.massege);
-        console.log('Something went wrong: ', err, err.massege);
+        toast.error('Login process is canceled by user');
       });
   }
 

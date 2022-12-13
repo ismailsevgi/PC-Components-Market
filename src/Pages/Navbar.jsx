@@ -132,10 +132,10 @@ function Navbar() {
                     onClick={() => {
                       signOut(auth)
                         .then(() => {
-                          console.log('User Logged out');
+                          toast.success('Logged Out');
                         })
                         .catch((err) => {
-                          console.log('Something went wrong: ', err.massege);
+                          toast.danger('Logged Out');
                         });
                       navigate('/loading');
                     }}

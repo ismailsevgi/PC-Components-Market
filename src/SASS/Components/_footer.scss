@@ -1,0 +1,36 @@
+.footerContainer {
+  height: 10vh;
+  width: 100%;
+  background-color: $blue-dark;
+  border-top: 2px solid $orange;
+  @include flex-display();
+
+  color: $white-font;
+  text-align: center;
+  .logoContainer {
+    height: 80%;
+    @include flex-display();
+
+    a {
+      height: 100%;
+      color: inherit;
+      &:link,
+      &:visited,
+      &:active {
+        text-decoration: none;
+      }
+
+      svg {
+        height: 100%;
+        color: white;
+      }
+    }
+  }
+
+  div {
+    height: 80%;
+    font-family: $primary-font;
+    @include flex-display();
+    font-size: 2rem;
+  }
+}

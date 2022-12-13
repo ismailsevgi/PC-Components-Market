@@ -26,7 +26,7 @@ const Card = React.memo(({ id, title, img, price, tag, stock, saleRate }) => {
 
       <div className='productListItem-title'>
         <div className='title'>
-          <Link to={`/productDetails/` + id}>{title.slice(0, 55)}</Link>
+          <Link to={`/productDetails/` + id}>{title.slice(0, 50)}</Link>
         </div>
         {saleRate > 0 ? (
           <div className='priceContainer'>

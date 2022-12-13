@@ -41,7 +41,7 @@ function Dashboard() {
     function handleResize() {
       setCurrentDimensions(getCurrentDimensions());
     }
-    console.log('Current Size: ', currentDimensions);
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [currentDimensions]);
