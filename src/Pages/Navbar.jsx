@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { BasketBadge } from '../Components/SubComponents/Badges';
 
 //logo images
 
@@ -17,6 +16,8 @@ import { getAuth, signOut } from 'firebase/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import OfflineBasketBadge from '../Components/SubComponents/OfflineBasketBadge';
+import OnlineBasketBadge from '../Components/SubComponents/OnlineBasketBadge';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -26,6 +27,9 @@ function Navbar() {
 
   const miniLinksRef = useRef();
   const loggersRef = useRef();
+
+  OfflineBasketBadge;
+  OnlineBasketBadge;
 
   //------------------------------
 
@@ -52,8 +56,10 @@ function Navbar() {
             ) : (
               <a
                 href='#'
-                onClick={() => toast.error('You have to login first')}
                 style={{ opacity: '.5' }}
+                onClick={() => {
+                  toast.error('You have to login first');
+                }}
               >
                 Dashboard
               </a>
@@ -100,12 +106,12 @@ function Navbar() {
                 <div className='logoWrapper'>
                   {userDetails.uid.length > 0 ? (
                     <Link to={`/basket/${userDetails.uid}`}>
-                      <BasketBadge />
+                      <OnlineBasketBadge />
                       <i className='fa-solid fa-cart-shopping'></i>
                     </Link>
                   ) : (
                     <Link to='/basket'>
-                      <BasketBadge />
+                      <OfflineBasketBadge />
                       <i className='fa-solid fa-cart-shopping'></i>
                     </Link>
                   )}

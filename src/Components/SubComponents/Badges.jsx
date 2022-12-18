@@ -10,33 +10,6 @@ import {
   useGetFavoritesQuery,
 } from '../../Features/firebaseApi';
 
-//Basket Item Counter
-function BasketBadge() {
-  //Gets recent amount of basket items
-  const [productAmount, setProductAmount] = useState(0);
-
-  const itemsInBasket = useSelector((state) => {
-    return state.basket.basketItems;
-  });
-  const userStatus = useSelector((state) => state.user.userStatus);
-
-  const { data, error, isFetching } = useGetBasketQuery();
-
-  useEffect(() => {
-    if (userStatus) {
-      setProductAmount(data.length);
-    } else {
-      setProductAmount(itemsInBasket.length);
-    }
-  }, [isFetching, itemsInBasket, userStatus]);
-
-  return (
-    <span className='badge'>
-      <p>{productAmount}</p>
-    </span>
-  );
-}
-
 //Favorite Badge
 
 function FavoriteBadge({ fontSize = '1rem', id }) {
@@ -102,4 +75,4 @@ function StarsBadge({ amount }) {
   );
 }
 
-export { BasketBadge, FavoriteBadge, StarsBadge };
+export { FavoriteBadge, StarsBadge };

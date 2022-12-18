@@ -47,6 +47,12 @@ function App() {
     userStatus: false,
   });
 
+  localStorage.setItem('userId', null);
+  localStorage.setItem('userBasket', []);
+
+  localStorage.setItem('userDocId', null);
+  localStorage.setItem('userEmail', null);
+
   const [setBasket] = useSetBasketMutation();
 
   useEffect(() => {

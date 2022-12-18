@@ -311,10 +311,11 @@ export const firebaseApi = createApi({
     }),
 
     getBasket: builder.query({
-      async queryFn() {
+      async queryFn(id) {
         //from localStorage query gets userId to find userDocument
 
         try {
+          console.log('Trying to fetch Basket');
           const userDocRef = doc(
             usersCollection,
             localStorage.getItem('userDocId')
@@ -323,7 +324,8 @@ export const firebaseApi = createApi({
           const userDoc = await getDoc(userDocRef);
           return { data: userDoc.data().userBasket };
         } catch (error) {
-          return { data: null };
+          console.log('There is no user to fetch Basket');
+          return { data: [] };
         }
       },
       providesTags: ['basket'],

@@ -29,7 +29,7 @@ library.add(
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer position='top-center' />
+      <ToastContainer autoClose={1500} position='bottom-left' />
       <App />
     </Provider>
   </React.StrictMode>
