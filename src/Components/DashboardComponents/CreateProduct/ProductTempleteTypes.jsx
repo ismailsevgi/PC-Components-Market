@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useTempleteMaker from '../../CustomHooks/useTempleteMaker';
+import useTempleteMaker from '../../../CustomHooks/useTempleteMaker';
 
 function ProductTempleteTypes({ type, specsHandler }) {
   let element;

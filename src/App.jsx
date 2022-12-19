@@ -10,7 +10,7 @@ import Orders from './Pages/Orders';
 import Basket from './Pages/Basket';
 import ProductDetailsPage from './Pages/ProductDetailsPage';
 import Dashboard from './Pages/Dashboard';
-import CreateProductForm from './Components/DashboardComponents/CreateProductForm';
+import CreateProductForm from './Components/DashboardComponents/CreateProduct/CreateProductForm';
 import OrderAccept from './Pages/OrderAccept';
 
 //Router

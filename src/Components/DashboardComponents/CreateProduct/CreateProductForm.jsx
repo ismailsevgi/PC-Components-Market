@@ -4,7 +4,7 @@ import ProductTempleteTypes from './ProductTempleteTypes';
 import { useFormik } from 'formik';
 import Select from 'react-select';
 import UploadImg from './UploadImg';
-import { useAddProductMutation } from '../../Features/firebaseApi';
+import { useAddProductMutation } from '../../../Features/firebaseApi';
 import { useNavigate } from 'react-router-dom';
 
 import HandleCountry from './HandleCountry';

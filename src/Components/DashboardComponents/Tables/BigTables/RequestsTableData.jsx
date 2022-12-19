@@ -39,12 +39,12 @@ export default function RequestsTableData() {
       }) => {
         return (
           <tr className='table-rows'>
-            <td className='request'>{title.slice(0, 50)}</td>
+            <td id='request'>{title.slice(0, 50)}</td>
 
-            <td>{quantity}</td>
-            <td>{customerMail}</td>
+            <td id='quantity'>{quantity}</td>
+            <td id='customerMail'>{customerMail}</td>
             <td>{format(date.seconds * 1000, 'MMM/dd/yyyy')}</td>
-            <td>{totalPrice}</td>
+            <td>{totalPrice.toFixed(2)}</td>
 
             {status == 'confirmed' || status == 'rejected' ? (
               <td>

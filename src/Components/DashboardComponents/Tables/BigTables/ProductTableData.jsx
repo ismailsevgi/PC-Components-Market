@@ -31,8 +31,8 @@ export default function ProductTableData(props) {
   }
 
   return (
-    <tr className='table-rows'>
-      <td className='request'>
+    <tr className='table-rows-product'>
+      <td>
         <Link to={`/productDetails/` + props.data.id}>
           {props.data.title.slice(0, 45)}
         </Link>
@@ -42,7 +42,11 @@ export default function ProductTableData(props) {
       <td>{props.data.price}</td>
       <td>%{props.data.saleRate}</td>
       <td>
-        {props.data.price - (props.data.price / 100) * props.data.saleRate}$
+        {(
+          props.data.price -
+          (props.data.price / 100) * props.data.saleRate
+        ).toFixed(2)}
+        $
       </td>
 
       <td>

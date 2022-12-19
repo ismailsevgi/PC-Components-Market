@@ -8,8 +8,8 @@ import {
 import React, { useState, useEffect } from 'react';
 
 import { v4 } from 'uuid';
-import { storage } from '../../DataBASE/firebase';
-import Spinner from '../SubComponents/Spinner';
+import { storage } from '../../../DataBASE/firebase';
+import Spinner from '../../SubComponents/Spinner';
 export default function UploadImg({
   progress,
   setProgress,

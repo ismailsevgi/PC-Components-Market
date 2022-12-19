@@ -84,13 +84,18 @@ function ProductDetailsPage() {
                 <div className='oldPrice'>
                   <div className='topFont'>
                     <span className='sale'>
-                      {data.price}
+                      {data.price.toFixed(2)}
                       <span className='dolarSign'>$</span>
                     </span>
                     <span>{data.saleRate}%</span>
                   </div>
 
-                  <h1>{data.price - (data.price / 100) * data.saleRate}$</h1>
+                  <h1>
+                    {(data.price - (data.price / 100) * data.saleRate).toFixed(
+                      2
+                    )}
+                    $
+                  </h1>
                 </div>
               ) : (
                 <div className='oldPrice'>

@@ -4,14 +4,19 @@ import { getDownloadURL, uploadBytes, ref } from 'firebase/storage';
 import { MDBIcon } from 'mdb-react-ui-kit';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { storage } from '../../DataBASE/firebase';
-import { usersRef as usersCollection } from '../../DataBASE/firebase.js';
+import { storage } from '../../../DataBASE/firebase';
+import { usersRef as usersCollection } from '../../../DataBASE/firebase.js';
+import {
+  SET_USER_PHOTO,
+  SET_USER,
+  SET_USER_NAME,
+} from '../../../Features/userSlice';
 
 export default function ProfileColumn({ dataArray }) {
-  var userId = localStorage.getItem('userId');
-
+  var userDocId = localStorage.getItem('userDocId');
+  const dispatch = useDispatch();
   const myUserData = useSelector((state) => state.user);
 
   var auth = getAuth().currentUser;
@@ -28,7 +33,7 @@ export default function ProfileColumn({ dataArray }) {
   function handleChange(e) {
     async function uploadProfilePhoto(file) {
       if (!file) return;
-      const userStorageRef = ref(storage, `${userId}/${file.name}`);
+      const userStorageRef = ref(storage, `${userDocId}/${file.name}`);
       let snapshot = await uploadBytes(userStorageRef, file);
 
       await getDownloadURL(snapshot.ref).then((url) => {
@@ -39,9 +44,7 @@ export default function ProfileColumn({ dataArray }) {
           setTimeout(() => {
             toast.success('Profile Photo changed successfully!');
 
-            setUser((prev) => {
-              return { ...prev, photoUrl: url };
-            });
+            dispatch(SET_USER_PHOTO(url));
           }, 1000);
         } catch (err) {
           toast.error('Went Wrong Something - Yoda');
@@ -58,25 +61,27 @@ export default function ProfileColumn({ dataArray }) {
 
     updateProfile(auth, {
       email: email.value,
+      displayName: `${name.value} ${surname.value}`,
     });
-    usersCollection;
 
     let userRef = doc(usersCollection, localStorage.getItem('userDocId'));
 
     updateDoc(userRef, {
-      userName: `${name.value} ${surname.value}`,
-    });
-
-    getDoc(userRef).then((dc) => {
-      toast.success('Profile Informations Updated!');
-      setUser((prev) => {
-        return {
-          ...prev,
-          userName: dc.data().userName,
-        };
-      });
+      email: email.value,
+      displayName: `${name.value} ${surname.value}`,
+    }).then(() => {
+      dispatch(
+        SET_USER_NAME({
+          email: email.value,
+          displayName: `${name.value} ${surname.value}`,
+        })
+      );
     });
   }
+
+  useEffect(() => {
+    console.log('userData değişti');
+  }, [myUserData]);
 
   return (
     <div className='profileCol'>
@@ -122,14 +127,14 @@ export default function ProfileColumn({ dataArray }) {
               name='name'
               className='form-control'
               id='name'
-              placeholder='Your name'
+              placeholder='Your new name'
             />
             <label htmlFor='surname'>Surname</label>
             <input
               name='surname'
               className='form-control'
               id='surname'
-              placeholder='Your surname'
+              placeholder='Your new surname'
               required
             />
             <label htmlFor='email'>Email</label>
@@ -137,9 +142,10 @@ export default function ProfileColumn({ dataArray }) {
               name='email'
               className='form-control'
               id='email'
-              placeholder='Your email'
+              placeholder='Your new email'
               required
             />
+
             <button>SUBMIT</button>
           </form>
         </div>

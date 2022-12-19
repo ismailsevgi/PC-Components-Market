@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import countriesCities from '../../DataBASE/countriesCities.json';
-import countriesJson from '../../DataBASE/countries.json';
+import countriesCities from '../../../DataBASE/countriesCities.json';
+import countriesJson from '../../../DataBASE/countries.json';
 import countries from 'all-countries-and-cities-json';
 import Select from 'react-select';
 

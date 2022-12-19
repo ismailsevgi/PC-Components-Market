@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 //Tables
 import ProductTableData from '../Components/DashboardComponents/Tables/BigTables/ProductTableData';
 import RequestsTableData from '../Components/DashboardComponents/Tables/BigTables/RequestsTableData';
-import ProfileColumn from '../Components/DashboardComponents/ProfileColumn';
+import ProfileColumn from '../Components/DashboardComponents/Profile/ProfileColumn';
 import MiniTableProduct from '../Components/DashboardComponents/Tables/MiniTables/MiniTableProduct';
 import MiniTableRequest from '../Components/DashboardComponents/Tables/MiniTables/MiniTableRequest';
 
@@ -66,20 +66,20 @@ function Dashboard() {
 
             <div className='tableDiv'>
               <table className='table'>
-                <thead className='table-head'>
+                <thead className='table-head-product'>
                   <tr>
-                    <td scope='col'>PRODUCT NAME</td>
+                    <td className='productName_Product'>PRODUCT NAME</td>
 
-                    <td scope='col'>STOCK</td>
-                    <td scope='col'>ORIGINAL PRICE</td>
-                    <td scope='col'>SALE RATE</td>
-                    <td scope='col'>PRICE</td>
+                    <td className='stock'>STOCK</td>
+                    <td className='originalPrice'>ORIGINAL PRICE</td>
+                    <td className='saleRate'>SALE RATE</td>
+                    <td className='price'>PRICE</td>
 
-                    <td scope='col'></td>
+                    <td className='empty'></td>
                   </tr>
                 </thead>
 
-                <tbody className='table-rows'>
+                <tbody className='table-rows-product'>
                   {isLoading ? (
                     <Spinner />
                   ) : (
@@ -139,18 +139,18 @@ function Dashboard() {
             <h3>Product Requests</h3>
             <div className='tableDiv'>
               <table className='table'>
-                <thead className='table-head'>
+                <thead className='table-head-request'>
                   <tr>
-                    <td>PRODUCT NAME</td>
-                    <td>QUANTITY</td>
-                    <td>CUSTOMER EMAIL</td>
-                    <td>DATE</td>
-                    <td>PRICE</td>
-                    <td>STATUS</td>
+                    <td className='productName_Request'>PRODUCT NAME</td>
+                    <td className='quantity'>QUANTITY</td>
+                    <td className='customerEmail'>CUSTOMER EMAIL</td>
+                    <td className='date'>DATE</td>
+                    <td className='price'>PRICE</td>
+                    <td className='status'>STATUS</td>
                   </tr>
                 </thead>
 
-                <tbody className='table-rows'>
+                <tbody className='table-rows-request'>
                   <RequestsTableData />
                 </tbody>
               </table>

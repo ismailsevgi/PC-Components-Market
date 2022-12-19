@@ -23,8 +23,21 @@ const userSlice = createSlice({
         ...payload,
       };
     },
+    SET_USER_PHOTO: (state, { payload }) => {
+      return {
+        ...state,
+        photoURL: payload,
+      };
+    },
+    SET_USER_NAME: (state, { payload }) => {
+      return {
+        ...state,
+        displayName: payload.displayName,
+        email: payload.email,
+      };
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { SET_USER } = userSlice.actions;
+export const { SET_USER, SET_USER_PHOTO, SET_USER_NAME } = userSlice.actions;

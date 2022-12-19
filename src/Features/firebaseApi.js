@@ -502,14 +502,14 @@ export const firebaseApi = createApi({
         //orderConstructor: look inside useOrderConstructor custom hook.
 
         const order = useOrderConstructor(basketArray);
-        let orderId = '';
+
         try {
           await addDoc(ordersCollection, order)
             .then((orderRef) => {
               //After adding the order inside orderCollection, order document has to have the same id as well as its document id in order to find and update more easily.
 
               const documentRef = doc(ordersCollection, orderRef.id);
-              orderId = orderRef.id;
+
               //documentRef: uploaded order document's ref.
 
               //uploadDoc: adds orderId property with value of documents id. (orderRef.id == firebaseDocId)
@@ -518,18 +518,22 @@ export const firebaseApi = createApi({
                 orderId: orderRef.id,
                 date: new Date(),
                 timestamp: serverTimestamp(),
-              }).then(async () => {
+              }).then(async (test) => {
+                console.log('1 Whats comig after updating: ', test);
                 //After updating with getDoc method one can reach updated orderDoc.
                 let orderDoc = await getDoc(documentRef);
+                console.log('2 orderDoc: ', orderDoc);
                 let data = orderDoc.data();
 
+                console.log('3 data: ', data);
                 //---------------------------------
 
                 //Reaching the customer's document who buys the products to add the orderDoc inside its orders array
                 const customerRef = doc(usersCollection, data.orderedBy);
                 let customerDoc = await getDoc(customerRef);
+                console.log('3 customerDoc: ', customerDoc);
                 let customerData = customerDoc.data();
-
+                console.log('4 customerData: ', customerData);
                 updateDoc(customerRef, {
                   orders: [...customerData.orders, data.orderId],
                   userBasket: [],
@@ -549,7 +553,7 @@ export const firebaseApi = createApi({
             })
             .catch((err) => toast.danger('Something went wrong: Ordering'));
 
-          return { data: orderId };
+          return { data: 'ok' };
         } catch (error) {
           return { data: error };
         }

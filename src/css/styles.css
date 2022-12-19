@@ -1729,76 +1729,137 @@
   display: flex;
   flex-direction: column;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-head {
+.dashboard-panel .dashboard-table .tableDiv .table-head-product {
   background-image: linear-gradient(120deg, #170e42, #25166d, #25166d);
   color: #c8d6e5;
-  font-size: 1rem;
   position: -webkit-sticky;
   position: sticky;
+  width: 100%;
   top: 0;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-head tr {
-  background-color: transparent;
-  box-shadow: 0 1px 2px 0 #292c38;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-head tr td {
-  text-align: left;
-  background-color: transparent;
-  font-size: 1.4rem;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-head tr td:nth-child(1) .request {
-  width: 40%;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-head tr td:nth-child(1) .product {
-  width: 65%;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-head tr td:nth-child(2) {
-  width: 10%;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-head tr td:nth-child(3) {
-  width: 10%;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-head tr td:nth-child(4) {
-  width: 10%;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-head tr td:nth-child(5) {
-  width: 10%;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-rows {
-  background-color: transparent;
-  width: 100%;
-}
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr {
+.dashboard-panel .dashboard-table .tableDiv .table-head-product tr {
   color: #c8d6e5;
   font-size: 1.2rem;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr:nth-child(even):hover {
+.dashboard-panel .dashboard-table .tableDiv .table-head-product tr td:nth-child(1) {
+  width: 50%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-product tr td:nth-child(2) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-product tr td:nth-child(3) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-product tr td:nth-child(4) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-product tr td:nth-child(5) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product {
+  background-color: transparent;
+  width: 100%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr {
+  color: #c8d6e5;
+  font-size: 1.2rem;
+  width: 100%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr:nth-child(even):hover {
   background-color: #371777;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr:nth-child(odd):hover {
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr:nth-child(odd):hover {
   background-color: #411b8d;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr td {
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr td {
   width: 100%;
   text-align: left;
   background-color: transparent;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr td:nth-child(1) {
-  width: 60%;
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr td:nth-child(1) {
+  width: 50%;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr td:nth-child(2) {
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr td:nth-child(2) {
   width: 10%;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr td:nth-child(3) {
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr td:nth-child(3) {
   width: 10%;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr td:nth-child(4) {
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr td:nth-child(4) {
   width: 10%;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr td:nth-child(5) {
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr td:nth-child(5) {
   width: 10%;
 }
-.dashboard-panel .dashboard-table .tableDiv .table-rows tr td i {
+.dashboard-panel .dashboard-table .tableDiv .table-rows-product tr td i {
+  background-color: transparent;
+  margin: 0.4rem;
+  font-size: 1.4rem;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-request {
+  background-image: linear-gradient(120deg, #170e42, #25166d, #25166d);
+  color: #c8d6e5;
+  position: -webkit-sticky;
+  position: sticky;
+  width: 100%;
+  top: 0;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-request tr {
+  color: #c8d6e5;
+  font-size: 1.2rem;
+  text-align: left;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-request tr td:nth-child(1) {
+  width: 35%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-request tr td:nth-child(2) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-request tr td:nth-child(3) {
+  width: 40%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-request tr td:nth-child(4) {
+  width: 20%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-head-request tr td:nth-child(5) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request {
+  background-color: transparent;
+  width: 100%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr {
+  color: #c8d6e5;
+  font-size: 1.2rem;
+  width: 100%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr:nth-child(even):hover {
+  background-color: #371777;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr:nth-child(odd):hover {
+  background-color: #411b8d;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr td {
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr td:nth-child(1) {
+  width: 30%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr td:nth-child(2) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr td:nth-child(3) {
+  width: 30%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr td:nth-child(4) {
+  width: 15%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr td:nth-child(5) {
+  width: 10%;
+}
+.dashboard-panel .dashboard-table .tableDiv .table-rows-request tr td i {
   background-color: transparent;
   margin: 0.4rem;
   font-size: 1.4rem;
