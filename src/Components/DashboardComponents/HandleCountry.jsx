@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import countriesReady from '../../DataBASE/countries';
+import countriesCities from '../../DataBASE/countriesCities.json';
+import countriesJson from '../../DataBASE/countries.json';
 import countries from 'all-countries-and-cities-json';
 import Select from 'react-select';
 
@@ -9,11 +10,12 @@ export default function HandleCountry({
   handleLocation,
   location,
 }) {
-  const [cities, setCities] = useState(countries['Afghanistan']);
+  const [cities, setCities] = useState(countriesCities['Afghanistan']);
 
+  console.log(countriesJson);
   useEffect(() => {
     setCities(
-      countries[location.country].map((city) => {
+      countriesCities[location.country].map((city) => {
         return {
           label: city,
           value: city,
@@ -31,7 +33,7 @@ export default function HandleCountry({
         onChange={(selectedOption) => {
           handleLocation('country', selectedOption.value);
         }}
-        options={countriesReady}
+        options={countriesJson}
         styles={styleSheet}
       />
       <div className='labelBox'>

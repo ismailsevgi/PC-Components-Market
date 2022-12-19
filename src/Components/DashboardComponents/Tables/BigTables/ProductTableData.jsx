@@ -32,11 +32,11 @@ export default function ProductTableData(props) {
 
   return (
     <tr className='table-rows'>
-      <th scope='row'>
+      <td className='request'>
         <Link to={`/productDetails/` + props.data.id}>
           {props.data.title.slice(0, 45)}
         </Link>
-      </th>
+      </td>
 
       <td>{props.data.stock}</td>
       <td>{props.data.price}</td>

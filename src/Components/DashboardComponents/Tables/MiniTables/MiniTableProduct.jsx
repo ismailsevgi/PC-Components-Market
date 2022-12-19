@@ -6,7 +6,7 @@ import { useDeleteProductMutation } from '../../../../Features/firebaseApi';
 function MiniTableProduct(props) {
   const [deleteProduct] = useDeleteProductMutation();
 
-  console.log('Props:', props);
+  console.log('MiniTableProduct:', MiniTableProduct);
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure to delete this product?')) {
       await deleteProduct(id);

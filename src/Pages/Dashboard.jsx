@@ -21,31 +21,6 @@ function Dashboard() {
 
   const [miniTableStatus, setMiniTableStatus] = useState(true);
 
-  //for dynamic loading for two different tables component need
-  //current width and height of window object
-
-  const [currentDimensions, setCurrentDimensions] = useState(
-    getCurrentDimensions()
-  );
-
-  function getCurrentDimensions() {
-    const { innerWidth: width, innerHeight: heigth } = window;
-    return {
-      width,
-      heigth,
-    };
-  }
-
-  //not good for performance but it solves the problem.
-  useEffect(() => {
-    function handleResize() {
-      setCurrentDimensions(getCurrentDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [currentDimensions]);
-
   //Local STATES
   const [formState, setFormState] = useState({
     productTitle: '',
@@ -88,111 +63,99 @@ function Dashboard() {
               </button>
             </div>
             <h3>My Products</h3>
-            {currentDimensions.width > 1200 ? (
-              <div className='tableDiv'>
-                <table className='table'>
-                  <thead className='table-head'>
-                    <tr>
-                      <td scope='col'>PRODUCT NAME</td>
 
-                      <td scope='col'>STOCK</td>
-                      <td scope='col'>ORIGINAL PRICE</td>
-                      <td scope='col'>SALE RATE</td>
-                      <td scope='col'>PRICE</td>
+            <div className='tableDiv'>
+              <table className='table'>
+                <thead className='table-head'>
+                  <tr>
+                    <td scope='col'>PRODUCT NAME</td>
 
-                      <td scope='col'></td>
-                    </tr>
-                  </thead>
+                    <td scope='col'>STOCK</td>
+                    <td scope='col'>ORIGINAL PRICE</td>
+                    <td scope='col'>SALE RATE</td>
+                    <td scope='col'>PRICE</td>
 
-                  <tbody className='table-rows'>
-                    {isLoading ? (
-                      <Spinner />
-                    ) : (
-                      dataArray?.map((product) => {
-                        return (
-                          <ProductTableData
-                            key={product.id}
-                            data={{
-                              id: product.id,
-                              title: product.title,
+                    <td scope='col'></td>
+                  </tr>
+                </thead>
 
-                              stock: product.stock,
-                              price: product.price,
-                              saleRate: product.saleRate,
-                            }}
-                            modalRef={modalRef}
-                            setFormState={setFormState}
-                          />
-                        );
-                      })
-                    )}
-                  </tbody>
-                </table>
-                <div className='createProductDiv'>
-                  <Link to='/productAdd'>
-                    <MDBBtn color='mdb-color' className='text-xs-left'>
-                      Create a new Product
-                    </MDBBtn>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <>
-                {miniTableStatus ? (
-                  <div className='miniTable'>
-                    {isLoading ? (
-                      <Spinner />
-                    ) : (
-                      dataArray.map((product) => {
-                        return (
-                          <MiniTableProduct
-                            key={product.id}
-                            data={{
-                              id: product.id,
-                              title: product.title,
+                <tbody className='table-rows'>
+                  {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    dataArray?.map((product) => {
+                      return (
+                        <ProductTableData
+                          key={product.id}
+                          data={{
+                            id: product.id,
+                            title: product.title,
 
-                              stock: product.stock,
-                              price: product.price,
-                              saleRate: product.saleRate,
-                            }}
-                            modalRef={modalRef}
-                            setFormState={setFormState}
-                          />
-                        );
-                      })
-                    )}
-                  </div>
-                ) : (
-                  <div className='miniTable'>
-                    <MiniTableRequest />
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-          {currentDimensions.width > 1200 && (
-            <div className='dashboard-table'>
-              <h3>Product Requests</h3>
-              <div className='tableDiv'>
-                <table className='table'>
-                  <thead className='table-head'>
-                    <tr>
-                      <td scope='col'>PRODUCT NAME</td>
-                      <td scope='col'>QUANTITY</td>
-                      <td scope='col'>CUSTOMER EMAIL</td>
-                      <td scope='col'>DATE</td>
-                      <td scope='col'>PRICE</td>
-                      <td scope='col'>STATUS</td>
-                    </tr>
-                  </thead>
-
-                  <tbody className='table-rows'>
-                    <RequestsTableData />
-                  </tbody>
-                </table>
+                            stock: product.stock,
+                            price: product.price,
+                            saleRate: product.saleRate,
+                          }}
+                          modalRef={modalRef}
+                          setFormState={setFormState}
+                        />
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+              <div className='createProductDiv'>
+                <Link to='/productAdd'>
+                  <MDBBtn color='mdb-color' className='text-xs-left'>
+                    Create a new Product
+                  </MDBBtn>
+                </Link>
               </div>
             </div>
-          )}
+
+            <div className='miniTable'>
+              {!miniTableStatus && <MiniTableRequest />}
+              {miniTableStatus &&
+                dataArray?.map((product) => {
+                  return (
+                    <MiniTableProduct
+                      key={product.id}
+                      data={{
+                        id: product.id,
+                        title: product.title,
+
+                        stock: product.stock,
+                        price: product.price,
+                        saleRate: product.saleRate,
+                      }}
+                      modalRef={modalRef}
+                      setFormState={setFormState}
+                    />
+                  );
+                })}
+            </div>
+          </div>
+
+          <div className='dashboard-table'>
+            <h3>Product Requests</h3>
+            <div className='tableDiv'>
+              <table className='table'>
+                <thead className='table-head'>
+                  <tr>
+                    <td>PRODUCT NAME</td>
+                    <td>QUANTITY</td>
+                    <td>CUSTOMER EMAIL</td>
+                    <td>DATE</td>
+                    <td>PRICE</td>
+                    <td>STATUS</td>
+                  </tr>
+                </thead>
+
+                <tbody className='table-rows'>
+                  <RequestsTableData />
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       <div ref={modalRef} className='bg-productForm '>

@@ -39,7 +39,7 @@ export default function RequestsTableData() {
       }) => {
         return (
           <tr className='table-rows'>
-            <th scope='row'>{title.slice(0, 50)}</th>
+            <td className='request'>{title.slice(0, 50)}</td>
 
             <td>{quantity}</td>
             <td>{customerMail}</td>

@@ -315,7 +315,6 @@ export const firebaseApi = createApi({
         //from localStorage query gets userId to find userDocument
 
         try {
-          console.log('Trying to fetch Basket');
           const userDocRef = doc(
             usersCollection,
             localStorage.getItem('userDocId')
@@ -324,7 +323,6 @@ export const firebaseApi = createApi({
           const userDoc = await getDoc(userDocRef);
           return { data: userDoc.data().userBasket };
         } catch (error) {
-          console.log('There is no user to fetch Basket');
           return { data: [] };
         }
       },
@@ -635,7 +633,6 @@ export const firebaseApi = createApi({
             data: filteredOrders,
           };
         } catch (error) {
-          toast.error('Test Error');
           return { data: [] };
         }
       },

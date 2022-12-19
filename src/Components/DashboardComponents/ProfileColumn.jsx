@@ -81,7 +81,7 @@ export default function ProfileColumn({ dataArray }) {
   return (
     <div className='profileCol'>
       <div className='profileCol-imageContainer'>
-        <img src={myUserData.photoURL} referrerpolicy='no-referrer' />
+        <img src={myUserData.photoURL} referrerPolicy='no-referrer' />
         <div className='wrapper'>
           <label htmlFor='imageFile'>
             <i className='fas fa-camera-retro'></i>

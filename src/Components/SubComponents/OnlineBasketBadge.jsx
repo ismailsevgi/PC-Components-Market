@@ -8,7 +8,7 @@ function OnlineBasketBadge() {
   useEffect(() => {}, [isFetching]);
 
   useEffect(() => {
-    toast.error("Basket couldn't fetched");
+    isError && toast.error("Basket couldn't fetched");
   }, [isError]);
 
   return (
