@@ -178,14 +178,14 @@
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  height: 23rem;
+  height: 35rem;
   padding: 0.5rem;
   color: rgb(56, 55, 55);
   border: 1px solid #c8d6e5;
 }
 .card-skeleton-box {
   width: 90%;
-  height: 54%;
+  height: 50%;
   border-radius: 10px;
 }
 .card-skeleton-box span {
@@ -193,7 +193,7 @@
 }
 .card-skeleton-title {
   width: 90%;
-  height: 5%;
+  height: 10%;
 }
 .card-skeleton-title span {
   height: 100%;
@@ -209,8 +209,8 @@
 }
 .card-skeleton-button {
   width: 90%;
-  height: 15%;
-  margin-top: 1rem;
+  height: 10%;
+  margin-top: 2.4rem;
 }
 .card-skeleton-button span {
   height: 100%;
@@ -1384,6 +1384,167 @@
   font-size: 1.4rem;
 }
 
+.orderPage {
+  width: 100%;
+  height: 100%;
+  border: 3px solid #feca57;
+  background-image: linear-gradient(330deg, rgb(84, 160, 255) 0%, rgba(46, 134, 222, 0.5) 10%, rgb(52, 31, 151) 100%);
+  border-radius: 10px;
+  margin-top: 3rem;
+}
+.orderPage-details {
+  width: 100%;
+  font-family: "Changa", sans-serif;
+  height: auto;
+  background-color: #c8d6e5;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 2px solid gray;
+}
+.orderPage-details h3 {
+  font-size: 1.6rem;
+  color: #0c8164;
+  padding-left: 2rem;
+  padding-top: 0.5rem;
+  background-color: transparent;
+}
+.orderPage-details-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+.orderPage-details-detail span {
+  display: inline-block;
+  background-color: inherit;
+  font-family: "Changa", sans-serif;
+  font-size: 1.2rem;
+}
+.orderPage-details-detail span strong {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background-color: inherit;
+  padding-right: 0.3rem;
+}
+.orderPage-details-detail span:last-child {
+  font-weight: bold;
+}
+.orderPage-details-detail span:last-child strong {
+  color: #ff8510;
+}
+.orderPage-products {
+  min-height: 30vh;
+  width: 100%;
+  padding: 1rem;
+}
+.orderPage-products .productContainer {
+  height: 30vh;
+  width: 100%;
+  border: 1px solid #feca57;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: none;
+  margin-bottom: 1rem;
+  color: #c8d6e5;
+}
+.orderPage-products .productContainer .imageContainer {
+  height: 100%;
+  width: 30%;
+  border-right: 1px solid #feca57;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+.orderPage-products .productContainer .imageContainer img {
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.orderPage-products .productContainer .productDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #292c38;
+  gap: 0.4rem;
+  font-family: "Changa", sans-serif;
+  width: 70%;
+  padding: 0.6rem;
+}
+.orderPage-products .productContainer .productDetails .title {
+  height: 6vh;
+  width: 100%;
+  gap: 0.4rem;
+}
+.orderPage-products .productContainer .productDetails .title p {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 992px) {
+  .orderPage-details-detail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .orderPage-products .productContainer .productDetails h5:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: red;
+  }
+}
+@media (max-width: 563px) {
+  .orderPage-products .productContainer {
+    height: 30rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid red;
+  }
+  .orderPage-products .productContainer .imageContainer {
+    height: 50%;
+    width: 100%;
+    border-right: 1px solid #feca57;
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+  .orderPage-products .productContainer .imageContainer img {
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .orderPage-products .productContainer .productDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #292c38;
+    gap: 0.4rem;
+    font-family: "Changa", sans-serif;
+    width: 100%;
+    padding: 0.6rem;
+  }
+  .orderPage-products .productContainer .productDetails .title {
+    height: 6vh;
+    width: 100%;
+    gap: 0.4rem;
+  }
+  .orderPage-products .productContainer .productDetails .title p {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 467px) {
+  .orderPage-details h3 {
+    font-size: 1.2rem;
+  }
+}
 .createProductsForm {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2884,167 +3045,6 @@
   border-radius: 15px;
 }
 
-.orderPage {
-  width: 100%;
-  height: 100%;
-  border: 3px solid #feca57;
-  background-image: linear-gradient(330deg, rgb(84, 160, 255) 0%, rgba(46, 134, 222, 0.5) 10%, rgb(52, 31, 151) 100%);
-  border-radius: 10px;
-  margin-top: 3rem;
-}
-.orderPage-details {
-  width: 100%;
-  font-family: "Changa", sans-serif;
-  height: auto;
-  background-color: #c8d6e5;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom: 2px solid gray;
-}
-.orderPage-details h3 {
-  font-size: 1.6rem;
-  color: #0c8164;
-  padding-left: 2rem;
-  padding-top: 0.5rem;
-  background-color: transparent;
-}
-.orderPage-details-detail {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-}
-.orderPage-details-detail span {
-  display: inline-block;
-  background-color: inherit;
-  font-family: "Changa", sans-serif;
-  font-size: 1.2rem;
-}
-.orderPage-details-detail span strong {
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  background-color: inherit;
-  padding-right: 0.3rem;
-}
-.orderPage-details-detail span:last-child {
-  font-weight: bold;
-}
-.orderPage-details-detail span:last-child strong {
-  color: #ff8510;
-}
-.orderPage-products {
-  min-height: 30vh;
-  width: 100%;
-  padding: 1rem;
-}
-.orderPage-products .productContainer {
-  height: 30vh;
-  width: 100%;
-  border: 1px solid #feca57;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: none;
-  margin-bottom: 1rem;
-  color: #c8d6e5;
-}
-.orderPage-products .productContainer .imageContainer {
-  height: 100%;
-  width: 30%;
-  border-right: 1px solid #feca57;
-  border-radius: 5px;
-  padding: 0.5rem;
-}
-.orderPage-products .productContainer .imageContainer img {
-  border-radius: inherit;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-}
-.orderPage-products .productContainer .productDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: #292c38;
-  gap: 0.4rem;
-  font-family: "Changa", sans-serif;
-  width: 70%;
-  padding: 0.6rem;
-}
-.orderPage-products .productContainer .productDetails .title {
-  height: 6vh;
-  width: 100%;
-  gap: 0.4rem;
-}
-.orderPage-products .productContainer .productDetails .title p {
-  font-size: 1.2rem;
-}
-
-@media (max-width: 992px) {
-  .orderPage-details-detail {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .orderPage-products .productContainer .productDetails h5:last-child {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    color: red;
-  }
-}
-@media (max-width: 563px) {
-  .orderPage-products .productContainer {
-    height: 30rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 5px solid red;
-  }
-  .orderPage-products .productContainer .imageContainer {
-    height: 50%;
-    width: 100%;
-    border-right: 1px solid #feca57;
-    border-radius: 5px;
-    padding: 0.5rem;
-  }
-  .orderPage-products .productContainer .imageContainer img {
-    border-radius: inherit;
-    width: 100%;
-    height: 100%;
-    -o-object-fit: contain;
-       object-fit: contain;
-  }
-  .orderPage-products .productContainer .productDetails {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background-color: #292c38;
-    gap: 0.4rem;
-    font-family: "Changa", sans-serif;
-    width: 100%;
-    padding: 0.6rem;
-  }
-  .orderPage-products .productContainer .productDetails .title {
-    height: 6vh;
-    width: 100%;
-    gap: 0.4rem;
-  }
-  .orderPage-products .productContainer .productDetails .title p {
-    font-size: 1.2rem;
-  }
-}
-@media (max-width: 467px) {
-  .orderPage-details h3 {
-    font-size: 1.2rem;
-  }
-}
 .formWrapper {
   background-color: #c8d6e5;
   border-radius: 25px;

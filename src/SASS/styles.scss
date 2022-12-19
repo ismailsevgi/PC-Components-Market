@@ -16,17 +16,17 @@
 
 @import './Components/subComponents/buttons';
 
-@import './Components/subComponents/cardSkeleton';
-@import './Components/subComponents/card';
+@import './Components/Cards/cardSkeleton';
+@import './Components/Cards/card';
 
 @import './Components/subComponents/loadingPage';
-@import './Components/DashboardComponents/CreateProductForm/skeletonImages';
-@import './Components/footer';
+@import './Components/DashboardComponents/CreateProduct/skeletonImages';
+@import './Components/Footer/footer';
 //buttons
 
 //dropdowns
 @import './Components/dropdown';
-@import './Components/productList';
+@import './Components/List/productList';
 //carousel
 
 //-----------Layout
@@ -35,30 +35,31 @@
 @import './Components/FilterBar/filterBar';
 @import './Components/FilterBar/sideMiniFilterBar';
 @import './Pages/registrationPage';
+@import './Components/OrderAccept/orderAccept';
 
 //footer
 
 //navigation
 
 //forms
-@import './Components/DashboardComponents/CreateProductForm/createProductForm';
+@import './Components/DashboardComponents/CreateProduct/createProductForm';
 
 @import './Components/DashboardComponents/updateProductForm';
-@import './Components/DashboardComponents/productTables';
-@import './Components/DashboardComponents/profileCol';
+@import './Components/DashboardComponents/ProductTables/productTables';
+@import './Components/DashboardComponents/Profile/profileCol';
 //sidebar
 
 //grid
 
 //------------Pages
-@import './Components/ProductDetailsPage';
+@import './Components/ProductDetailsComponent/ProductDetailsPage';
 @import './Pages/dashBoard';
 @import './Pages/products';
 @import './Pages/basket';
 @import './Pages/orders';
-@import './Pages/orderAccept';
+
 @import './Pages/profile';
-@import './Components/BasketComponents/payment';
+@import './Components/CheckOut/payment';
 @import './Components/BasketComponents/basketList';
 //home
 //about

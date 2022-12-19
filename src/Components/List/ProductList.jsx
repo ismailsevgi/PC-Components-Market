@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import Card from '../Carts/Card';
+import Card from '../Cards/Card';
 import { useSelector, useDispatch } from 'react-redux';
 
-import CardSkeleton from '../Carts/CardSkeleton';
+import CardSkeleton from '../Cards/CardSkeleton';
 import { useGetProductsQuery } from '../../Features/firebaseApi';
 import { toast } from 'react-toastify';
 
