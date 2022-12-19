@@ -84,7 +84,7 @@ function ProductDetailsPage() {
                 <div className='oldPrice'>
                   <div className='topFont'>
                     <span className='sale'>
-                      {data.price.toFixed(2)}
+                      {data.price}
                       <span className='dolarSign'>$</span>
                     </span>
                     <span>{data.saleRate}%</span>
