@@ -7,7 +7,7 @@
   margin-top: 2rem;
   margin-bottom: 1rem;
   margin-left: auto;
-  background-color: $navbar-background;
+  background-color: $blue-dark;
   color: $white-font;
   box-sizing: border-box;
 
@@ -19,6 +19,7 @@
 
     input {
       visibility: hidden;
+
       scale: 0;
       z-index: -10;
     }
@@ -49,6 +50,8 @@
     }
 
     select {
+      background-color: transparent;
+      color: $white-font;
       width: 80%;
       margin: 0.6rem;
       font-size: 2rem;
@@ -122,16 +125,18 @@
 
     .inputField {
       position: relative;
-      background-color: inherit;
+
       margin: 0.6rem;
       width: 80%;
+
       .searchInput {
         height: 2.4rem;
         font-size: 1.2rem;
         padding-left: 1.2rem;
-
+        color: $white-font;
+        background-color: transparent;
         &::placeholder {
-          color: $dark-font;
+          color: $white-font;
           font-family: $secondary-font;
 
           font-weight: 500;
@@ -143,7 +148,7 @@
         position: absolute;
         top: 15%;
         right: 5%;
-        color: $dark-font;
+        color: $white-font;
       }
     }
 

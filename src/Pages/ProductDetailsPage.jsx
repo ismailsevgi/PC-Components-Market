@@ -25,8 +25,6 @@ function ProductDetailsPage() {
     return state.user.userStatus;
   });
 
-  console.log('Use Selector userStatus ', userStatus);
-
   //useState ile resim değiştirilecek
   const [changeImg, setChangeImg] = useState('1');
 
@@ -126,6 +124,10 @@ function ProductDetailsPage() {
             {data && <ProductDetailsCreator details={data.specs} />}
           </div>
           <hr></hr>
+          <div className='description'>
+            <p>Description</p>
+            <p>{data.description}</p>
+          </div>
         </div>
       </div>
     </div>

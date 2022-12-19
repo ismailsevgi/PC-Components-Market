@@ -118,7 +118,7 @@ export default function ProfileColumn({ dataArray }) {
           <p>{dataArray && dataArray.length}</p>
 
           <p>Sold</p>
-          <p>5</p>
+          <p>0</p>
         </div>
         <div ref={updateProfileRef} className='updateProfile'>
           <form onSubmit={(e) => handleSubmit(e)}>

@@ -1,7 +1,9 @@
 .ProductDetailsPage {
   width: 80vw;
+  min-height: 150vh;
 
-  margin: 1rem auto;
+  margin-top: 5rem;
+  margin: 0 auto;
 
   .mySinglePageContainer {
     width: 100%;
@@ -214,6 +216,13 @@
               width: 50%;
             }
           }
+        }
+      }
+
+      .description {
+        p {
+          font-size: 1.4rem;
+          overflow-wrap: break-word;
         }
       }
     }

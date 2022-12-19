@@ -48,10 +48,15 @@
     width: 100%;
     min-height: 4rem;
 
-    background-color: darken($blue-dark, 10%);
+    background-image: linear-gradient(
+      to right,
+      $blue-dark,
+      $blue-dark,
+      $blue-dark,
+      $purple
+    );
 
-    border-bottom: 2px solid $orange;
-    border-top: 2px solid $orange;
+    box-shadow: 0px 0 5px 1px $orange;
 
     @include flex-display($space: space-between);
 
@@ -76,6 +81,8 @@
         a {
           color: $white-font;
 
+          padding-left: 1rem;
+          padding-right: 1rem;
           background-color: transparent;
 
           text-transform: uppercase;
