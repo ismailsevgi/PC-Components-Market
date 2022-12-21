@@ -39,13 +39,6 @@ function App() {
   const auth = getAuth();
 
   const dispatch = useDispatch();
-  const [user, setUser] = useState({
-    displayName: '',
-    email: '',
-    photoURL: '',
-    uid: '',
-    userStatus: false,
-  });
 
   localStorage.setItem('userId', null);
   localStorage.setItem('userBasket', []);
